@@ -1,1 +1,72 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About | Rolando Valdés</title><link rel="stylesheet" href="css/style.css"><script defer src="js/main.js"></script></head><body><div id="nav"></div><main class="wrap"><h1 class="section-title">About Me</h1><section class="card"><p id="aboutSummary"></p><p>I combine long-standing classroom practice with technical expertise in programming, data, AI-supported planning, interactive dashboards and curriculum design. My work includes teaching from foundational digital literacy through to GCSE and A Level Computer Science.</p></section><section class="grid2"><div class="card"><h2>Professional strengths</h2><ul><li>KS2–KS5 Computer Science teaching</li><li>GCSE and A Level curriculum delivery</li><li>Python, Java, Scratch, Sphero, databases and web technologies</li><li>Assessment, reporting and intervention</li><li>Boarding, pastoral care and safeguarding awareness</li></ul></div><div class="card"><h2>Professional identity</h2><p>Teacher, tutor, mentor, curriculum developer and technology practitioner with a strong commitment to structured learning, high expectations and inclusive classroom practice.</p></div></section><script>window.pageInit=d=>{aboutSummary.textContent=d.summary}</script></main><div id="foot"></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About | Rolando Valdés</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+</head>
+
+<body>
+  <div id="nav"></div>
+
+  <main class="wrap">
+    <h1 class="section-title">About Me</h1>
+
+    <section class="card">
+      <h2>Professional Profile</h2>
+      <p id="aboutSummary"></p>
+      <p>
+        I combine long-standing classroom practice with technical expertise in programming,
+        data, AI-supported planning, interactive dashboards and curriculum design. My work
+        includes teaching from foundational digital literacy through to GCSE and A Level
+        Computer Science.
+      </p>
+    </section>
+
+    <section class="grid2">
+      <div class="card">
+        <h2>Professional Strengths</h2>
+        <ul>
+          <li>KS2–KS5 Computer Science teaching</li>
+          <li>GCSE and A Level curriculum delivery</li>
+          <li>Python, Java, Scratch, Sphero, databases and web technologies</li>
+          <li>Assessment, reporting and intervention</li>
+          <li>Boarding, pastoral care and safeguarding awareness</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Professional Identity</h2>
+        <p>
+          Teacher, tutor, mentor, curriculum developer and technology practitioner with a
+          strong commitment to structured learning, high expectations and inclusive classroom
+          practice.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Teaching Approach</h2>
+      <p>
+        My teaching is based on clear explanations, modelling, retrieval practice, adaptive
+        support and purposeful assessment. I aim to make Computing accessible while also
+        challenging pupils to think logically, solve problems independently and use subject
+        vocabulary accurately.
+      </p>
+    </section>
+  </main>
+
+  <div id="foot"></div>
+
+  <script>
+    window.pageInit = d => {
+      const aboutSummary = document.getElementById("aboutSummary");
+      if (aboutSummary && d.summary) {
+        aboutSummary.textContent = d.summary;
+      }
+    };
+  </script>
+</body>
+</html>
