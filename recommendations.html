@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Professional Recommendations | Rolando Valdés</title>
+  <title>Professional Recommendations | Rolando Valdés Hernández</title>
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
 </head>
@@ -12,44 +12,112 @@
 <div id="nav"></div>
 
 <main class="wrap">
+
   <section class="hero">
     <div>
-      <div class="pill">Professional Recommendations</div>
+      <span class="pill">Professional Recommendations</span>
       <h1>Professional Recommendations</h1>
       <p class="lead">
-        Feedback from educational leaders, line managers, mentors, colleagues and professional referees.
+        Independent professional feedback from educational leaders, line managers,
+        mentors, QTS assessors, colleagues and former employers.
       </p>
+
       <div class="btns">
-        <a class="btn primary" href="#submit">Submit a Recommendation</a>
-        <a class="btn" href="index.html">Back to Portfolio</a>
+        <a class="btn primary" href="#recommendation-form">Request a Recommendation</a>
+        <a class="btn" href="career.html">Career Profile</a>
+        <a class="btn" href="projectx/index.html">Launch Project X</a>
       </div>
     </div>
   </section>
 
   <section class="card">
-    <h2>Approved Recommendations</h2>
-    <p class="muted">
-      Recommendations are only published with the author’s permission.
-    </p>
-    <div id="recommendationGrid" class="grid2"></div>
-  </section>
-
-  <section id="submit" class="card">
-    <h2>Submit a Recommendation</h2>
+    <h2>Purpose of This Page</h2>
     <p>
-      If you have worked with me professionally, I would be grateful if you would consider
-      sharing a short recommendation about my teaching, professionalism, curriculum work,
-      leadership, or contribution to school life.
+      This page has been created to collect professional recommendations from people
+      who have worked with me in an educational, leadership, mentoring or professional
+      capacity.
+    </p>
+    <p>
+      Recommendations help future schools, recruiters and educational leaders gain an
+      independent understanding of my teaching practice, professionalism, curriculum
+      work, wider contribution and commitment to pupils.
     </p>
 
     <div class="notice">
-      Replace the button link below with your Google Form link once created.
-    </div>
-
-    <div class="btns">
-      <a class="btn primary" href="#" target="_blank">Open Recommendation Form</a>
+      Recommendations are reviewed before publication and will only be displayed on
+      this portfolio with the author’s permission.
     </div>
   </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Who Can Contribute?</h2>
+      <ul>
+        <li>Headteachers</li>
+        <li>Deputy or Assistant Headteachers</li>
+        <li>Heads of Department</li>
+        <li>Line Managers</li>
+        <li>Mentors</li>
+        <li>QTS Assessors</li>
+        <li>Former Employers</li>
+        <li>Teaching Colleagues</li>
+        <li>Boarding or Pastoral Colleagues</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Areas of Feedback</h2>
+      <ul>
+        <li>Computer Science subject knowledge</li>
+        <li>Curriculum planning and sequencing</li>
+        <li>Classroom teaching and learning</li>
+        <li>Assessment and responsive teaching</li>
+        <li>Adaptive teaching and inclusion</li>
+        <li>Professionalism and reliability</li>
+        <li>AI, robotics and digital innovation</li>
+        <li>Wider contribution to school life</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Published Recommendations</h2>
+    <p class="muted">
+      Approved recommendations will appear here once received and permission has been confirmed.
+    </p>
+
+    <div id="recommendationGrid" class="grid2"></div>
+  </section>
+
+  <section id="recommendation-form" class="card">
+    <h2>Submit a Professional Recommendation</h2>
+    <p>
+      Thank you for taking the time to support my professional portfolio. Your feedback
+      is greatly appreciated.
+    </p>
+
+    <div class="btns">
+      <a
+        class="btn primary"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSds7yWM5vcESvBwRwY1HmsFFS7Q5uNqLvshuW-KmWDbduwdkg/viewform"
+        target="_blank">
+        Open Recommendation Form
+      </a>
+    </div>
+
+    <div style="margin-top:20px;">
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSds7yWM5vcESvBwRwY1HmsFFS7Q5uNqLvshuW-KmWDbduwdkg/viewform?embedded=true"
+        width="100%"
+        height="1450"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Loading…
+      </iframe>
+    </div>
+  </section>
+
 </main>
 
 <div id="foot"></div>
@@ -63,20 +131,25 @@ async function loadRecommendations() {
     const data = await response.json();
 
     grid.innerHTML = data.recommendations.map(r => `
-      <div class="card">
+      <article class="card">
+        <span class="pill">${r.relationship}</span>
         <h3>${r.name}</h3>
         <p class="muted">${r.role} · ${r.organisation}</p>
-        <p><strong>${r.relationship}</strong></p>
         <p>“${r.quote}”</p>
         <p class="muted">${r.date} · ${r.permission}</p>
-      </div>
+      </article>
     `).join("");
   } catch (error) {
-    grid.innerHTML = "<p>Recommendations could not be loaded.</p>";
+    grid.innerHTML = `
+      <div class="notice">
+        Recommendations will appear here once the recommendations data file is available.
+      </div>
+    `;
   }
 }
 
 loadRecommendations();
 </script>
+
 </body>
 </html>
