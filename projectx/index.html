@@ -6,89 +6,106 @@
   <title>Project X | Teaching Intelligence Platform</title>
   <link rel="stylesheet" href="../css/projectx.css">
 </head>
-
 <body>
-  <main class="px-wrap">
 
-    <nav class="px-nav">
-      <div class="px-brand">Project X</div>
-      <a href="../index.html">Main Site</a>
-      <a href="index.html">Dashboard</a>
+<div class="px-app">
+
+  <aside class="px-sidebar">
+    <div class="px-logo">
+      <strong>Project X</strong>
+      <span>Teaching Intelligence Platform</span>
+    </div>
+
+    <nav>
+      <a class="active" href="index.html">Dashboard</a>
       <a href="curriculum.html">Curriculum</a>
       <a href="assessment.html">Assessment</a>
       <a href="revision.html">Revision</a>
       <a href="question-banks.html">Question Banks</a>
       <a href="tools.html">Tools</a>
+      <a href="../index.html">Main Website</a>
     </nav>
+  </aside>
 
-    <section class="px-hero">
-      <div class="px-eyebrow">Teaching Intelligence Platform</div>
-      <h1>Project X</h1>
-      <p>
-        A structured digital platform for curriculum design, assessment analysis,
-        revision resources, question banks, evidence mapping and AI-supported teaching.
-      </p>
+  <main class="px-main">
 
-      <div class="px-actions">
-        <a href="curriculum.html" class="px-btn primary">Open Curriculum</a>
-        <a href="revision.html" class="px-btn">Revision Banks</a>
-        <a href="assessment.html" class="px-btn">Assessment Tools</a>
+    <section class="px-hero compact">
+      <div>
+        <div class="px-eyebrow">Curriculum • Assessment • AI • Analytics</div>
+        <h1>Project X</h1>
+        <p>
+          A digital teaching platform for Computer Science curriculum design,
+          assessment analysis, revision resources, question banks and interactive teaching tools.
+        </p>
       </div>
     </section>
 
+    <section class="px-stats">
+      <div class="px-stat"><span>Applications</span><strong id="statApps">0</strong></div>
+      <div class="px-stat"><span>Curriculum</span><strong id="statCurriculum">0</strong></div>
+      <div class="px-stat"><span>Assessment</span><strong id="statAssessment">0</strong></div>
+      <div class="px-stat"><span>Revision</span><strong id="statRevision">0</strong></div>
+    </section>
+
     <section class="px-section">
-      <h2>Application Dashboard</h2>
-      <p>
-        These tools are part of the Project X ecosystem. Each card links to an
-        interactive dashboard, resource bank, curriculum browser or analysis tool.
-      </p>
+      <div class="px-section-head">
+        <div>
+          <h2>Application Dashboard</h2>
+          <p>Open Project X tools, dashboards and teaching resources.</p>
+        </div>
+        <input id="pxSearch" class="px-search" placeholder="Search Project X...">
+      </div>
 
       <div id="appGrid" class="px-grid"></div>
     </section>
 
-    <section class="px-section">
-      <h2>Platform Purpose</h2>
-      <p>
-        Project X demonstrates the integration of Computer Science teaching,
-        curriculum planning, assessment analytics and educational technology.
-        It is designed as both a professional portfolio asset and a practical
-        teaching platform.
-      </p>
-    </section>
-
-    <footer class="px-footer">
-      Project X | Rolando Valdés Hernández MSc | Computer Science Teaching Platform
-    </footer>
-
   </main>
+</div>
 
-  <script>
-    async function loadApps() {
-      const grid = document.getElementById("appGrid");
+<script>
+async function loadApps() {
+  const grid = document.getElementById("appGrid");
+  const search = document.getElementById("pxSearch");
 
-      try {
-        const response = await fetch("../data/projectx_registry.json");
-        const data = await response.json();
+  try {
+    const response = await fetch("../data/projectx_registry.json");
+    const data = await response.json();
+    let apps = data.apps || [];
 
-        grid.innerHTML = data.apps.map(app => `
-          <a class="px-card" href="${app.url}">
-            <div class="px-icon">${app.icon}</div>
-            <span class="px-category">${app.category}</span>
-            <h3>${app.title}</h3>
-            <p>${app.description}</p>
-          </a>
-        `).join("");
-      } catch (error) {
-        grid.innerHTML = `
-          <div class="px-card">
-            <h3>Registry not loaded</h3>
-            <p>Check that data/projectx_registry.json exists and has been uploaded.</p>
-          </div>
-        `;
-      }
+    function render(list) {
+      grid.innerHTML = list.map(app => `
+        <a class="px-card" href="${app.url}">
+          <div class="px-icon">${app.icon}</div>
+          <span class="px-category">${app.category}</span>
+          <h3>${app.title}</h3>
+          <p>${app.description}</p>
+        </a>
+      `).join("");
+
+      document.getElementById("statApps").textContent = apps.length;
+      document.getElementById("statCurriculum").textContent = apps.filter(a => a.category === "Curriculum").length;
+      document.getElementById("statAssessment").textContent = apps.filter(a => a.category === "Assessment").length;
+      document.getElementById("statRevision").textContent = apps.filter(a => a.category === "Revision").length;
     }
 
-    loadApps();
-  </script>
+    search.addEventListener("input", () => {
+      const q = search.value.toLowerCase();
+      render(apps.filter(app =>
+        app.title.toLowerCase().includes(q) ||
+        app.category.toLowerCase().includes(q) ||
+        app.description.toLowerCase().includes(q)
+      ));
+    });
+
+    render(apps);
+
+  } catch (error) {
+    grid.innerHTML = `<div class="px-card"><h3>Registry not loaded</h3><p>Check projectx_registry.json.</p></div>`;
+  }
+}
+
+loadApps();
+</script>
+
 </body>
 </html>
