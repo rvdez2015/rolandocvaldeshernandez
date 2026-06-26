@@ -1,190 +1,138 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Project X | Teaching Intelligence Platform</title>
-  <link rel="stylesheet" href="../css/projectx.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rolando Valdés Hernández | Professional Teaching Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<div class="px-app">
+<header class="site-header">
+  <div class="logo">Rolando Valdés MSc</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="career.html">Career</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="teaching-evidence-centre.html">Evidence Centre</a>
+    <a href="recommendations.html">Recommendations</a>
+    <a href="ai.html">AI</a>
+    <a href="projectx/">Project X</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
-  <aside class="px-sidebar">
-    <div class="px-logo">
-      <strong>Project X</strong>
-      <span>Teaching Intelligence Platform</span>
+<main>
+
+<section class="colour-hero">
+  <div class="hero-text">
+    <p class="eyebrow">Computer Science Teacher | Curriculum Developer | AI in Education</p>
+    <h1>Rolando Valdés Hernández MSc</h1>
+    <p class="hero-subtitle">
+      Professional teaching portfolio and Project X teaching platform showcasing QTS evidence,
+      curriculum development, interactive teaching tools, AI-supported practice and Computer Science
+      education across KS2–KS5.
+    </p>
+
+    <div class="hero-badges">
+      <span>Open to Opportunities</span>
+      <span>Liverpool Area</span>
+      <span>KS2–KS5</span>
+      <span>OCR GCSE & A Level CS</span>
     </div>
 
-    <nav>
-      <a class="active" href="index.html">Dashboard</a>
-      <a href="../index.html">Professional Home</a>
-      <a href="../career.html">Career</a>
-      <a href="../teaching-evidence-centre.html">Evidence Centre</a>
-      <a href="../recommendations.html">Recommendations</a>
-      <a href="curriculum.html">Curriculum</a>
-      <a href="assessment.html">Assessment</a>
-      <a href="revision.html">Revision</a>
-      <a href="question-banks.html">Question Banks</a>
-      <a href="tools.html">Tools</a>
-      <a href="../contact.html">Contact</a>
-    </nav>
-  </aside>
+    <div class="hero-actions">
+      <a href="projectx/" class="btn primary">Open Project X</a>
+      <a href="career.html" class="btn secondary">Career Profile</a>
+      <a href="teaching-evidence-centre.html" class="btn secondary">Teaching Evidence</a>
+      <a href="documents/rolando_valdes_hernandez_cv_2026.pdf" class="btn secondary">Download CV</a>
+    </div>
+  </div>
 
-  <main class="px-main">
+  <div class="hero-photo-card">
+    <img src="images/cv_photo.jpg" alt="Rolando Valdés Hernández" />
+    <div class="photo-caption">
+      <strong>Current package:</strong> £43,000<br>
+      <strong>Seeking:</strong> £48,000+<br>
+      <strong>Preferred location:</strong> Liverpool area
+    </div>
+  </div>
+</section>
 
-    <section class="px-hero compact">
-      <div>
-        <div class="px-eyebrow">Professional Hub • Teaching Workspace • Evidence • AI</div>
-        <h1>Project X</h1>
-        <p>
-          A professional teaching intelligence platform combining my recruiter-ready portfolio
-          with curriculum, assessment, revision, question-bank and teaching evidence tools.
-        </p>
-        <div class="px-actions">
-          <a class="px-btn primary" href="../teaching-evidence-centre.html">Open Teaching Evidence</a>
-          <a class="px-btn secondary" href="../career.html">View Career Profile</a>
-          <a class="px-btn secondary" href="../index.html">Main Website</a>
-        </div>
-      </div>
-    </section>
+<section class="dashboard-grid">
+  <div class="dash-card blue">
+    <span>Experience</span>
+    <strong>20+ Years</strong>
+    <p>Teaching, tutoring, mentoring and curriculum development.</p>
+  </div>
 
-    <section class="px-stats">
-      <div class="px-stat"><span>Total Apps</span><strong id="statApps">0</strong></div>
-      <div class="px-stat"><span>Professional Hub</span><strong id="statProfessional">0</strong></div>
-      <div class="px-stat"><span>Teaching Workspace</span><strong id="statWorkspace">0</strong></div>
-      <div class="px-stat"><span>Recruiter Priority</span><strong id="statPriority">5</strong></div>
-    </section>
+  <div class="dash-card green">
+    <span>Teaching Range</span>
+    <strong>Years 5–13</strong>
+    <p>Computer Science from foundational digital literacy to A Level.</p>
+  </div>
 
-    <section class="px-section">
-      <div class="px-section-head">
-        <div>
-          <h2>Application Dashboard</h2>
-          <p>Open portfolio pages, teaching tools, dashboards and evidence resources.</p>
-        </div>
-        <input id="pxSearch" class="px-search" placeholder="Search Project X...">
-      </div>
+  <div class="dash-card orange">
+    <span>Career Target</span>
+    <strong>£48,000+</strong>
+    <p>Permanent Computer Science role in the Liverpool area.</p>
+  </div>
 
-      <div id="pxContent"></div>
-    </section>
+  <div class="dash-card purple">
+    <span>Platform</span>
+    <strong>Project X</strong>
+    <p>Teaching intelligence platform for curriculum, assessment, revision and evidence.</p>
+  </div>
+</section>
 
-  </main>
-</div>
+<section class="feature-section">
+  <h2>Recruiter Edition</h2>
+  <p>
+    This portfolio brings together my professional profile, teaching evidence, QTS development,
+    curriculum resources, recommendations and Project X teaching platform.
+  </p>
 
-<script>
-async function loadApps() {
-  const content = document.getElementById("pxContent");
-  const search = document.getElementById("pxSearch");
+  <div class="feature-grid">
+    <a href="career.html" class="feature-card">
+      <h3>Career Profile</h3>
+      <p>Professional summary, teaching experience, salary expectations and relocation preferences.</p>
+    </a>
 
-  const professionalCategories = ["Professional Hub", "Portfolio", "Evidence"];
-  const workspaceOrder = ["Curriculum", "Assessment", "Revision", "Question Banks", "AI Lab", "Teaching Tools", "Analytics", "Administration"];
+    <a href="teaching-evidence-centre.html" class="feature-card">
+      <h3>Teaching Evidence Centre</h3>
+      <p>Flagship evidence hub with lesson observation, standards, resources and reflection.</p>
+    </a>
 
-  function safe(value) {
-    return String(value || "").replace(/[&<>"']/g, function(char) {
-      return {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      }[char];
-    });
-  }
+    <a href="recommendations.html" class="feature-card">
+      <h3>Professional Recommendations</h3>
+      <p>Published recommendations and professional feedback from colleagues and stakeholders.</p>
+    </a>
 
-  function sectionTemplate(title, description, apps) {
-    if (!apps.length) return "";
+    <a href="projectx/" class="feature-card">
+      <h3>Project X Dashboard</h3>
+      <p>Teaching intelligence platform containing curriculum, assessment, revision and question-bank tools.</p>
+    </a>
 
-    return `
-      <section class="px-dashboard-group">
-        <div class="px-group-head">
-          <div>
-            <h2>${safe(title)}</h2>
-            <p>${safe(description)}</p>
-          </div>
-          <span class="px-count">${apps.length} item${apps.length === 1 ? "" : "s"}</span>
-        </div>
+    <a href="teaching.html" class="feature-card">
+      <h3>Teaching Portfolio</h3>
+      <p>Computer Science teaching across Years 5–13, including GCSE and A Level.</p>
+    </a>
 
-        <div class="px-grid">
-          ${apps.map(app => `
-            <a class="px-card" href="${safe(app.url)}">
-              <div class="px-card-top">
-                <div class="px-icon">${safe(app.icon)}</div>
-                <span class="px-category">${safe(app.category)}</span>
-              </div>
-              <h3>${safe(app.title)}</h3>
-              <p>${safe(app.description)}</p>
-              <span class="px-open">Open →</span>
-            </a>
-          `).join("")}
-        </div>
-      </section>
-    `;
-  }
+    <a href="ai.html" class="feature-card">
+      <h3>AI in Education</h3>
+      <p>Examples of AI-supported planning, resource creation, assessment and educational innovation.</p>
+    </a>
+  </div>
+</section>
 
-  function sortApps(list) {
-    return [...list].sort((a, b) => {
-      const priorityA = Number(a.priority || 0);
-      const priorityB = Number(b.priority || 0);
-      if (priorityA !== priorityB) return priorityB - priorityA;
-      return String(a.title).localeCompare(String(b.title));
-    });
-  }
+</main>
 
-  try {
-    const response = await fetch("../data/projectx_registry.json", { cache: "no-store" });
-    const data = await response.json();
-    const apps = data.apps || [];
-
-    function render(list) {
-      const professional = sortApps(list.filter(app => professionalCategories.includes(app.category)));
-      const workspace = sortApps(list.filter(app => !professionalCategories.includes(app.category)));
-
-      content.innerHTML =
-        sectionTemplate(
-          "Professional Hub",
-          "Recruiter-ready pages: career profile, teaching evidence, recommendations and contact routes.",
-          professional
-        ) +
-        sectionTemplate(
-          "Teaching Workspace",
-          "Project X tools for curriculum, assessment, revision, question banks and future analytics.",
-          workspace
-        );
-
-      if (!list.length) {
-        content.innerHTML = `<div class="px-card"><h3>No results found</h3><p>Try a different search term.</p></div>`;
-      }
-
-      document.getElementById("statApps").textContent = apps.length;
-      document.getElementById("statProfessional").textContent =
-        apps.filter(app => professionalCategories.includes(app.category)).length;
-      document.getElementById("statWorkspace").textContent =
-        apps.filter(app => !professionalCategories.includes(app.category)).length;
-    }
-
-    search.addEventListener("input", () => {
-      const q = search.value.toLowerCase();
-      render(apps.filter(app =>
-        String(app.title).toLowerCase().includes(q) ||
-        String(app.category).toLowerCase().includes(q) ||
-        String(app.description).toLowerCase().includes(q)
-      ));
-    });
-
-    render(apps);
-
-  } catch (error) {
-    content.innerHTML = `
-      <div class="px-card">
-        <h3>Registry not loaded</h3>
-        <p>Check that data/projectx_registry.json exists and contains valid JSON.</p>
-      </div>
-    `;
-  }
-}
-
-loadApps();
-</script>
+<footer>
+  <p>Rolando Valdés Hernández MSc | Computer Science Teacher | Project X Teaching Intelligence Platform</p>
+</footer>
 
 </body>
 </html>
+```
