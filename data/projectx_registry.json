@@ -1,0 +1,91 @@
+{
+  "title": "Project X",
+  "subtitle": "Teaching Intelligence Platform",
+  "description": "A professional collection of curriculum, assessment, revision, analytics and teaching tools.",
+  "apps": [
+    {
+      "title": "Professional Portfolio Home",
+      "category": "Professional Hub",
+      "icon": "\ud83c\udfe0",
+      "description": "Main landing page for recruiters, schools and professional contacts.",
+      "url": "../index.html"
+    },
+    {
+      "title": "Career Profile",
+      "category": "Professional Hub",
+      "icon": "\ud83d\udcbc",
+      "description": "Career history, experience, salary expectations and relocation preferences.",
+      "url": "../career.html"
+    },
+    {
+      "title": "Teaching Evidence Centre",
+      "category": "Professional Hub",
+      "icon": "\ud83c\udf93",
+      "description": "Lesson observation, QTS evidence, resources, reflection and supporting evidence.",
+      "url": "../teaching-evidence-centre.html"
+    },
+    {
+      "title": "Professional Recommendations",
+      "category": "Professional Hub",
+      "icon": "\u2b50",
+      "description": "Professional references, recommendation form and published testimonials.",
+      "url": "../recommendations.html"
+    },
+    {
+      "title": "AI in Education",
+      "category": "Professional Hub",
+      "icon": "\ud83e\udd16",
+      "description": "AI-supported teaching, curriculum design and educational innovation.",
+      "url": "../ai.html"
+    },
+    {
+      "title": "Contact",
+      "category": "Professional Hub",
+      "icon": "\u2709\ufe0f",
+      "description": "Professional contact information and enquiries.",
+      "url": "../contact.html"
+    },
+    {
+      "title": "J277 Scheme of Work Browser",
+      "category": "Curriculum",
+      "icon": "\ud83d\udcda",
+      "description": "Interactive OCR J277 curriculum and lesson registry browser.",
+      "url": "apps/curriculum/J277_SoW_JSON_Browser.html"
+    },
+    {
+      "title": "Y13 Mock Results Jan 2026",
+      "category": "Assessment",
+      "icon": "\ud83d\udcca",
+      "description": "Interactive A Level mock results and question-level analysis.",
+      "url": "apps/assessment/Jan_2026_Mock_Results_Y13_Updated.html"
+    },
+    {
+      "title": "OCR A Level Review Bank",
+      "category": "Revision",
+      "icon": "\ud83d\udcdd",
+      "description": "Question-by-question OCR A Level Computer Science review bank.",
+      "url": "apps/revision/ocr_cs_june_2025_review_bank.html"
+    },
+    {
+      "title": "OCR GCSE Review Bank",
+      "category": "Revision",
+      "icon": "\ud83d\udcd8",
+      "description": "Interactive OCR GCSE Computer Science review bank.",
+      "url": "apps/revision/ocr_j277_june_2025_review_bank.html"
+    },
+    {
+      "title": "OCR J277/02 Combined Revision",
+      "category": "Revision",
+      "icon": "\ud83e\udde0",
+      "description": "Combined J277/02 sample and practice paper revision resource.",
+      "url": "apps/revision/ocr_j27702_combined_sample_and_practice_revision.html"
+    },
+    {
+      "title": "H446 Question Bank",
+      "category": "Question Banks",
+      "icon": "\u2753",
+      "description": "Full-fidelity OCR A Level H446 question bank data.",
+      "url": "apps/question-banks/A1h446_2025_full_question_bank.json"
+    }
+  ]
+}
