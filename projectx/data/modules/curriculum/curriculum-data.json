@@ -1,0 +1,97 @@
+{
+  "metadata": {
+    "version": "3.0-sprint04",
+    "module": "curriculum",
+    "title": "Curriculum Centre",
+    "description": "Initial production data model for Project X Curriculum Centre."
+  },
+  "settings": {
+    "school": "Farlington School",
+    "subject": "Computer Science",
+    "defaultExamBoard": "OCR",
+    "academicYear": "2026-2027"
+  },
+  "units": [
+    {
+      "id": "unit-y7-python-foundations",
+      "yearGroup": "Year 7",
+      "keyStage": "KS3",
+      "title": "Programming Foundations",
+      "strand": "Programming",
+      "status": "Draft",
+      "lessons": 6,
+      "intent": "Introduce sequence, inputs, variables and basic selection through accessible programming tasks.",
+      "coverage": ["Sequence", "Inputs", "Variables", "Selection"]
+    },
+    {
+      "id": "unit-y8-data-representation",
+      "yearGroup": "Year 8",
+      "keyStage": "KS3",
+      "title": "Data Representation",
+      "strand": "Computer Systems",
+      "status": "Live",
+      "lessons": 5,
+      "intent": "Develop understanding of binary representation, images, text and sound.",
+      "coverage": ["Binary", "Images", "Sound", "Text"]
+    },
+    {
+      "id": "unit-y10-networks-security",
+      "yearGroup": "Year 10",
+      "keyStage": "KS4",
+      "title": "Networks and Network Security",
+      "strand": "OCR GCSE J277",
+      "status": "Live",
+      "lessons": 8,
+      "intent": "Prepare students for OCR GCSE Paper 1 content on networks, protocols and security threats.",
+      "coverage": ["Networks", "Protocols", "Threats", "Prevention"]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-y7-if-statements",
+      "unitId": "unit-y7-python-foundations",
+      "title": "Selection with IF Statements",
+      "yearGroup": "Year 7",
+      "duration": 45,
+      "status": "Ready",
+      "objective": "Use IF statements to make a program respond to different inputs.",
+      "resources": ["Python editor", "Starter questions", "Worked example"]
+    },
+    {
+      "id": "lesson-y8-binary-basics",
+      "unitId": "unit-y8-data-representation",
+      "title": "Binary to Denary Conversion",
+      "yearGroup": "Year 8",
+      "duration": 45,
+      "status": "Ready",
+      "objective": "Convert simple binary numbers into denary using place value.",
+      "resources": ["Place value grid", "Mini-whiteboards", "Practice worksheet"]
+    },
+    {
+      "id": "lesson-y10-binary-fractions",
+      "unitId": "unit-y10-networks-security",
+      "title": "GCSE Introduction: Binary Fractions in Python",
+      "yearGroup": "Year 10",
+      "duration": 90,
+      "status": "Evidence",
+      "objective": "Use repeated multiplication and Python logic to understand binary fractions.",
+      "resources": ["QTS observation lesson plan", "Python IDE", "Worked examples"]
+    }
+  ],
+  "resources": [
+    {
+      "id": "resource-qts-binary-fractions",
+      "title": "Final QTS Observation: Binary Fractions",
+      "type": "Lesson Evidence",
+      "linkedTo": "lesson-y10-binary-fractions",
+      "status": "Published"
+    },
+    {
+      "id": "resource-y8-binary-grid",
+      "title": "Binary Place Value Grid",
+      "type": "Worksheet",
+      "linkedTo": "lesson-y8-binary-basics",
+      "status": "Draft"
+    }
+  ]
+}

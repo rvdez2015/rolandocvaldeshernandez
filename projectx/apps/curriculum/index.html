@@ -3,45 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Curriculum Centre | Project X</title>
+
   <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/curriculum.css" />
 </head>
+
 <body>
   <div class="projectx-shell">
     <div id="projectxSidebar"></div>
+
     <main class="projectx-main">
       <div id="projectxHeader"></div>
+
       <section class="projectx-content">
-        <div class="projectx-card" style="margin-bottom:24px;">
-          <span class="projectx-status">Teaching Workspace</span>
+        <div class="projectx-card" style="margin-bottom: 24px;">
+          <span class="projectx-status">Production Module</span>
           <h2>Curriculum Centre</h2>
-          <p>Plan curriculum maps, units, lesson sequences, schemes of work, resources and progression evidence.</p>
+          <p>
+            Manage curriculum units, lesson sequences, schemes of work, resources,
+            planning evidence and future curriculum exports from one Project X workspace.
+          </p>
         </div>
+
         <div class="module-shell">
           <aside class="module-panel">
             <h3>Curriculum Menu</h3>
             <nav id="moduleNavigation" class="module-nav"></nav>
           </aside>
+
           <section class="module-workspace">
-            <h2 id="moduleTitle" style="margin-top:0;">Dashboard</h2>
-            <div id="moduleWorkspace"></div>
+            <h2 id="moduleTitle" style="margin-top: 0;">Dashboard</h2>
+            <div id="moduleWorkspace">
+              <div class="projectx-card">Loading Curriculum Centre...</div>
+            </div>
           </section>
         </div>
       </section>
     </main>
   </div>
+
   <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
-  <script src="/rolandocvaldeshernandez/projectx/core/workspace-engine.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/app-shell.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/services/curriculum-service.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/apps/curriculum/curriculum-module.js"></script>
+
   <script>
-    window.ProjectXViews = window.ProjectXViews || {};
-    window.ProjectXViews['curriculum_dashboard'] = function(){
-      return '<div class="workspace-kpi-grid"><div class="workspace-kpi"><span>Status</span><strong>Ready</strong></div><div class="workspace-kpi"><span>Module</span><strong>v3</strong></div><div class="workspace-kpi"><span>Views</span><strong>Live</strong></div></div><div class="projectx-grid"><div class="projectx-card"><h3>Module Dashboard</h3><p>This module now runs inside the Project X Workspace Engine.</p></div><div class="projectx-card"><h3>Secondary Navigation</h3><p>Use the module menu to switch views without leaving the application shell.</p></div><div class="projectx-card"><h3>Next Build</h3><p>Functional data tools will be added in future sprints.</p></div></div>';
-    };
-    document.addEventListener('DOMContentLoaded',()=>{const app=new ProjectXApp({moduleKey:'curriculum',moduleTitle:'Curriculum Centre',moduleSubtitle:'Plan curriculum maps, units, lesson sequences, schemes of work, resources and progression evidence.',defaultView:'dashboard'});app.initialise();});
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        await ProjectXCurriculumService.initialise();
+
+        const app = new ProjectXApp({
+          moduleKey: "curriculum",
+          moduleTitle: "Curriculum Centre",
+          moduleSubtitle: "Curriculum planning, sequencing and evidence",
+          defaultView: "dashboard"
+        });
+
+        await app.initialise();
+      } catch (error) {
+        console.error("Curriculum Centre failed to start:", error);
+        const workspace = document.getElementById("moduleWorkspace");
+        if (workspace) {
+          workspace.innerHTML = `
+            <div class="projectx-card">
+              <span class="projectx-status">Error</span>
+              <h2>Curriculum Centre could not be loaded</h2>
+              <p>Please check the console and confirm that the curriculum data file is available.</p>
+            </div>
+          `;
+        }
+      }
+    });
   </script>
 </body>
 </html>
