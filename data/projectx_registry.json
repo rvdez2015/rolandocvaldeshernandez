@@ -184,6 +184,16 @@
       "url": "apps/admin/index.html",
       "status": "In Development",
       "priority": 3
+    },
+    {
+      "title": "Import Centre",
+      "category": "Teaching Workspace",
+      "section": "Teaching Workspace",
+      "icon": "📥",
+      "description": "Import lesson trackers, academic-year data and curriculum source files into Project X.",
+      "url": "apps/import-centre/index.html",
+      "status": "Foundation",
+      "priority": 5
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "title": "Lesson Tracker Workbook",
+      "icon": "\ud83d\udcd8",
+      "status": "Supported",
+      "description": "Excel workbook containing year-group sheets, units, lessons, assessment rows and delivery notes."
+    },
+    {
+      "title": "Project X Backup",
+      "icon": "\ud83d\udcbe",
+      "status": "Planned",
+      "description": "Restore a previous Project X data export."
+    },
+    {
+      "title": "CSV / JSON Import",
+      "icon": "\ud83e\uddfe",
+      "status": "Planned",
+      "description": "Import structured curriculum and assessment data from simple text-based files."
+    },
+    {
+      "title": "Google Sheets / Drive",
+      "icon": "\u2601\ufe0f",
+      "status": "Future",
+      "description": "Connect cloud-based planning documents in a later version."
+    }
+  ]
+}

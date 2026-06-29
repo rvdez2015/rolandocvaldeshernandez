@@ -1,0 +1,15 @@
+{
+  "title": "Project X Import Log",
+  "updated": "2026-06-29",
+  "imports": [
+    {
+      "id": "imp-2025-2026-lesson-tracker",
+      "source": "Lesson Tracker 2025-2026.xlsx",
+      "type": "Excel Workbook",
+      "academicYear": "2025-2026",
+      "status": "Imported to Project X data layer",
+      "result": "Curriculum units, reusable lessons, delivery records and assessment records prepared for Project X.",
+      "date": "2026-06-29"
+    }
+  ]
+}

@@ -1,73 +1,252 @@
 {
   "curriculum": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Units", "view": "units" },
-    { "label": "Lessons", "view": "lessons" },
-    { "label": "Schemes of Work", "view": "schemes" },
-    { "label": "Resources", "view": "resources" },
-    { "label": "Planner", "view": "planner" },
-    { "label": "Settings", "view": "settings" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Units",
+      "view": "units"
+    },
+    {
+      "label": "Lessons",
+      "view": "lessons"
+    },
+    {
+      "label": "Schemes of Work",
+      "view": "schemes"
+    },
+    {
+      "label": "Resources",
+      "view": "resources"
+    },
+    {
+      "label": "Planner",
+      "view": "planner"
+    },
+    {
+      "label": "Settings",
+      "view": "settings"
+    }
   ],
   "assessment": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Markbooks", "view": "markbooks" },
-    { "label": "Gradebook", "view": "gradebook" },
-    { "label": "Feedback", "view": "feedback" },
-    { "label": "Targets", "view": "targets" },
-    { "label": "Reports", "view": "reports" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Markbooks",
+      "view": "markbooks"
+    },
+    {
+      "label": "Gradebook",
+      "view": "gradebook"
+    },
+    {
+      "label": "Feedback",
+      "view": "feedback"
+    },
+    {
+      "label": "Targets",
+      "view": "targets"
+    },
+    {
+      "label": "Reports",
+      "view": "reports"
+    }
   ],
   "revision": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Topics", "view": "topics" },
-    { "label": "Checklists", "view": "checklists" },
-    { "label": "Practice", "view": "practice" },
-    { "label": "Exam Prep", "view": "exam-prep" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Topics",
+      "view": "topics"
+    },
+    {
+      "label": "Checklists",
+      "view": "checklists"
+    },
+    {
+      "label": "Practice",
+      "view": "practice"
+    },
+    {
+      "label": "Exam Prep",
+      "view": "exam-prep"
+    }
   ],
   "question-banks": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "GCSE Questions", "view": "gcse" },
-    { "label": "A Level Questions", "view": "a-level" },
-    { "label": "Retrieval Practice", "view": "retrieval" },
-    { "label": "Quizzes", "view": "quizzes" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "GCSE Questions",
+      "view": "gcse"
+    },
+    {
+      "label": "A Level Questions",
+      "view": "a-level"
+    },
+    {
+      "label": "Retrieval Practice",
+      "view": "retrieval"
+    },
+    {
+      "label": "Quizzes",
+      "view": "quizzes"
+    }
   ],
   "tools": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Lesson Tools", "view": "lesson-tools" },
-    { "label": "Templates", "view": "templates" },
-    { "label": "Classroom Utilities", "view": "utilities" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Lesson Tools",
+      "view": "lesson-tools"
+    },
+    {
+      "label": "Templates",
+      "view": "templates"
+    },
+    {
+      "label": "Classroom Utilities",
+      "view": "utilities"
+    }
   ],
   "evidence": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "QTS Evidence", "view": "qts" },
-    { "label": "Teacher Standards", "view": "standards" },
-    { "label": "Observations", "view": "observations" },
-    { "label": "Reflection", "view": "reflection" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "QTS Evidence",
+      "view": "qts"
+    },
+    {
+      "label": "Teacher Standards",
+      "view": "standards"
+    },
+    {
+      "label": "Observations",
+      "view": "observations"
+    },
+    {
+      "label": "Reflection",
+      "view": "reflection"
+    }
   ],
   "documentation": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Architecture", "view": "architecture" },
-    { "label": "Release Notes", "view": "releases" },
-    { "label": "Templates", "view": "templates" },
-    { "label": "Settings", "view": "settings" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Architecture",
+      "view": "architecture"
+    },
+    {
+      "label": "Release Notes",
+      "view": "releases"
+    },
+    {
+      "label": "Templates",
+      "view": "templates"
+    },
+    {
+      "label": "Settings",
+      "view": "settings"
+    }
   ],
   "ai-lab": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Lesson Generator", "view": "lesson-generator" },
-    { "label": "Worksheet Generator", "view": "worksheet-generator" },
-    { "label": "Feedback Writer", "view": "feedback-writer" },
-    { "label": "Question Generator", "view": "question-generator" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Lesson Generator",
+      "view": "lesson-generator"
+    },
+    {
+      "label": "Worksheet Generator",
+      "view": "worksheet-generator"
+    },
+    {
+      "label": "Feedback Writer",
+      "view": "feedback-writer"
+    },
+    {
+      "label": "Question Generator",
+      "view": "question-generator"
+    }
   ],
   "analytics": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Assessment Analytics", "view": "assessment" },
-    { "label": "Curriculum Coverage", "view": "coverage" },
-    { "label": "Evidence Analytics", "view": "evidence" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Assessment Analytics",
+      "view": "assessment"
+    },
+    {
+      "label": "Curriculum Coverage",
+      "view": "coverage"
+    },
+    {
+      "label": "Evidence Analytics",
+      "view": "evidence"
+    }
   ],
   "admin": [
-    { "label": "Dashboard", "view": "dashboard" },
-    { "label": "Settings", "view": "settings" },
-    { "label": "Registry", "view": "registry" },
-    { "label": "Navigation", "view": "navigation" },
-    { "label": "Documentation", "view": "documentation" }
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Settings",
+      "view": "settings"
+    },
+    {
+      "label": "Registry",
+      "view": "registry"
+    },
+    {
+      "label": "Navigation",
+      "view": "navigation"
+    },
+    {
+      "label": "Documentation",
+      "view": "documentation"
+    }
+  ],
+  "import-centre": [
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Lesson Tracker",
+      "view": "lesson-tracker"
+    },
+    {
+      "label": "Academic Years",
+      "view": "academic-years"
+    },
+    {
+      "label": "Data Model",
+      "view": "data-model"
+    },
+    {
+      "label": "Backups",
+      "view": "backups"
+    },
+    {
+      "label": "Settings",
+      "view": "settings"
+    }
   ]
 }
