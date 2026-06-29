@@ -36,6 +36,16 @@
       "priority": 5
     },
     {
+      "title": "Evidence Centre App",
+      "category": "Teaching Workspace",
+      "section": "Evidence",
+      "icon": "🧾",
+      "description": "Project X workspace for QTS evidence, teaching standards, observations, reflections and supporting documents.",
+      "url": "apps/evidence/index.html",
+      "status": "In Development",
+      "priority": 5
+    },
+    {
       "title": "Professional Recommendations",
       "category": "Professional Hub",
       "section": "Professional Hub",

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Evidence Centre | Project X</title>
+
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
+</head>
+
+<body>
+  <div class="projectx-shell">
+    <div id="projectxSidebar"></div>
+
+    <main class="projectx-main">
+      <div id="projectxHeader"></div>
+
+      <section class="projectx-content">
+        <div class="projectx-card" style="margin-bottom: 24px;">
+          <span class="projectx-status">Professional Hub</span>
+          <h2>Evidence Centre</h2>
+          <p>
+            Organise QTS evidence, teaching standards, lesson observations, reflections,
+            mentor feedback, professional reviews and supporting documentation.
+          </p>
+        </div>
+
+        <div class="module-shell">
+          <aside class="module-panel">
+            <h3>Evidence Menu</h3>
+            <nav id="moduleNavigation" class="module-nav"></nav>
+          </aside>
+
+          <section class="module-workspace">
+            <h2 id="moduleTitle" style="margin-top: 0;">Dashboard</h2>
+            <div id="moduleWorkspace"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/app-shell.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
+
+  <script>
+    window.ProjectXViews = window.ProjectXViews || {};
+
+    window.ProjectXViews.evidence_dashboard = function () {
+      return `
+        <div class="projectx-grid">
+          <div class="projectx-card">
+            <span class="projectx-status">QTS</span>
+            <h3>QTS Recommendation</h3>
+            <p>Track final Assessment Only QTS recommendation evidence and future report integration.</p>
+          </div>
+
+          <div class="projectx-card">
+            <span class="projectx-status">Standards</span>
+            <h3>Teachers' Standards</h3>
+            <p>Map evidence against the Teachers' Standards using observations, reflections and supporting documents.</p>
+          </div>
+
+          <div class="projectx-card">
+            <span class="projectx-status">Observation</span>
+            <h3>Lesson Evidence</h3>
+            <p>Store observation materials, lesson plans, resources, review notes and professional reflections.</p>
+          </div>
+        </div>
+      `;
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const app = new ProjectXApp({
+        moduleKey: "evidence",
+        moduleTitle: "Evidence Centre",
+        moduleSubtitle: "QTS evidence, teaching standards and professional reflection",
+        defaultView: "dashboard"
+      });
+
+      app.initialise();
+    });
+  </script>
+</body>
+</html>

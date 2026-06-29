@@ -8,6 +8,16 @@
     { "label": "Planner", "view": "planner" },
     { "label": "Settings", "view": "settings" }
   ],
+  "evidence": [
+    { "label": "Dashboard", "view": "dashboard" },
+    { "label": "QTS Recommendation", "view": "qts-recommendation" },
+    { "label": "Teachers' Standards", "view": "teacher-standards" },
+    { "label": "Lesson Observations", "view": "observations" },
+    { "label": "Reflections", "view": "reflections" },
+    { "label": "Mentor Feedback", "view": "mentor-feedback" },
+    { "label": "Supporting Evidence", "view": "supporting-evidence" },
+    { "label": "Settings", "view": "settings" }
+  ],
   "assessment": [
     { "label": "Dashboard", "view": "dashboard" },
     { "label": "Markbooks", "view": "markbooks" },
