@@ -1,3 +1,7 @@
+const ProjectXConfig = {
+  basePath: "/rolandocvaldeshernandez/projectx"
+};
+
 async function loadComponent(targetId, componentPath) {
   const target = document.getElementById(targetId);
 
@@ -7,23 +11,28 @@ async function loadComponent(targetId, componentPath) {
   }
 
   try {
-    const response = await fetch(componentPath);
+    const response = await fetch(componentPath, { cache: "no-store" });
 
     if (!response.ok) {
-      throw new Error(`Failed to load ${componentPath}`);
+      throw new Error(`Failed to load component: ${componentPath}`);
     }
 
     target.innerHTML = await response.text();
   } catch (error) {
-    console.error("Project X Loader Error:", error);
+    console.error("Project X component loading error:", error);
   }
 }
 
 async function initialiseProjectX() {
-  const basePath = "/rolandocvaldeshernandez/projectx";
+  await loadComponent(
+    "projectxSidebar",
+    `${ProjectXConfig.basePath}/components/sidebar/sidebar.html`
+  );
 
-  await loadComponent("projectxSidebar", `${basePath}/components/sidebar/sidebar.html`);
-  await loadComponent("projectxHeader", `${basePath}/components/header/header.html`);
+  await loadComponent(
+    "projectxHeader",
+    `${ProjectXConfig.basePath}/components/header/header.html`
+  );
 
   if (typeof initialiseNavigation === "function") {
     initialiseNavigation();
@@ -33,5 +42,3 @@ async function initialiseProjectX() {
     initialiseTheme();
   }
 }
-
-document.addEventListener("DOMContentLoaded", initialiseProjectX);

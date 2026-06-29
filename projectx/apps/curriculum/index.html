@@ -17,33 +17,25 @@
       <div id="projectxHeader"></div>
 
       <section class="projectx-content">
-        <div class="projectx-card">
+        <div class="projectx-card" style="margin-bottom: 24px;">
           <span class="projectx-status">Teaching Workspace</span>
           <h2>Curriculum Centre</h2>
           <p>
-            The Curriculum Centre will organise schemes of work, lesson sequences,
-            curriculum maps, subject coverage, and progression evidence across
-            Key Stages 2 to 5.
+            Organise curriculum maps, units, lesson sequences, schemes of work,
+            resources and planning evidence across Key Stages 2 to 5.
           </p>
-
-          <a class="projectx-button" href="#">Open Curriculum Workspace</a>
         </div>
 
-        <div class="projectx-grid" style="margin-top: 24px;">
-          <div class="projectx-card">
-            <h3>Curriculum Maps</h3>
-            <p>Long-term planning, topic sequencing, and curriculum coverage.</p>
-          </div>
+        <div class="module-shell">
+          <aside class="module-panel">
+            <h3>Curriculum Menu</h3>
+            <nav id="moduleNavigation" class="module-nav"></nav>
+          </aside>
 
-          <div class="projectx-card">
-            <h3>Lesson Sequences</h3>
-            <p>Reusable lesson structures aligned to year groups and exam specifications.</p>
-          </div>
-
-          <div class="projectx-card">
-            <h3>Progression Evidence</h3>
-            <p>Track knowledge, skills, vocabulary, and assessment links.</p>
-          </div>
+          <section class="module-workspace">
+            <h2 id="moduleTitle" style="margin-top: 0;">Dashboard</h2>
+            <div id="moduleWorkspace"></div>
+          </section>
         </div>
       </section>
     </main>
@@ -52,16 +44,19 @@
   <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/app-shell.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
-        const title = document.getElementById("projectxPageTitle");
-        const subtitle = document.getElementById("projectxPageSubtitle");
+      const app = new ProjectXApp({
+        moduleKey: "curriculum",
+        moduleTitle: "Curriculum Centre",
+        moduleSubtitle: "Curriculum planning, sequencing and evidence",
+        defaultView: "dashboard"
+      });
 
-        if (title) title.textContent = "Curriculum Centre";
-        if (subtitle) subtitle.textContent = "Plan, organise and evidence curriculum delivery";
-      }, 200);
+      app.initialise();
     });
   </script>
 </body>

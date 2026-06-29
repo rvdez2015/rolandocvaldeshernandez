@@ -1,0 +1,26 @@
+{
+  "curriculum": [
+    { "label": "Dashboard", "view": "dashboard" },
+    { "label": "Units", "view": "units" },
+    { "label": "Lessons", "view": "lessons" },
+    { "label": "Schemes of Work", "view": "schemes" },
+    { "label": "Resources", "view": "resources" },
+    { "label": "Planner", "view": "planner" },
+    { "label": "Settings", "view": "settings" }
+  ],
+  "assessment": [
+    { "label": "Dashboard", "view": "dashboard" },
+    { "label": "Markbooks", "view": "markbooks" },
+    { "label": "Gradebook", "view": "gradebook" },
+    { "label": "Feedback", "view": "feedback" },
+    { "label": "Targets", "view": "targets" },
+    { "label": "Reports", "view": "reports" }
+  ],
+  "ai-lab": [
+    { "label": "Dashboard", "view": "dashboard" },
+    { "label": "Lesson Generator", "view": "lesson-generator" },
+    { "label": "Worksheet Generator", "view": "worksheet-generator" },
+    { "label": "Feedback Writer", "view": "feedback-writer" },
+    { "label": "Question Generator", "view": "question-generator" }
+  ]
+}
