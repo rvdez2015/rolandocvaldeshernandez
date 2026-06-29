@@ -1,538 +1,611 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Project X | Teaching Intelligence Platform</title>
-  <link rel="stylesheet" href="../css/projectx.css">
+
+  <link rel="stylesheet" href="../css/projectx.css" />
 
   <style>
-    :root{
-      --px-navy:#0b2f4f;
-      --px-blue:#0b5cad;
-      --px-blue-2:#eaf4ff;
-      --px-border:#b8d6f7;
-      --px-text:#062745;
-      --px-muted:#5b7188;
-      --px-bg:#f4f8fc;
-      --px-card:#ffffff;
-      --px-shadow:0 18px 40px rgba(7,47,84,.10);
-      --px-radius:22px;
+    :root {
+      --px-navy: #0b2f4f;
+      --px-blue: #0b5cad;
+      --px-blue-2: #eaf4ff;
+      --px-border: #b8d6f7;
+      --px-text: #062745;
+      --px-muted: #5b7188;
+      --px-bg: #f4f8fc;
+      --px-card: #ffffff;
+      --px-shadow: 0 18px 40px rgba(7, 47, 84, .10);
+      --px-radius: 22px;
     }
 
-    body{
-      background:var(--px-bg);
-      color:var(--px-text);
+    body {
+      background: var(--px-bg);
+      color: var(--px-text);
     }
 
-    .px-main{
-      padding:22px;
+    .px-main {
+      padding: 22px;
     }
 
-    .px-sidebar nav a{
-      display:block;
-      margin-bottom:8px;
+    .px-sidebar nav a {
+      display: block;
+      margin-bottom: 8px;
     }
 
-    .px-nav-label{
-      color:#9fc7ed;
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin:20px 8px 8px;
+    .px-nav-label {
+      color: #9fc7ed;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin: 20px 8px 8px;
     }
 
-    .px-hero.v2{
-      border-radius:var(--px-radius);
+    .px-hero.v2 {
+      border-radius: var(--px-radius);
       background:
-        radial-gradient(circle at 82% 10%, rgba(255,255,255,.22), transparent 26%),
-        linear-gradient(135deg,#0b2f4f 0%,#0b5cad 48%,#9fbe2e 100%);
-      color:#fff;
-      padding:34px;
-      box-shadow:var(--px-shadow);
+        radial-gradient(circle at 82% 10%, rgba(255, 255, 255, .22), transparent 26%),
+        linear-gradient(135deg, #0b2f4f 0%, #0b5cad 48%, #9fbe2e 100%);
+      color: #fff;
+      padding: 34px;
+      box-shadow: var(--px-shadow);
     }
 
-    .px-hero.v2 h1{
-      font-size:clamp(38px,5vw,70px);
-      line-height:.95;
-      margin:8px 0 14px;
-      letter-spacing:-.05em;
+    .px-hero.v2 h1 {
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: .95;
+      margin: 8px 0 14px;
+      letter-spacing: -.05em;
     }
 
-    .px-hero.v2 p{
-      max-width:850px;
-      font-size:17px;
-      line-height:1.65;
-      color:rgba(255,255,255,.92);
+    .px-hero.v2 p {
+      max-width: 850px;
+      font-size: 17px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.92);
     }
 
-    .px-eyebrow{
-      color:#d8ff7a;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.16em;
-      text-transform:uppercase;
+    .px-eyebrow {
+      color: #d8ff7a;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
     }
 
-    .px-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:24px;
+    .px-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
     }
 
-    .px-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:44px;
-      padding:0 18px;
-      border-radius:999px;
-      font-weight:800;
-      text-decoration:none;
-      border:1px solid rgba(255,255,255,.38);
-      transition:.2s ease;
+    .px-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.38);
+      transition: .2s ease;
     }
 
-    .px-btn.primary{
-      background:#fff;
-      color:var(--px-blue);
+    .px-btn.primary {
+      background: #fff;
+      color: var(--px-blue);
     }
 
-    .px-btn.secondary{
-      color:#fff;
-      background:rgba(255,255,255,.12);
+    .px-btn.secondary {
+      color: #fff;
+      background: rgba(255,255,255,.12);
     }
 
-    .px-btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    .px-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.18);
     }
 
-    .px-stats.v2{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:14px;
-      margin:18px 0;
+    .px-stats.v2 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
     }
 
-    .px-stat{
-      background:var(--px-card);
-      border:1px solid var(--px-border);
-      border-radius:18px;
-      padding:18px 20px;
-      box-shadow:0 10px 22px rgba(10,63,111,.06);
+    .px-stat {
+      background: var(--px-card);
+      border: 1px solid var(--px-border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 22px rgba(10,63,111,.06);
     }
 
-    .px-stat span{
-      display:block;
-      color:var(--px-muted);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin-bottom:7px;
+    .px-stat span {
+      display: block;
+      color: var(--px-muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
     }
 
-    .px-stat strong{
-      color:var(--px-blue);
-      font-size:30px;
-      line-height:1;
+    .px-stat strong {
+      color: var(--px-blue);
+      font-size: 30px;
+      line-height: 1;
     }
 
-    .px-section.v2{
-      background:#fff;
-      border:1px solid var(--px-border);
-      border-radius:var(--px-radius);
-      padding:24px;
-      box-shadow:var(--px-shadow);
+    .px-section.v2 {
+      background: #fff;
+      border: 1px solid var(--px-border);
+      border-radius: var(--px-radius);
+      padding: 24px;
+      box-shadow: var(--px-shadow);
     }
 
-    .px-section-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:18px;
-      margin-bottom:22px;
+    .px-section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
     }
 
-    .px-section-head h2{
-      margin:0 0 8px;
-      font-size:26px;
-      letter-spacing:-.03em;
+    .px-section-head h2 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: -.03em;
     }
 
-    .px-section-head p{
-      margin:0;
-      color:var(--px-muted);
+    .px-section-head p {
+      margin: 0;
+      color: var(--px-muted);
     }
 
-    .px-search{
-      min-width:280px;
-      height:46px;
-      border:1px solid var(--px-border);
-      border-radius:999px;
-      padding:0 18px;
-      outline:none;
-      color:var(--px-text);
+    .px-search {
+      min-width: 280px;
+      height: 46px;
+      border: 1px solid var(--px-border);
+      border-radius: 999px;
+      padding: 0 18px;
+      outline: none;
+      color: var(--px-text);
     }
 
-    .px-dashboard-group{
-      margin-top:26px;
+    .px-dashboard-group {
+      margin-top: 26px;
     }
 
-    .px-dashboard-group:first-child{
-      margin-top:0;
+    .px-dashboard-group:first-child {
+      margin-top: 0;
     }
 
-    .px-group-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:16px;
-      margin:0 0 14px;
-      padding:0 2px 14px;
-      border-bottom:1px solid #d8e9fb;
+    .px-group-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 0 0 14px;
+      padding: 0 2px 14px;
+      border-bottom: 1px solid #d8e9fb;
     }
 
-    .px-group-head h2{
-      margin:0 0 5px;
-      font-size:22px;
-      letter-spacing:-.03em;
-      color:var(--px-navy);
+    .px-group-head h2 {
+      margin: 0 0 5px;
+      font-size: 22px;
+      letter-spacing: -.03em;
+      color: var(--px-navy);
     }
 
-    .px-group-head p{
-      margin:0;
-      color:var(--px-muted);
-      max-width:850px;
-      line-height:1.55;
+    .px-group-head p {
+      margin: 0;
+      color: var(--px-muted);
+      max-width: 850px;
+      line-height: 1.55;
     }
 
-    .px-count{
-      white-space:nowrap;
-      color:var(--px-blue);
-      background:var(--px-blue-2);
-      border:1px solid var(--px-border);
-      border-radius:999px;
-      padding:7px 12px;
-      font-size:12px;
-      font-weight:900;
+    .px-count {
+      white-space: nowrap;
+      color: var(--px-blue);
+      background: var(--px-blue-2);
+      border: 1px solid var(--px-border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 900;
     }
 
-    .px-grid.v2{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
+    .px-grid.v2 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
-    .px-card.v2{
-      display:flex;
-      flex-direction:column;
-      min-height:190px;
-      padding:22px;
-      background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);
-      border:1px solid var(--px-border);
-      border-radius:18px;
-      text-decoration:none;
-      color:var(--px-text);
-      transition:.2s ease;
+    .px-card.v2 {
+      display: flex;
+      flex-direction: column;
+      min-height: 190px;
+      padding: 22px;
+      background: linear-gradient(180deg, #fff 0%, #f8fbff 100%);
+      border: 1px solid var(--px-border);
+      border-radius: 18px;
+      text-decoration: none;
+      color: var(--px-text);
+      transition: .2s ease;
     }
 
-    .px-card.v2:hover{
-      transform:translateY(-4px);
-      border-color:#74afea;
-      box-shadow:0 18px 35px rgba(10,63,111,.14);
+    .px-card.v2:hover {
+      transform: translateY(-4px);
+      border-color: #74afea;
+      box-shadow: 0 18px 35px rgba(10,63,111,.14);
     }
 
-    .px-card-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:16px;
+    .px-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .px-icon{
-      width:44px;
-      height:44px;
-      display:grid;
-      place-items:center;
-      border-radius:14px;
-      background:var(--px-blue-2);
-      font-size:24px;
+    .px-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--px-blue-2);
+      font-size: 24px;
     }
 
-    .px-category{
-      color:#385875;
-      font-size:10px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.11em;
+    .px-category {
+      color: #385875;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .11em;
     }
 
-    .px-card.v2 h3{
-      margin:0 0 10px;
-      font-size:18px;
-      color:#0759a8;
-      letter-spacing:-.02em;
+    .px-card.v2 h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #0759a8;
+      letter-spacing: -.02em;
     }
 
-    .px-card.v2 p{
-      margin:0;
-      color:#31506c;
-      line-height:1.55;
-      font-size:14px;
-      flex:1;
+    .px-card.v2 p {
+      margin: 0;
+      color: #31506c;
+      line-height: 1.55;
+      font-size: 14px;
+      flex: 1;
     }
 
-    .px-open{
-      margin-top:18px;
-      color:var(--px-blue);
-      font-weight:900;
-      font-size:13px;
+    .px-open {
+      margin-top: 18px;
+      color: var(--px-blue);
+      font-weight: 900;
+      font-size: 13px;
     }
 
-    .px-empty{
-      padding:22px;
-      border:1px dashed var(--px-border);
-      border-radius:18px;
-      color:var(--px-muted);
-      background:#fbfdff;
+    .px-empty {
+      padding: 22px;
+      border: 1px dashed var(--px-border);
+      border-radius: 18px;
+      color: var(--px-muted);
+      background: #fbfdff;
     }
 
-    @media(max-width:1100px){
+    @media (max-width: 1100px) {
       .px-grid.v2,
-      .px-stats.v2{
-        grid-template-columns:repeat(2,minmax(0,1fr));
+      .px-stats.v2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media(max-width:760px){
-      .px-app{
-        display:block;
+    @media (max-width: 760px) {
+      .px-app {
+        display: block;
       }
 
-      .px-sidebar{
-        position:relative;
-        width:auto;
-        min-height:auto;
+      .px-sidebar {
+        position: relative;
+        width: auto;
+        min-height: auto;
       }
 
-      .px-main{
-        padding:14px;
+      .px-main {
+        padding: 14px;
       }
 
-      .px-section-head{
-        display:block;
+      .px-section-head {
+        display: block;
       }
 
-      .px-search{
-        width:100%;
-        min-width:0;
-        margin-top:14px;
+      .px-search {
+        width: 100%;
+        min-width: 0;
+        margin-top: 14px;
       }
 
       .px-grid.v2,
-      .px-stats.v2{
-        grid-template-columns:1fr;
+      .px-stats.v2 {
+        grid-template-columns: 1fr;
       }
 
-      .px-hero.v2{
-        padding:26px 22px;
+      .px-hero.v2 {
+        padding: 26px 22px;
       }
     }
   </style>
 </head>
+
 <body>
+  <div class="px-app">
 
-<div class="px-app">
-
-  <aside class="px-sidebar">
-    <div class="px-logo">
-      <strong>Project X</strong>
-      <span>Teaching Intelligence Platform</span>
-    </div>
-
-    <nav>
-      <a class="active" href="index.html">Dashboard</a>
-
-      <div class="px-nav-label">Professional Hub</div>
-      <a href="../index.html">Home</a>
-      <a href="../career.html">Career</a>
-      <a href="../teaching-evidence-centre.html">Teaching Evidence</a>
-      <a href="../recommendations.html">Recommendations</a>
-      <a href="../contact.html">Contact</a>
-
-      <div class="px-nav-label">Teaching Workspace</div>
-      <a href="curriculum.html">Curriculum</a>
-      <a href="assessment.html">Assessment</a>
-      <a href="revision.html">Revision</a>
-      <a href="question-banks.html">Question Banks</a>
-      <a href="tools.html">Tools</a>
-
-      <div class="px-nav-label">Exit</div>
-      <a href="../index.html">Main Website</a>
-    </nav>
-  </aside>
-
-  <main class="px-main">
-
-    <section class="px-hero v2">
-      <div>
-        <div class="px-eyebrow">Professional Hub • Teaching Workspace • Evidence • AI</div>
-        <h1>Project X</h1>
-        <p>
-          A professional teaching intelligence platform combining my recruiter-ready portfolio
-          with curriculum, assessment, revision, question-bank and teaching evidence tools.
-        </p>
-
-        <div class="px-actions">
-          <a class="px-btn primary" href="../teaching-evidence-centre.html">Open Teaching Evidence</a>
-          <a class="px-btn secondary" href="../career.html">View Career Profile</a>
-          <a class="px-btn secondary" href="../recommendations.html">Recommendations</a>
-        </div>
+    <aside class="px-sidebar">
+      <div class="px-logo">
+        <strong>Project X</strong>
+        <span>Teaching Intelligence Platform</span>
       </div>
-    </section>
 
-    <section class="px-stats v2">
-      <div class="px-stat"><span>Total Apps</span><strong id="statApps">0</strong></div>
-      <div class="px-stat"><span>Professional Pages</span><strong id="statProfessional">0</strong></div>
-      <div class="px-stat"><span>Teaching Apps</span><strong id="statWorkspace">0</strong></div>
-      <div class="px-stat"><span>QTS Status</span><strong>Final</strong></div>
-    </section>
+      <nav>
+        <a class="active" href="index.html">Dashboard</a>
 
-    <section class="px-section v2">
-      <div class="px-section-head">
+        <div class="px-nav-label">Professional Hub</div>
+        <a href="../index.html">Home</a>
+        <a href="../career.html">Career</a>
+        <a href="../teaching-evidence-centre.html">Teaching Evidence</a>
+        <a href="../professional/recommendations.html">Recommendations</a>
+        <a href="../contact.html">Contact</a>
+
+        <div class="px-nav-label">Teaching Workspace</div>
+        <a href="apps/curriculum/index.html">Curriculum</a>
+        <a href="apps/assessment/index.html">Assessment</a>
+        <a href="apps/revision/index.html">Revision</a>
+        <a href="apps/question-banks/index.html">Question Banks</a>
+        <a href="apps/tools/index.html">Tools</a>
+        <a href="apps/ai-lab/index.html">AI Lab</a>
+        <a href="apps/analytics/index.html">Analytics</a>
+        <a href="apps/admin/index.html">Administration</a>
+
+        <div class="px-nav-label">Exit</div>
+        <a href="../index.html">Main Website</a>
+      </nav>
+    </aside>
+
+    <main class="px-main">
+
+      <section class="px-hero v2">
         <div>
-          <h2>Application Dashboard</h2>
-          <p>Open portfolio pages, teaching tools, dashboards and evidence resources.</p>
-        </div>
-        <input id="pxSearch" class="px-search" placeholder="Search Project X...">
-      </div>
+          <div class="px-eyebrow">Professional Hub • Teaching Workspace • Evidence • AI</div>
+          <h1>Project X</h1>
+          <p>
+            A professional teaching intelligence platform combining my recruiter-ready portfolio
+            with curriculum, assessment, revision, question-bank and teaching evidence tools.
+          </p>
 
-      <div id="pxContent"></div>
-    </section>
-
-  </main>
-</div>
-
-<script>
-async function loadApps() {
-  const content = document.getElementById("pxContent");
-  const search = document.getElementById("pxSearch");
-
-  const professionalCategories = ["Professional Hub", "Portfolio", "Evidence"];
-
-  function safe(value) {
-    return String(value || "").replace(/[&<>"']/g, function(char) {
-      return {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      }[char];
-    });
-  }
-
-  function isProfessional(app) {
-    return professionalCategories.includes(app.category);
-  }
-
-  function sortApps(list) {
-    return [...list].sort((a, b) => {
-      const priorityA = Number(a.priority || 0);
-      const priorityB = Number(b.priority || 0);
-      if (priorityA !== priorityB) return priorityB - priorityA;
-      return String(a.title).localeCompare(String(b.title));
-    });
-  }
-
-  function sectionTemplate(title, description, apps) {
-    if (!apps.length) return "";
-
-    return `
-      <section class="px-dashboard-group">
-        <div class="px-group-head">
-          <div>
-            <h2>${safe(title)}</h2>
-            <p>${safe(description)}</p>
+          <div class="px-actions">
+            <a class="px-btn primary" href="../teaching-evidence-centre.html">Open Teaching Evidence</a>
+            <a class="px-btn secondary" href="../career.html">View Career Profile</a>
+            <a class="px-btn secondary" href="../professional/recommendations.html">Recommendations</a>
           </div>
-          <span class="px-count">${apps.length} item${apps.length === 1 ? "" : "s"}</span>
-        </div>
-
-        <div class="px-grid v2">
-          ${apps.map(app => `
-            <a class="px-card v2" href="${safe(app.url)}">
-              <div class="px-card-top">
-                <div class="px-icon">${safe(app.icon)}</div>
-                <span class="px-category">${safe(app.category)}</span>
-              </div>
-              <h3>${safe(app.title)}</h3>
-              <p>${safe(app.description)}</p>
-              <span class="px-open">Open →</span>
-            </a>
-          `).join("")}
         </div>
       </section>
-    `;
-  }
 
-  try {
-    const response = await fetch("../data/projectx_registry.json", { cache: "no-store" });
-    const data = await response.json();
-    const apps = data.apps || [];
+      <section class="px-stats v2">
+        <div class="px-stat">
+          <span>Total Apps</span>
+          <strong id="statApps">0</strong>
+        </div>
 
-    function render(list) {
-      const professional = sortApps(list.filter(isProfessional));
-      const workspace = sortApps(list.filter(app => !isProfessional(app)));
+        <div class="px-stat">
+          <span>Professional Pages</span>
+          <strong id="statProfessional">0</strong>
+        </div>
 
-      content.innerHTML =
-        sectionTemplate(
-          "Professional Hub",
-          "Recruiter-ready pages: career profile, teaching evidence, recommendations, AI practice and contact routes.",
-          professional
-        ) +
-        sectionTemplate(
-          "Teaching Workspace",
-          "Project X tools for curriculum, assessment, revision, question banks and future analytics.",
-          workspace
-        );
+        <div class="px-stat">
+          <span>Teaching Apps</span>
+          <strong id="statWorkspace">0</strong>
+        </div>
 
-      if (!list.length) {
-        content.innerHTML = `<div class="px-empty">No results found. Try another search term.</div>`;
+        <div class="px-stat">
+          <span>QTS Status</span>
+          <strong>Recommended</strong>
+        </div>
+      </section>
+
+      <section class="px-section v2">
+        <div class="px-section-head">
+          <div>
+            <h2>Application Dashboard</h2>
+            <p>Open portfolio pages, teaching tools, dashboards and evidence resources.</p>
+          </div>
+
+          <input id="pxSearch" class="px-search" placeholder="Search Project X..." />
+        </div>
+
+        <div id="pxContent">
+          <div class="px-empty">
+            Loading Project X registry...
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    async function loadApps() {
+      const content = document.getElementById("pxContent");
+      const search = document.getElementById("pxSearch");
+
+      const professionalCategories = [
+        "Professional Hub",
+        "Portfolio",
+        "Evidence"
+      ];
+
+      function safe(value) {
+        return String(value || "").replace(/[&<>"']/g, function(char) {
+          return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+          }[char];
+        });
       }
 
-      document.getElementById("statApps").textContent = apps.length;
-      document.getElementById("statProfessional").textContent = apps.filter(isProfessional).length;
-      document.getElementById("statWorkspace").textContent = apps.filter(app => !isProfessional(app)).length;
+      function isProfessional(app) {
+        return professionalCategories.includes(app.category);
+      }
+
+      function sortApps(list) {
+        return [...list].sort((a, b) => {
+          const priorityA = Number(a.priority || 0);
+          const priorityB = Number(b.priority || 0);
+
+          if (priorityA !== priorityB) {
+            return priorityB - priorityA;
+          }
+
+          return String(a.title || "").localeCompare(String(b.title || ""));
+        });
+      }
+
+      function normaliseUrl(url) {
+        if (!url) return "#";
+
+        if (
+          url.startsWith("http://") ||
+          url.startsWith("https://") ||
+          url.startsWith("#")
+        ) {
+          return url;
+        }
+
+        if (url.startsWith("./")) {
+          return "../" + url.slice(2);
+        }
+
+        return url;
+      }
+
+      function sectionTemplate(title, description, apps) {
+        if (!apps.length) return "";
+
+        return `
+          <section class="px-dashboard-group">
+            <div class="px-group-head">
+              <div>
+                <h2>${safe(title)}</h2>
+                <p>${safe(description)}</p>
+              </div>
+
+              <span class="px-count">
+                ${apps.length} item${apps.length === 1 ? "" : "s"}
+              </span>
+            </div>
+
+            <div class="px-grid v2">
+              ${apps.map(app => `
+                <a class="px-card v2" href="${safe(normaliseUrl(app.url))}">
+                  <div class="px-card-top">
+                    <div class="px-icon">${safe(app.icon || "📘")}</div>
+                    <span class="px-category">${safe(app.category || "Project X")}</span>
+                  </div>
+
+                  <h3>${safe(app.title || "Untitled App")}</h3>
+                  <p>${safe(app.description || "")}</p>
+                  <span class="px-open">Open →</span>
+                </a>
+              `).join("")}
+            </div>
+          </section>
+        `;
+      }
+
+      try {
+        const response = await fetch("../data/projectx_registry.json", {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error("Registry request failed: " + response.status);
+        }
+
+        const data = await response.json();
+        const apps = Array.isArray(data.apps) ? data.apps : [];
+
+        function render(list) {
+          const professional = sortApps(list.filter(isProfessional));
+          const workspace = sortApps(list.filter(app => !isProfessional(app)));
+
+          content.innerHTML =
+            sectionTemplate(
+              "Professional Hub",
+              "Recruiter-ready pages: career profile, teaching evidence, recommendations, AI practice and contact routes.",
+              professional
+            ) +
+            sectionTemplate(
+              "Teaching Workspace",
+              "Project X tools for curriculum, assessment, revision, question banks, AI, analytics and administration.",
+              workspace
+            );
+
+          if (!list.length) {
+            content.innerHTML = `
+              <div class="px-empty">
+                No results found. Try another search term.
+              </div>
+            `;
+          }
+
+          document.getElementById("statApps").textContent = apps.length;
+          document.getElementById("statProfessional").textContent =
+            apps.filter(isProfessional).length;
+          document.getElementById("statWorkspace").textContent =
+            apps.filter(app => !isProfessional(app)).length;
+        }
+
+        search.addEventListener("input", () => {
+          const q = search.value.toLowerCase().trim();
+
+          const filteredApps = apps.filter(app =>
+            String(app.title || "").toLowerCase().includes(q) ||
+            String(app.category || "").toLowerCase().includes(q) ||
+            String(app.section || "").toLowerCase().includes(q) ||
+            String(app.description || "").toLowerCase().includes(q)
+          );
+
+          render(filteredApps);
+        });
+
+        render(apps);
+
+      } catch (error) {
+        console.error("Project X Registry Error:", error);
+
+        content.innerHTML = `
+          <div class="px-empty">
+            <strong>Registry not loaded.</strong><br>
+            Check that <code>data/projectx_registry.json</code> exists and contains valid JSON.
+          </div>
+        `;
+      }
     }
 
-    search.addEventListener("input", () => {
-      const q = search.value.toLowerCase();
-      render(apps.filter(app =>
-        String(app.title).toLowerCase().includes(q) ||
-        String(app.category).toLowerCase().includes(q) ||
-        String(app.description).toLowerCase().includes(q)
-      ));
-    });
-
-    render(apps);
-
-  } catch (error) {
-    content.innerHTML = `
-      <div class="px-empty">
-        <strong>Registry not loaded.</strong><br>
-        Check that data/projectx_registry.json exists and contains valid JSON.
-      </div>
-    `;
-  }
-}
-
-loadApps();
-</script>
-<script src="core/registry-engine.js"></script>
+    loadApps();
+  </script>
 </body>
 </html>
