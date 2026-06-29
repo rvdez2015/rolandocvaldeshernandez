@@ -1,9 +1,8 @@
-```json
 {
   "title": "Project X",
   "subtitle": "Teaching Intelligence Platform",
   "description": "A professional collection of portfolio pages, curriculum tools, assessment dashboards, revision resources, question banks, analytics and teaching applications.",
-  "version": "2.0",
+  "version": "2.1",
   "updated": "2026-06-29",
   "apps": [
     {
@@ -42,7 +41,7 @@
       "section": "Professional Hub",
       "icon": "⭐",
       "description": "Professional references, recommendation form and published testimonials.",
-      "url": "../recommendations.html",
+      "url": "../professional/recommendations.html",
       "status": "Live",
       "priority": 5
     },
@@ -68,94 +67,103 @@
     },
     {
       "title": "Curriculum Centre",
-      "category": "Curriculum",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
-      "icon": "📚",
-      "description": "Central workspace for schemes of work, curriculum planning, lesson sequencing and unit organisation.",
-      "url": "apps/curriculum/",
-      "status": "Live",
+      "icon": "🧭",
+      "description": "Curriculum maps, schemes of work, lesson sequencing and subject coverage.",
+      "url": "apps/curriculum/index.html",
+      "status": "In Development",
       "priority": 5
     },
     {
       "title": "Assessment Centre",
-      "category": "Assessment",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
       "icon": "📊",
-      "description": "Assessment dashboard for mock results, question-level analysis, trackers and future grade analytics.",
-      "url": "apps/assessment/",
-      "status": "Live",
+      "description": "Assessment tracking, marks analysis, feedback workflows and progress evidence.",
+      "url": "apps/assessment/index.html",
+      "status": "In Development",
       "priority": 5
     },
     {
       "title": "Revision Centre",
-      "category": "Revision",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
-      "icon": "🧠",
-      "description": "GCSE and A Level revision hub containing review banks, practice resources and structured revision tools.",
-      "url": "apps/revision/",
-      "status": "Live",
-      "priority": 5
-    },
-    {
-      "title": "Question Banks",
-      "category": "Question Banks",
-      "section": "Teaching Workspace",
-      "icon": "❓",
-      "description": "Question-bank workspace for OCR GCSE and A Level Computer Science resources.",
-      "url": "apps/question-banks/",
-      "status": "Live",
-      "priority": 5
-    },
-    {
-      "title": "Teaching Tools",
-      "category": "Teaching Tools",
-      "section": "Teaching Workspace",
-      "icon": "🛠️",
-      "description": "Workspace for lesson tools, resource generators, planning utilities and classroom support applications.",
-      "url": "apps/tools/",
-      "status": "Beta",
+      "icon": "📚",
+      "description": "Revision resources, exam preparation, topic checklists and student study pathways.",
+      "url": "apps/revision/index.html",
+      "status": "In Development",
       "priority": 4
     },
     {
-      "title": "Analytics Centre",
-      "category": "Analytics",
+      "title": "Question Banks",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
-      "icon": "📈",
-      "description": "Future analytics workspace for attainment, progress, assessment trends and teaching impact.",
-      "url": "apps/analytics/",
-      "status": "Coming Soon",
-      "priority": 3
+      "icon": "❓",
+      "description": "Reusable questions, exam-style prompts, quizzes and retrieval practice resources.",
+      "url": "apps/question-banks/index.html",
+      "status": "In Development",
+      "priority": 4
+    },
+    {
+      "title": "Teaching Tools",
+      "category": "Teaching Workspace",
+      "section": "Teaching Workspace",
+      "icon": "🛠️",
+      "description": "Classroom utilities, lesson support tools, templates and reusable teaching assets.",
+      "url": "apps/tools/index.html",
+      "status": "In Development",
+      "priority": 4
     },
     {
       "title": "AI Lab",
-      "category": "AI Lab",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
-      "icon": "✨",
-      "description": "AI experimentation area for lesson planning, resource generation, feedback support and workflow design.",
-      "url": "apps/ai-lab/",
-      "status": "Coming Soon",
+      "icon": "🧠",
+      "description": "AI experiments for lesson planning, feedback, differentiation and resource generation.",
+      "url": "apps/ai-lab/index.html",
+      "status": "In Development",
+      "priority": 4
+    },
+    {
+      "title": "Analytics",
+      "category": "Teaching Workspace",
+      "section": "Teaching Workspace",
+      "icon": "📈",
+      "description": "Teaching analytics, assessment insights, curriculum coverage and evidence summaries.",
+      "url": "apps/analytics/index.html",
+      "status": "In Development",
       "priority": 3
     },
     {
-      "title": "Teaching Evidence App",
-      "category": "Evidence",
+      "title": "Administration",
+      "category": "Teaching Workspace",
       "section": "Teaching Workspace",
-      "icon": "🎥",
-      "description": "Project X evidence application for lesson video, standards, reflection, professional review and supporting documents.",
-      "url": "../teaching-evidence-centre.html",
-      "status": "Live",
+      "icon": "⚙️",
+      "description": "Administrative tools, settings, configuration and future platform management.",
+      "url": "apps/admin/index.html",
+      "status": "In Development",
+      "priority": 3
+    },
+    {
+      "title": "QTS Evidence",
+      "category": "Professional Hub",
+      "section": "Evidence",
+      "icon": "✅",
+      "description": "Assessment Only QTS evidence, observation materials and final recommendation status.",
+      "url": "../qts.html",
+      "status": "Recommended for QTS",
       "priority": 5
     },
     {
-      "title": "Administration",
-      "category": "Administration",
-      "section": "Teaching Workspace",
-      "icon": "⚙️",
-      "description": "Future administration area for registry management, settings, indexing and Project X configuration.",
-      "url": "apps/admin/",
-      "status": "Coming Soon",
-      "priority": 2
+      "title": "Observation Dashboards",
+      "category": "Professional Hub",
+      "section": "Evidence",
+      "icon": "🧾",
+      "description": "Interactive observation dashboards, lesson evidence maps and supporting documentation.",
+      "url": "../dashboards/index_ofsted_evidence_map.html",
+      "status": "Live",
+      "priority": 3
     }
   ]
 }
-```
