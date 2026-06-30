@@ -23,6 +23,23 @@
       "status": "Foundation Added",
       "summary": "Adopts exam_system.db as the canonical development database for curriculum, assessment, teaching, AI and analytics, with JSON exports for the current GitHub Pages runtime.",
       "date": "2026-06-30"
+    },
+    {
+      "release": "0.6",
+      "title": "Database-Powered Curriculum Centre",
+      "date": "2026-06-30",
+      "status": "Completed",
+      "summary": "Rebuilt Curriculum Centre around the database-derived curriculum model from Release 0.5.",
+      "features": [
+        "Database curriculum export",
+        "Schemes of Work view",
+        "Year Group filtering",
+        "Scheme filtering",
+        "Unit filtering",
+        "Status filtering",
+        "Database-linked Digital Lesson Twin",
+        "ADR-0008"
+      ]
     }
   ]
 }

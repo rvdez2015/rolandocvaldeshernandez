@@ -22,8 +22,7 @@
           <span class="projectx-status">Operational Module</span>
           <h2>Curriculum Centre</h2>
           <p>
-            Manage reusable units, lessons, teaching assets and planning status. This module now supports
-            create, edit, delete, search, import, export and local persistence.
+            Database-powered curriculum management for Schemes of Work, units, lessons, teaching assets and planning status. This module now reads from the Unified Teaching Database export and supports combined filtering, create, edit, search, import, export and local persistence.
           </p>
         </div>
 
@@ -65,7 +64,7 @@
         const subtitle = document.getElementById("projectxPageSubtitle");
 
         if (title) title.textContent = "Curriculum Centre";
-        if (subtitle) subtitle.textContent = "Operational curriculum, units, lessons and assets";
+        if (subtitle) subtitle.textContent = "Database-powered Schemes of Work, units, lessons and assets";
 
         if (window.ProjectXCurriculum) {
           window.ProjectXCurriculum.initialise();

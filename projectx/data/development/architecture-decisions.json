@@ -27,6 +27,13 @@
         "Legacy tables are retained for audit but not used for new features.",
         "Future OCR specification imports should map into spec_topics and spec_points."
       ]
+    },
+    {
+      "id": "ADR-0008",
+      "title": "Database-Powered Curriculum Centre",
+      "status": "Accepted",
+      "date": "2026-06-30",
+      "document": "documents/architecture/ADR-0008-database-powered-curriculum-centre.md"
     }
   ]
 }
