@@ -1,5 +1,5 @@
 (function () {
-  const STORAGE_KEY = "projectx.curriculum.database.v062";
+  const STORAGE_KEY = "projectx.curriculum.database.v10alpha1.navigation";
   const DATA_URL = "/rolandocvaldeshernandez/projectx/data/curriculum/database-curriculum.json";
   const FALLBACK_URL = "../../data/curriculum/database-curriculum.json";
 
@@ -301,6 +301,116 @@
     `;
   }
 
+
+  function getFilteredContextLabel() {
+    const parts = [];
+    if (state.filters.yearGroup !== "all") parts.push(state.filters.yearGroup);
+    if (state.filters.schemeId !== "all") parts.push(getScheme(state.filters.schemeId)?.title || "Selected Scheme");
+    if (state.filters.unitId !== "all") parts.push(getUnit(state.filters.unitId)?.title || "Selected Unit");
+    if (state.filters.status !== "all") parts.push(state.filters.status);
+    if (state.search.trim()) parts.push(`Search: ${state.search.trim()}`);
+    return parts.length ? parts.join(" → ") : "All curriculum records";
+  }
+
+  function renderNavigationChips() {
+    return `
+      <div class="curriculum-nav-summary">
+        <div>
+          <span class="projectx-status">Navigation Context</span>
+          <strong>${escape(getFilteredContextLabel())}</strong>
+        </div>
+        <div class="curriculum-quick-tabs">
+          <button class="curriculum-tab ${state.activeView === "dashboard" ? "active" : ""}" data-view="dashboard">Overview</button>
+          <button class="curriculum-tab ${state.activeView === "schemes" ? "active" : ""}" data-view="schemes">Schemes</button>
+          <button class="curriculum-tab ${state.activeView === "units" ? "active" : ""}" data-view="units">Units</button>
+          <button class="curriculum-tab ${state.activeView === "lessons" ? "active" : ""}" data-view="lessons">Lessons</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCurriculumTree() {
+    const years = uniqueValues([...visibleSchemes(), ...state.data.units, ...state.data.lessons], "yearGroup");
+    if (!years.length) return `<div class="curriculum-empty">No year groups available.</div>`;
+
+    return `
+      <div class="curriculum-tree-card">
+        <div class="curriculum-tree-header">
+          <span class="projectx-status">Three-click navigator</span>
+          <h3>Curriculum Tree</h3>
+          <p>Year Group → Scheme → Unit → Lesson</p>
+        </div>
+        <div class="curriculum-tree">
+          ${years.map(year => {
+            const schemes = visibleSchemes().filter(scheme => scheme.yearGroup === year);
+            const yearActive = state.filters.yearGroup === year;
+            return `
+              <details class="tree-node" ${yearActive || state.filters.yearGroup === "all" ? "open" : ""}>
+                <summary><button type="button" class="tree-button year ${yearActive ? "active" : ""}" data-tree-year="${escape(year)}">${escape(year)}</button></summary>
+                <div class="tree-children">
+                  ${schemes.map(scheme => {
+                    const schemeActive = state.filters.schemeId === scheme.id;
+                    const units = unitsForScheme(scheme.id);
+                    return `
+                      <details class="tree-node" ${schemeActive || yearActive ? "open" : ""}>
+                        <summary><button type="button" class="tree-button scheme ${schemeActive ? "active" : ""}" data-tree-scheme="${escape(scheme.id)}">${escape(scheme.title)}</button></summary>
+                        <div class="tree-children">
+                          ${units.map(unit => {
+                            const unitActive = state.filters.unitId === unit.id || state.selectedUnitId === unit.id;
+                            const lessons = lessonsForUnit(unit.id);
+                            return `
+                              <details class="tree-node" ${unitActive ? "open" : ""}>
+                                <summary><button type="button" class="tree-button unit ${unitActive ? "active" : ""}" data-tree-unit="${escape(unit.id)}">${escape(unit.title)}</button></summary>
+                                <div class="tree-children lesson-branch">
+                                  ${lessons.map(lesson => `<button type="button" class="tree-button lesson ${state.selectedLessonId === lesson.id ? "active" : ""}" data-tree-lesson="${escape(lesson.id)}">${escape(lesson.lessonNumber || lesson.sequenceIndex || "")}. ${escape(lesson.title)}</button>`).join("")}
+                                </div>
+                              </details>
+                            `;
+                          }).join("")}
+                        </div>
+                      </details>
+                    `;
+                  }).join("")}
+                </div>
+              </details>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCurriculumHealth() {
+    const lessons = filteredLessons();
+    const total = lessons.length || 1;
+    const completed = lessons.filter(lesson => String(lesson.status || "").toLowerCase().includes("complete")).length;
+    const twins = lessons.filter(lesson => lesson.digitalLessonTwin).length;
+    const resources = state.data.resources.filter(resource => lessons.some(lesson => lesson.id === resource.lessonId)).length;
+    const completedPct = Math.round((completed / total) * 100);
+    const twinPct = Math.round((twins / total) * 100);
+    return `
+      <div class="projectx-card curriculum-health-card">
+        <h3>Curriculum Health</h3>
+        <div class="curriculum-progress-row"><span>Completion</span><strong>${completedPct}%</strong><div class="curriculum-progress"><i style="width:${completedPct}%"></i></div></div>
+        <div class="curriculum-progress-row"><span>Digital Lesson Twins</span><strong>${twinPct}%</strong><div class="curriculum-progress"><i style="width:${twinPct}%"></i></div></div>
+        <div class="curriculum-progress-row"><span>Linked Assets</span><strong>${resources}</strong><div class="curriculum-progress"><i style="width:${Math.min(100, resources)}%"></i></div></div>
+      </div>
+    `;
+  }
+
+  function renderTeachingTimeline() {
+    const units = filteredUnits().slice(0, 12);
+    if (!units.length) return `<div class="curriculum-empty">No units available for the current navigation context.</div>`;
+    return `
+      <div class="projectx-card curriculum-timeline-card">
+        <h3>Teaching Sequence</h3>
+        <div class="curriculum-timeline">
+          ${units.map(unit => `<button class="timeline-item" data-tree-unit="${escape(unit.id)}"><span>${escape(unit.yearGroup)}</span><strong>${escape(unit.title)}</strong><em>${lessonsForUnit(unit.id).length} lessons</em></button>`).join("")}
+        </div>
+      </div>
+    `;
+  }
+
   function renderKPIs() {
     const schemes = filteredSchemes().length;
     const units = filteredUnits().length;
@@ -322,20 +432,24 @@
       ${renderKPIs()}
       <div class="projectx-grid">
         <div class="projectx-card">
-          <span class="projectx-status">Release 0.6.2</span>
-          <h3>Database-Powered Curriculum Centre</h3>
-          <p>The Curriculum Centre now reads from the database-derived curriculum model, with year groups inherited through Scheme → Unit → Lesson relationships.</p>
+          <span class="projectx-status">Release 1.0 Alpha.1</span>
+          <h3>Curriculum Intelligence Centre</h3>
+          <p>Phase 1 introduces tree navigation, persistent filters, curriculum health and faster three-click access to schemes, units and lessons.</p>
+        </div>
+        <div class="projectx-card">
+          <span class="projectx-status">Three Click Rule</span>
+          <h3>Year → Unit → Lesson</h3>
+          <p>The curriculum tree keeps every lesson reachable through a consistent hierarchy rather than long tables or disconnected filters.</p>
         </div>
         <div class="projectx-card">
           <span class="projectx-status">Single Source</span>
-          <h3>Scheme → Unit → Lesson</h3>
-          <p>Schemes of Work, units and lessons are connected by database identifiers and displayed as one canonical curriculum structure.</p>
+          <h3>Database Curriculum</h3>
+          <p>Schemes, units and lessons still inherit their context from the database-derived Scheme → Unit → Lesson model.</p>
         </div>
-        <div class="projectx-card">
-          <span class="projectx-status">Filters</span>
-          <h3>Curriculum Navigation</h3>
-          <p>Use year group, scheme, unit, status and search filters together to navigate the database curriculum quickly.</p>
-        </div>
+      </div>
+      <div class="curriculum-dashboard-grid">
+        ${renderCurriculumHealth()}
+        ${renderTeachingTimeline()}
       </div>
       <div class="projectx-card" style="margin-top:20px;">
         <h3>Filtered Lesson Timeline</h3>
@@ -566,7 +680,7 @@
     const workspace = document.getElementById("moduleWorkspace");
     const title = document.getElementById("moduleTitle");
     if (!workspace) return;
-    const titles = { dashboard: "Curriculum Dashboard", units: "Units", lessons: "Lessons", schemes: "Schemes of Work", resources: "Teaching Assets", planner: "Planner", settings: "Settings" };
+    const titles = { dashboard: "Curriculum Intelligence Dashboard", units: "Unit Workspace", lessons: "Lesson Library", schemes: "Schemes of Work", resources: "Teaching Assets", planner: "Planner", settings: "Settings" };
     if (title) title.textContent = titles[state.activeView] || "Curriculum Centre";
     let body = "";
     if (state.activeView === "dashboard") body = renderDashboard();
@@ -576,7 +690,7 @@
     if (state.activeView === "resources") body = renderResources();
     if (state.activeView === "planner") body = renderPlanner();
     if (state.activeView === "settings") body = renderSettings();
-    workspace.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${body}${renderModal()}`;
+    workspace.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${renderNavigationChips()}<div class="curriculum-intelligence-layout"><aside class="curriculum-tree-sidebar">${renderCurriculumTree()}</aside><section class="curriculum-intelligence-main">${body}</section></div>${renderModal()}`;
     bindEvents();
   }
 
@@ -588,6 +702,10 @@
     document.getElementById("statusFilter")?.addEventListener("change", e => { state.filters.status = e.target.value; saveFilters(); render(); });
     document.getElementById("clearFiltersBtn")?.addEventListener("click", () => { state.search = ""; state.filters = { yearGroup: "all", schemeId: "all", unitId: "all", status: "all" }; saveFilters(); render(); });
     document.querySelectorAll("[data-filter-scheme]").forEach(btn => btn.addEventListener("click", () => { state.filters.schemeId = btn.dataset.filterScheme; state.activeView = "units"; saveFilters(); render(); }));
+    document.querySelectorAll("[data-tree-year]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); state.filters.yearGroup = btn.dataset.treeYear; state.filters.schemeId = "all"; state.filters.unitId = "all"; state.selectedUnitId = null; state.activeView = "dashboard"; saveFilters(); render(); }));
+    document.querySelectorAll("[data-tree-scheme]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); state.filters.schemeId = btn.dataset.treeScheme; state.filters.unitId = "all"; state.selectedUnitId = null; state.activeView = "units"; saveFilters(); render(); }));
+    document.querySelectorAll("[data-tree-unit]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); const unit = getUnit(btn.dataset.treeUnit); if (!unit) return; state.selectedUnitId = unit.id; state.filters.yearGroup = unit.yearGroup || state.filters.yearGroup; state.filters.schemeId = unit.schemeId || "all"; state.filters.unitId = unit.id; state.activeView = "units"; saveFilters(); render(); }));
+    document.querySelectorAll("[data-tree-lesson]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); openLessonTwin(btn.dataset.treeLesson); }));
 
     document.getElementById("newUnitBtn")?.addEventListener("click", () => openModal("unit"));
     document.getElementById("newLessonBtn")?.addEventListener("click", () => openModal("lesson"));
@@ -597,7 +715,7 @@
     document.querySelectorAll("[data-edit-unit]").forEach(btn => btn.addEventListener("click", () => openModal("unit", btn.dataset.editUnit)));
     document.querySelectorAll("[data-edit-lesson]").forEach(btn => btn.addEventListener("click", () => openModal("lesson", btn.dataset.editLesson)));
     document.querySelectorAll("[data-edit-resource]").forEach(btn => btn.addEventListener("click", () => openModal("resource", btn.dataset.editResource)));
-    document.querySelectorAll("[data-view-lesson]").forEach(btn => btn.addEventListener("click", () => { const title = document.getElementById("moduleTitle"); if (title) title.textContent = "Digital Lesson Twin"; const ws = document.getElementById("moduleWorkspace"); if (ws) ws.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${renderLessonTwin(btn.dataset.viewLesson)}${renderModal()}`; bindEvents(); }));
+    document.querySelectorAll("[data-view-lesson]").forEach(btn => btn.addEventListener("click", () => openLessonTwin(btn.dataset.viewLesson)));
     document.querySelectorAll("[data-delete-unit]").forEach(btn => btn.addEventListener("click", () => deleteUnit(btn.dataset.deleteUnit)));
     document.getElementById("unitForm")?.addEventListener("submit", saveUnitForm);
     document.getElementById("lessonForm")?.addEventListener("submit", saveLessonForm);
@@ -605,6 +723,22 @@
     document.getElementById("exportCurriculumBtn")?.addEventListener("click", exportData);
     document.getElementById("resetCurriculumBtn")?.addEventListener("click", () => { if (confirm("Reset local curriculum data to the database seed?")) resetData(); });
     document.getElementById("importCurriculumFile")?.addEventListener("change", event => { const file = event.target.files[0]; if (file) importData(file); });
+  }
+
+  function openLessonTwin(lessonId) {
+    const lesson = getLesson(lessonId);
+    if (!lesson) return;
+    state.selectedLessonId = lesson.id;
+    state.selectedUnitId = lesson.unitId;
+    state.filters.yearGroup = lesson.yearGroup || state.filters.yearGroup;
+    state.filters.schemeId = lesson.schemeId || state.filters.schemeId;
+    state.filters.unitId = lesson.unitId || state.filters.unitId;
+    saveFilters();
+    const title = document.getElementById("moduleTitle");
+    if (title) title.textContent = "Digital Lesson Twin";
+    const ws = document.getElementById("moduleWorkspace");
+    if (ws) ws.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${renderNavigationChips()}<div class="curriculum-intelligence-layout"><aside class="curriculum-tree-sidebar">${renderCurriculumTree()}</aside><section class="curriculum-intelligence-main">${renderLessonTwin(lesson.id)}</section></div>${renderModal()}`;
+    bindEvents();
   }
 
   function openModal(mode, id = null) { state.modalMode = mode; state.editingId = id; render(); }

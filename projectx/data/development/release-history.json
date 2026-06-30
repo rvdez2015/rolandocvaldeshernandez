@@ -1,6 +1,13 @@
 {
   "releases": [
     {
+      "version": "1.0 Alpha.1",
+      "title": "Curriculum Intelligence Centre \u2014 Phase 1 Navigation",
+      "date": "2026-06-30",
+      "status": "Completed",
+      "summary": "Introduced the Curriculum Intelligence Centre navigation model with a persistent Curriculum Tree, Year Group \u2192 Scheme \u2192 Unit \u2192 Lesson browsing, navigation context, curriculum health indicators and fast teaching sequence access."
+    },
+    {
       "version": "0.6.2",
       "title": "Inherited Year Group Mapping Fix",
       "date": "2026-06-30",

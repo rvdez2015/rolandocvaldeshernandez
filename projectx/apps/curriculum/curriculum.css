@@ -270,3 +270,237 @@
     width: 100%;
   }
 }
+/* Release 1.0 Alpha.1 — Curriculum Intelligence Navigation */
+.curriculum-nav-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--px-border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--px-shadow);
+}
+
+.curriculum-nav-summary strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--px-text);
+}
+
+.curriculum-quick-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.curriculum-tab {
+  border: 1px solid var(--px-border);
+  background: var(--px-blue-soft);
+  color: var(--px-blue);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.curriculum-tab.active {
+  background: var(--px-blue);
+  color: #fff;
+  border-color: var(--px-blue);
+}
+
+.curriculum-intelligence-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.curriculum-tree-sidebar {
+  position: sticky;
+  top: 18px;
+}
+
+.curriculum-tree-card {
+  background: #fff;
+  border: 1px solid var(--px-border);
+  border-radius: 20px;
+  box-shadow: var(--px-shadow);
+  padding: 16px;
+}
+
+.curriculum-tree-header h3 {
+  margin: 8px 0 4px;
+}
+
+.curriculum-tree-header p {
+  margin: 0 0 14px;
+  color: var(--px-muted);
+  font-size: .9rem;
+}
+
+.curriculum-tree {
+  max-height: 70vh;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.tree-node {
+  margin: 4px 0;
+}
+
+.tree-node summary {
+  list-style: none;
+}
+
+.tree-node summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree-children {
+  margin-left: 14px;
+  padding-left: 10px;
+  border-left: 1px solid var(--px-border);
+}
+
+.lesson-branch {
+  display: grid;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.tree-button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--px-text);
+  text-align: left;
+  padding: 7px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: .9rem;
+}
+
+.tree-button:hover,
+.tree-button.active {
+  background: var(--px-blue-soft);
+  color: var(--px-blue);
+}
+
+.tree-button.year {
+  font-weight: 900;
+  color: var(--px-blue);
+}
+
+.tree-button.scheme {
+  font-weight: 800;
+}
+
+.tree-button.unit {
+  font-weight: 700;
+}
+
+.tree-button.lesson {
+  font-size: .84rem;
+  color: var(--px-muted);
+}
+
+.curriculum-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.curriculum-progress-row {
+  margin-top: 16px;
+}
+
+.curriculum-progress-row span,
+.curriculum-progress-row strong {
+  display: inline-block;
+}
+
+.curriculum-progress-row strong {
+  float: right;
+  color: var(--px-blue);
+}
+
+.curriculum-progress {
+  clear: both;
+  height: 10px;
+  background: var(--px-blue-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.curriculum-progress i {
+  display: block;
+  height: 100%;
+  background: var(--px-blue);
+  border-radius: inherit;
+}
+
+.curriculum-timeline {
+  display: grid;
+  gap: 10px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--px-border);
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.timeline-item:hover {
+  border-color: var(--px-blue);
+  background: var(--px-blue-soft);
+}
+
+.timeline-item span,
+.timeline-item em {
+  color: var(--px-muted);
+  font-size: .82rem;
+}
+
+.timeline-item strong {
+  color: var(--px-text);
+}
+
+@media (max-width: 1180px) {
+  .curriculum-intelligence-layout,
+  .curriculum-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .curriculum-tree-sidebar {
+    position: static;
+  }
+
+  .curriculum-tree {
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 720px) {
+  .curriculum-nav-summary,
+  .timeline-item {
+    display: block;
+  }
+
+  .curriculum-quick-tabs {
+    margin-top: 12px;
+  }
+}
