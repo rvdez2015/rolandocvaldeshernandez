@@ -15,31 +15,17 @@
       ]
     },
     {
-      "id": "ADR-0005",
-      "title": "Unified Curriculum Repository",
+      "id": "ADR-0007",
+      "title": "Unified Teaching Database",
       "status": "Accepted",
       "date": "2026-06-30",
-      "context": "The Lesson Tracker import created complete 2025-2026 curriculum data, but the operational Curriculum Centre was still loading a small seed dataset. This caused imported units and lessons to exist in the repository while not appearing in the Curriculum Centre Lesson Library.",
-      "decision": "Curriculum Centre now loads the canonical curriculum JSON sources: data/curriculum/units.json, data/curriculum/lessons.json, data/curriculum/resources.json, data/delivery/2025-2026.json and data/assessment/2025-2026.json. Local browser storage uses projectx.curriculum.unified.v1 and old operational seed storage is cleared.",
+      "context": "Project X requires one authoritative source of truth for curriculum, assessment, AI outputs and analytics. The uploaded exam_system.db already models these domains.",
+      "decision": "Adopt the SQLite database as the canonical development database and export JSON views for the static web runtime.",
       "consequences": [
-        "Lesson Tracker imports and the Curriculum Centre share one lesson repository.",
-        "Reusable lesson content is separated from academic-year delivery and assessment records.",
-        "All 2025-2026 lessons become available in the Curriculum Centre Lesson Library.",
-        "Future modules can consume one canonical lesson object instead of copying lesson data between modules."
-      ]
-    },
-    {
-      "id": "ADR-0006",
-      "title": "Year Group as a Curriculum Navigation Dimension",
-      "status": "Accepted",
-      "date": "2026-06-30",
-      "context": "The unified repository contains hundreds of reusable lessons across Years 5-13. Teachers need to work by cohort without creating separate duplicated repositories or static pages for each year group.",
-      "decision": "Year Group is treated as a first-class view filter in the Curriculum Centre. Filter options are generated dynamically from the canonical units and lessons, persisted in local browser storage, and applied to dashboard metrics, units, lessons and planning views.",
-      "consequences": [
-        "Curriculum data remains stored once while being viewable by year group.",
-        "New or imported year groups automatically appear in the filter without hard-coded UI changes.",
-        "Search and Year Group filtering can be combined for faster navigation.",
-        "Future modules can reuse the same filter pattern for academic year, class, subject, key stage and exam board."
+        "Schemes, units, lessons, questions, mark schemes and analytics can be connected through one model.",
+        "LocalStorage and JSON become runtime/cache layers, not the long-term source of truth.",
+        "Legacy tables are retained for audit but not used for new features.",
+        "Future OCR specification imports should map into spec_topics and spec_points."
       ]
     }
   ]

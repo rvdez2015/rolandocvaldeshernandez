@@ -1,0 +1,269 @@
+{
+  "release": "Project X v4.0 Release 0.5",
+  "codename": "Unified Teaching Database",
+  "sourceDatabase": "exam_system.db",
+  "metrics": {
+    "schemes_of_work": 5,
+    "scheme_units": 15,
+    "scheme_lessons": 65,
+    "questions": 464,
+    "question_versions": 464,
+    "mark_points": 852,
+    "spec_topics": 13,
+    "spec_points": 38,
+    "students": 24,
+    "teaching_groups": 3,
+    "ai_jobs": 80
+  },
+  "domainTableMap": {
+    "Curriculum Engine": [
+      {
+        "table": "schemes_of_work",
+        "rowCount": null
+      },
+      {
+        "table": "scheme_units",
+        "rowCount": null
+      },
+      {
+        "table": "scheme_lessons",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_spec_points",
+        "rowCount": null
+      },
+      {
+        "table": "unit_spec_points",
+        "rowCount": null
+      },
+      {
+        "table": "spec_topics",
+        "rowCount": null
+      },
+      {
+        "table": "spec_points",
+        "rowCount": null
+      },
+      {
+        "table": "qualifications",
+        "rowCount": null
+      },
+      {
+        "table": "components",
+        "rowCount": null
+      }
+    ],
+    "Assessment Engine": [
+      {
+        "table": "questions",
+        "rowCount": null
+      },
+      {
+        "table": "question_versions",
+        "rowCount": null
+      },
+      {
+        "table": "question_families",
+        "rowCount": null
+      },
+      {
+        "table": "markschemes",
+        "rowCount": null
+      },
+      {
+        "table": "mark_points",
+        "rowCount": null
+      },
+      {
+        "table": "paper_sets",
+        "rowCount": null
+      },
+      {
+        "table": "documents",
+        "rowCount": null
+      },
+      {
+        "table": "exam_sittings",
+        "rowCount": null
+      },
+      {
+        "table": "exam_question_scores",
+        "rowCount": null
+      },
+      {
+        "table": "attempt_sessions",
+        "rowCount": null
+      },
+      {
+        "table": "question_attempts",
+        "rowCount": null
+      },
+      {
+        "table": "marking_results",
+        "rowCount": null
+      },
+      {
+        "table": "responses",
+        "rowCount": null
+      }
+    ],
+    "Teaching Engine": [
+      {
+        "table": "teachers",
+        "rowCount": null
+      },
+      {
+        "table": "teaching_groups",
+        "rowCount": null
+      },
+      {
+        "table": "rooms",
+        "rowCount": null
+      },
+      {
+        "table": "timetable_slots",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_instances",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_sequence_steps",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_deviations",
+        "rowCount": null
+      },
+      {
+        "table": "calendar_events",
+        "rowCount": null
+      },
+      {
+        "table": "term_dates",
+        "rowCount": null
+      }
+    ],
+    "AI Engine": [
+      {
+        "table": "ai_jobs",
+        "rowCount": null
+      },
+      {
+        "table": "ai_outputs",
+        "rowCount": null
+      },
+      {
+        "table": "ai_audit_logs",
+        "rowCount": 80
+      },
+      {
+        "table": "ai_prompt_templates",
+        "rowCount": null
+      }
+    ],
+    "Analytics Engine": [
+      {
+        "table": "lesson_diagnostics",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_recommendations",
+        "rowCount": null
+      },
+      {
+        "table": "lesson_objective_predictions",
+        "rowCount": null
+      },
+      {
+        "table": "concept_mastery",
+        "rowCount": null
+      },
+      {
+        "table": "transition_profiles",
+        "rowCount": null
+      },
+      {
+        "table": "group_transition_profiles",
+        "rowCount": null
+      },
+      {
+        "table": "transition_recommendations",
+        "rowCount": null
+      },
+      {
+        "table": "class_risk_flags",
+        "rowCount": null
+      },
+      {
+        "table": "analytics_snapshots",
+        "rowCount": null
+      }
+    ],
+    "Legacy Migration": []
+  },
+  "schemes": [
+    {
+      "id": 1,
+      "qualification_id": 1,
+      "name": "OCR J277 Default Scheme",
+      "route_type": "full_course",
+      "academic_year_label": null,
+      "target_year_group": 11,
+      "total_planned_minutes": 0,
+      "exam_target_date": null,
+      "active_flag": 1,
+      "notes": "Placeholder scheme created during migration"
+    },
+    {
+      "id": 2,
+      "qualification_id": 2,
+      "name": "OCR H446 Default Scheme",
+      "route_type": "full_course",
+      "academic_year_label": null,
+      "target_year_group": 13,
+      "total_planned_minutes": 0,
+      "exam_target_date": null,
+      "active_flag": 1,
+      "notes": "Placeholder scheme created during migration"
+    },
+    {
+      "id": 3,
+      "qualification_id": 1,
+      "name": "J277 Starter Scheme",
+      "route_type": "full_course",
+      "academic_year_label": "2025/2026",
+      "target_year_group": 11,
+      "total_planned_minutes": 180,
+      "exam_target_date": null,
+      "active_flag": 1,
+      "notes": "Starter seeded scheme"
+    },
+    {
+      "id": 4,
+      "qualification_id": 2,
+      "name": "Scheme of work",
+      "route_type": "full_course",
+      "academic_year_label": null,
+      "target_year_group": null,
+      "total_planned_minutes": 17880,
+      "exam_target_date": null,
+      "active_flag": 1,
+      "notes": "Imported from Scheme of work.xlsx using local SoW parser"
+    },
+    {
+      "id": 5,
+      "qualification_id": 1,
+      "name": "Scheme of work (1)",
+      "route_type": "full_course",
+      "academic_year_label": null,
+      "target_year_group": null,
+      "total_planned_minutes": 6660,
+      "exam_target_date": null,
+      "active_flag": 1,
+      "notes": "Imported from Scheme of work (1).xlsx using local SoW parser"
+    }
+  ]
+}

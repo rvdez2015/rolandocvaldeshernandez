@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-06-30",
+  "database": "exam_system.db",
+  "release": "Project X v4.0 Release 0.5",
+  "tables": [
+    {
+      "name": "ai_audit_logs",
+      "rowCount": 80,
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "primaryKey": true,
+          "notNull": false,
+          "default": null
+        },
+        {
+          "name": "ai_job_id",
+          "type": "INTEGER",
+          "primaryKey": false,
+          "notNull": false,
+          "default": null
+        },
+        {
+          "name": "user_action",
+          "type": "TEXT",
+          "primaryKey": false,
+          "notNull": true,
+          "default": null
+        },
+        {
+          "name": "acted_by",
+          "type": "TEXT",
+          "primaryKey": false,
+          "notNull": false,
+          "default": null
+        },
+        {
+          "name": "acted_at",
+          "type": "TEXT",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "primaryKey": false,
+          "notNull": false,
+          "default": null
+        }
+      ],
+      "foreignKeys": [
+        {
+          "from": "ai_job_id",
+          "toTable": "ai_jobs",
+          "toColumn": "id"
+        }
+      ]
+    }
+  ]
+}

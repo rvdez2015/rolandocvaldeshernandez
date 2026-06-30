@@ -1,16 +1,12 @@
 (function () {
-  const STORAGE_KEY = "projectx.curriculum.unified.v1";
-  const FILTER_STORAGE_KEY = "projectx.curriculum.filters.v1";
-  const LEGACY_STORAGE_KEY = "projectx.curriculum.operational.v1";
-  const DATA_BASE_URL = "/rolandocvaldeshernandez/projectx/data";
-  const REPOSITORY_VERSION = "ADR-0005-unified-curriculum-repository";
+  const STORAGE_KEY = "projectx.curriculum.operational.v1";
+  const SEED_URL = "/rolandocvaldeshernandez/projectx/data/curriculum/curriculum-seed.json";
 
   const state = {
     data: null,
     activeView: "dashboard",
     selectedUnitId: null,
     search: "",
-    selectedYearGroup: "all",
     modalMode: null,
     editingId: null
   };
@@ -47,152 +43,22 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
   }
 
-  async function fetchJson(path) {
-    const response = await fetch(`${DATA_BASE_URL}/${path}`, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Project X data request failed: ${path} (${response.status})`);
-    }
-    return response.json();
-  }
-
-  function normaliseRepository(raw) {
-    const units = (raw.units?.units || raw.units || []).map(unit => ({
-      ...unit,
-      status: unit.status || "Imported",
-      subject: unit.subject || "Computer Science",
-      examBoard: unit.examBoard || unit.programme || "Internal",
-      notes: unit.notes || "Reusable curriculum unit imported from the Lesson Tracker.",
-      lessonCount: 0
-    }));
-
-    const lessons = (raw.lessons?.lessons || raw.lessons || []).map(lesson => ({
-      ...lesson,
-      yearGroup: lesson.yearGroup || units.find(unit => unit.id === lesson.unitId)?.yearGroup || "Unassigned",
-      lessonNumber: Number(lesson.lessonNumber || lesson.sequence || 0),
-      duration: lesson.duration || 45,
-      status: lesson.status || "Imported",
-      type: lesson.type || "lesson",
-      objectives: lesson.objectives || [],
-      vocabulary: lesson.vocabulary || [],
-      misconceptions: lesson.misconceptions || [],
-      reusable: lesson.reusable !== false
-    }));
-
-    const resources = (raw.resources?.resources || raw.resources || []).map(resource => ({
-      ...resource,
-      type: resource.type || "Resource",
-      notes: resource.notes || "Imported teaching asset."
-    }));
-
-    const delivery = raw.delivery?.delivery || raw.delivery || [];
-    const assessments = raw.assessments?.assessments || raw.assessments || [];
-
-    const lessonCounts = lessons.reduce((acc, lesson) => {
-      acc[lesson.unitId] = (acc[lesson.unitId] || 0) + 1;
-      return acc;
-    }, {});
-
-    units.forEach(unit => {
-      unit.lessonCount = lessonCounts[unit.id] || 0;
-      unit.yearGroup = unit.yearGroup || "Unassigned";
-    });
-
-    return {
-      meta: {
-        repositoryVersion: REPOSITORY_VERSION,
-        source: "Unified Curriculum Repository",
-        philosophy: "One lesson object. One storage location. Multiple views.",
-        academicYear: raw.delivery?.metadata?.academicYear || "2025-2026",
-        generatedFrom: "Lesson Tracker 2025-2026 import"
-      },
-      units,
-      lessons,
-      resources,
-      delivery,
-      assessments
-    };
-  }
-
-  function isUnifiedRepository(data) {
-    return data?.meta?.repositoryVersion === REPOSITORY_VERSION && Array.isArray(data.lessons) && data.lessons.length > 50;
-  }
-
   async function loadData() {
     const stored = localStorage.getItem(STORAGE_KEY);
 
     if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (isUnifiedRepository(parsed)) {
-          state.data = parsed;
-          return;
-        }
-      } catch (error) {
-        console.warn("Project X Curriculum: stored unified repository could not be parsed. Reloading from source files.", error);
-      }
+      state.data = JSON.parse(stored);
+      return;
     }
 
-    const [units, lessons, resources, delivery, assessments] = await Promise.all([
-      fetchJson("curriculum/units.json"),
-      fetchJson("curriculum/lessons.json"),
-      fetchJson("curriculum/resources.json"),
-      fetchJson("delivery/2025-2026.json"),
-      fetchJson("assessment/2025-2026.json")
-    ]);
-
-    state.data = normaliseRepository({ units, lessons, resources, delivery, assessments });
-    localStorage.removeItem(LEGACY_STORAGE_KEY);
+    const response = await fetch(SEED_URL, { cache: "no-store" });
+    state.data = await response.json();
     save();
   }
 
   function resetData() {
     localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem(FILTER_STORAGE_KEY);
-    localStorage.removeItem(LEGACY_STORAGE_KEY);
     location.reload();
-  }
-
-  function loadFilters() {
-    try {
-      const stored = JSON.parse(localStorage.getItem(FILTER_STORAGE_KEY) || "{}");
-      state.search = stored.search || "";
-      state.selectedYearGroup = stored.selectedYearGroup || "all";
-    } catch (error) {
-      state.search = "";
-      state.selectedYearGroup = "all";
-    }
-  }
-
-  function saveFilters() {
-    localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify({
-      search: state.search,
-      selectedYearGroup: state.selectedYearGroup
-    }));
-  }
-
-  function getYearGroupValue(item) {
-    if (!item) return "Unassigned";
-    return item.yearGroup || getUnit(item.unitId)?.yearGroup || "Unassigned";
-  }
-
-  function yearGroupSortValue(value) {
-    const match = String(value || "").match(/\d+/);
-    return match ? Number(match[0]) : 999;
-  }
-
-  function availableYearGroups() {
-    const values = new Set();
-    state.data.units.forEach(unit => values.add(getYearGroupValue(unit)));
-    state.data.lessons.forEach(lesson => values.add(getYearGroupValue(lesson)));
-    return [...values].filter(Boolean).sort((a, b) => {
-      const ay = yearGroupSortValue(a);
-      const by = yearGroupSortValue(b);
-      return ay === by ? String(a).localeCompare(String(b)) : ay - by;
-    });
-  }
-
-  function matchesYearGroup(item) {
-    return state.selectedYearGroup === "all" || getYearGroupValue(item) === state.selectedYearGroup;
   }
 
   function exportData() {
@@ -216,7 +82,7 @@
         if (!parsed.units || !parsed.lessons || !parsed.resources) {
           throw new Error("Invalid Project X curriculum export.");
         }
-        state.data = normaliseRepository(parsed);
+        state.data = parsed;
         save();
         render();
         notice("Curriculum data imported successfully.");
@@ -229,23 +95,12 @@
 
   function filteredUnits() {
     const q = state.search.toLowerCase();
-    return state.data.units.filter(unit => {
-      const haystack = [unit.title, unit.yearGroup, unit.keyStage, unit.examBoard, unit.status]
+    return state.data.units.filter(unit =>
+      [unit.title, unit.yearGroup, unit.keyStage, unit.examBoard, unit.status]
         .join(" ")
-        .toLowerCase();
-      return matchesYearGroup(unit) && haystack.includes(q);
-    });
-  }
-
-  function filteredLessons(sourceLessons = state.data.lessons) {
-    const q = state.search.toLowerCase();
-    return sourceLessons.filter(lesson => {
-      const unit = getUnit(lesson.unitId);
-      const haystack = [lesson.title, lesson.status, lesson.yearGroup, unit?.title, unit?.yearGroup, unit?.examBoard]
-        .join(" ")
-        .toLowerCase();
-      return matchesYearGroup(lesson) && haystack.includes(q);
-    });
+        .toLowerCase()
+        .includes(q)
+    );
   }
 
   function lessonsForUnit(unitId) {
@@ -273,29 +128,23 @@
   }
 
   function renderKPIs() {
-    const units = filteredUnits().length;
-    const lessons = filteredLessons().length;
-    const complete = state.data.delivery.filter(l => {
-      const lesson = getLesson(l.lessonId);
-      return lesson && matchesYearGroup(lesson) && (l.completed || String(l.status).toLowerCase() === "completed");
-    }).length;
-    const resources = state.data.resources.filter(resource => {
-      const lesson = getLesson(resource.lessonId);
-      return !lesson || matchesYearGroup(lesson);
-    }).length;
+    const units = state.data.units.length;
+    const lessons = state.data.lessons.length;
+    const complete = state.data.lessons.filter(l => String(l.status).toLowerCase() === "completed").length;
+    const resources = state.data.resources.length;
 
     return `
       <div class="curriculum-kpi-grid">
-        <div class="curriculum-kpi"><span>${state.selectedYearGroup === "all" ? "Units" : state.selectedYearGroup + " Units"}</span><strong>${units}</strong></div>
-        <div class="curriculum-kpi"><span>${state.selectedYearGroup === "all" ? "Lessons" : state.selectedYearGroup + " Lessons"}</span><strong>${lessons}</strong></div>
-        <div class="curriculum-kpi"><span>2025–26 Completed</span><strong>${complete}</strong></div>
+        <div class="curriculum-kpi"><span>Units</span><strong>${units}</strong></div>
+        <div class="curriculum-kpi"><span>Lessons</span><strong>${lessons}</strong></div>
+        <div class="curriculum-kpi"><span>Completed</span><strong>${complete}</strong></div>
         <div class="curriculum-kpi"><span>Assets</span><strong>${resources}</strong></div>
       </div>
     `;
   }
 
   function renderDashboard() {
-    const recent = filteredLessons([...state.data.lessons]).slice(-6).reverse();
+    const recent = [...state.data.lessons].slice(-6).reverse();
 
     return `
       ${renderKPIs()}
@@ -364,8 +213,7 @@
   }
 
   function renderSelectedUnit() {
-    const availableUnits = filteredUnits();
-    const unit = availableUnits.find(item => item.id === state.selectedUnitId) || availableUnits[0];
+    const unit = getUnit(state.selectedUnitId) || filteredUnits()[0];
 
     if (!unit) return `<div class="curriculum-empty">Select or create a unit.</div>`;
 
@@ -385,7 +233,7 @@
 
         <table class="curriculum-table">
           <tbody>
-            <tr><th>Programme / Exam Board</th><td>${escape(unit.examBoard || unit.programme || "Internal")}</td></tr>
+            <tr><th>Exam Board</th><td>${escape(unit.examBoard)}</td></tr>
             <tr><th>Status</th><td>${statusPill(unit.status)}</td></tr>
             <tr><th>Notes</th><td>${escape(unit.notes || "")}</td></tr>
             <tr><th>Lessons</th><td>${lessons.length}</td></tr>
@@ -401,12 +249,18 @@
   }
 
   function renderLessons() {
-    const lessons = filteredLessons();
+    const lessons = state.data.lessons.filter(lesson => {
+      const unit = getUnit(lesson.unitId);
+      const q = state.search.toLowerCase();
+      return [lesson.title, lesson.status, unit?.title, unit?.yearGroup, unit?.examBoard]
+        .join(" ")
+        .toLowerCase()
+        .includes(q);
+    });
 
     return `
       <div class="projectx-card">
         <h3>Lessons Library</h3>
-        <p class="curriculum-filter-summary">Showing ${lessons.length} reusable lessons${state.selectedYearGroup === "all" ? "" : " for " + escape(state.selectedYearGroup)}.</p>
         ${renderLessonsTable(lessons)}
       </div>
     `;
@@ -425,7 +279,6 @@
             <th>Lesson</th>
             <th>Unit</th>
             <th>Status</th>
-            <th>Year</th>
             <th>Duration</th>
             <th>Actions</th>
           </tr>
@@ -435,11 +288,10 @@
             const unit = getUnit(lesson.unitId);
             return `
               <tr>
-                <td>${escape(lesson.lessonNumber || lesson.sequence || "")}</td>
+                <td>${escape(lesson.lessonNumber || "")}</td>
                 <td><strong>${escape(lesson.title)}</strong></td>
                 <td>${escape(unit?.title || "Unlinked")}</td>
                 <td>${statusPill(lesson.status)}</td>
-                <td>${escape(getYearGroupValue(lesson))}</td>
                 <td>${escape(lesson.duration || "")}</td>
                 <td>
                   <div class="curriculum-actions">
@@ -461,65 +313,27 @@
     if (!lesson) return `<div class="curriculum-empty">Lesson not found.</div>`;
     const unit = getUnit(lesson.unitId);
     const resources = resourcesForLesson(lesson.id);
-    const deliveryRecords = (state.data.delivery || []).filter(item => item.lessonId === lesson.id);
-    const assessmentRecords = (state.data.assessments || []).filter(item => item.lessonId === lesson.id);
-    const datesTaught = deliveryRecords.flatMap(item => item.dates || []);
-    const completed = deliveryRecords.some(item => item.completed || String(item.status).toLowerCase() === "completed");
 
     return `
       <div class="projectx-card">
         <span class="projectx-status">Digital Lesson Twin</span>
         <h2>${escape(lesson.title)}</h2>
-        <p>
-          <strong>Unit:</strong> ${escape(unit?.title || "Unlinked")} •
-          <strong>Year:</strong> ${escape(lesson.yearGroup || "")} •
-          <strong>Status:</strong> ${escape(completed ? "Completed in 2025–2026" : lesson.status)}
-        </p>
-
-        <div class="projectx-grid" style="margin-top:20px;">
-          <div class="projectx-card">
-            <h3>Lesson Identity</h3>
-            <table class="curriculum-table">
-              <tbody>
-                <tr><th>Reusable Lesson ID</th><td>${escape(lesson.id)}</td></tr>
-                <tr><th>Sequence</th><td>${escape(lesson.lessonNumber || lesson.sequence || "")}</td></tr>
-                <tr><th>Key Stage</th><td>${escape(lesson.keyStage || "")}</td></tr>
-                <tr><th>Programme</th><td>${escape(lesson.programme || unit?.programme || "")}</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="projectx-card">
-            <h3>2025–2026 Delivery Record</h3>
-            <p><strong>Dates taught:</strong> ${datesTaught.length ? datesTaught.map(escape).join(", ") : "No dates recorded."}</p>
-            <p><strong>Delivery records:</strong> ${deliveryRecords.length}</p>
-          </div>
-
-          <div class="projectx-card">
-            <h3>Assessment Snapshot</h3>
-            ${assessmentRecords.length ? assessmentRecords.map(record => `
-              <p>
-                <strong>${escape(record.type || "Assessment")}</strong><br>
-                Scores: ${escape(record.scoreCount ?? "N/A")} • Average: ${escape(record.averageScore ?? "N/A")} • Range: ${escape(record.minimumScore ?? "N/A")}–${escape(record.maximumScore ?? "N/A")}
-              </p>
-            `).join("") : "<p>No assessment summary recorded.</p>"}
-          </div>
-        </div>
+        <p><strong>Unit:</strong> ${escape(unit?.title || "Unlinked")} • <strong>Status:</strong> ${escape(lesson.status)}</p>
 
         <div class="projectx-grid" style="margin-top:20px;">
           <div class="projectx-card">
             <h3>Learning Objectives</h3>
-            <ul>${(lesson.objectives || []).map(item => `<li>${escape(item)}</li>`).join("") || "<li>No objectives recorded yet.</li>"}</ul>
+            <ul>${(lesson.objectives || []).map(item => `<li>${escape(item)}</li>`).join("") || "<li>No objectives recorded.</li>"}</ul>
           </div>
 
           <div class="projectx-card">
             <h3>Vocabulary</h3>
-            <p>${(lesson.vocabulary || []).map(item => `<span class="curriculum-pill">${escape(item)}</span>`).join(" ") || "No vocabulary recorded yet."}</p>
+            <p>${(lesson.vocabulary || []).map(item => `<span class="curriculum-pill">${escape(item)}</span>`).join(" ") || "No vocabulary recorded."}</p>
           </div>
 
           <div class="projectx-card">
             <h3>Misconceptions</h3>
-            <ul>${(lesson.misconceptions || []).map(item => `<li>${escape(item)}</li>`).join("") || "<li>No misconceptions recorded yet.</li>"}</ul>
+            <ul>${(lesson.misconceptions || []).map(item => `<li>${escape(item)}</li>`).join("") || "<li>No misconceptions recorded.</li>"}</ul>
           </div>
         </div>
       </div>
@@ -578,12 +392,11 @@
   }
 
   function renderPlanner() {
-    const completedLessonIds = new Set((state.data.delivery || []).filter(item => item.completed || String(item.status).toLowerCase() === "completed").map(item => item.lessonId));
-    const planned = filteredLessons(state.data.lessons.filter(l => !completedLessonIds.has(l.id)));
+    const planned = state.data.lessons.filter(l => String(l.status).toLowerCase() !== "completed");
     return `
       <div class="projectx-card">
         <h3>Upcoming / Planned Lessons</h3>
-        <p>This planning view uses the 2025–2026 delivery layer and shows reusable lessons that are not yet marked as completed.</p>
+        <p>This planning view shows lessons not yet marked as completed.</p>
         ${renderLessonsTable(planned)}
       </div>
     `;
@@ -598,7 +411,7 @@
           <button class="curriculum-button" id="exportCurriculumBtn">Export JSON</button>
           <label class="curriculum-button secondary" for="importCurriculumFile">Import JSON</label>
           <input id="importCurriculumFile" type="file" accept="application/json" hidden>
-          <button class="curriculum-button danger" id="resetCurriculumBtn">Reload Unified Repository</button>
+          <button class="curriculum-button danger" id="resetCurriculumBtn">Reset to Seed Data</button>
         </div>
       </div>
     `;
@@ -635,11 +448,6 @@
       <div class="curriculum-toolbar">
         <div class="curriculum-toolbar-left">
           <input id="curriculumSearch" class="curriculum-input" placeholder="Search units, lessons, resources..." value="${escape(state.search)}">
-          <select id="curriculumYearGroupFilter" class="curriculum-select" aria-label="Filter by year group">
-            <option value="all" ${state.selectedYearGroup === "all" ? "selected" : ""}>All Year Groups</option>
-            ${availableYearGroups().map(year => `<option value="${escape(year)}" ${state.selectedYearGroup === year ? "selected" : ""}>${escape(year)}</option>`).join("")}
-          </select>
-          <button class="curriculum-button secondary" id="clearCurriculumFiltersBtn" ${state.search || state.selectedYearGroup !== "all" ? "" : "disabled"}>Clear Filters</button>
         </div>
         <div class="curriculum-toolbar-right">
           <button class="curriculum-button" id="newUnitBtn">New Unit</button>
@@ -748,22 +556,6 @@
   function bindEvents() {
     document.getElementById("curriculumSearch")?.addEventListener("input", (e) => {
       state.search = e.target.value;
-      saveFilters();
-      render();
-    });
-
-    document.getElementById("curriculumYearGroupFilter")?.addEventListener("change", (e) => {
-      state.selectedYearGroup = e.target.value;
-      state.selectedUnitId = null;
-      saveFilters();
-      render();
-    });
-
-    document.getElementById("clearCurriculumFiltersBtn")?.addEventListener("click", () => {
-      state.search = "";
-      state.selectedYearGroup = "all";
-      state.selectedUnitId = null;
-      saveFilters();
       render();
     });
 
@@ -802,7 +594,7 @@
 
     document.getElementById("exportCurriculumBtn")?.addEventListener("click", exportData);
     document.getElementById("resetCurriculumBtn")?.addEventListener("click", () => {
-      if (confirm("Reload the unified curriculum repository from the Project X JSON source files?")) resetData();
+      if (confirm("Reset local curriculum data to the release seed?")) resetData();
     });
     document.getElementById("importCurriculumFile")?.addEventListener("change", (event) => {
       const file = event.target.files[0];
@@ -933,7 +725,6 @@
   window.ProjectXCurriculum = {
     async initialise() {
       await loadData();
-      loadFilters();
       state.activeView = "dashboard";
       render();
       setTimeout(connectModuleNavigation, 300);

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project X Database Architecture</title><link rel="stylesheet" href="../../../assets/projectx-app.css"><style>body{padding:28px;background:#f4f7fb;font-family:system-ui}.card{background:white;border:1px solid #d8e3f8;border-radius:16px;padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.metric{font-size:32px;color:#1f5eff;font-weight:800}code{background:#eef4ff;padding:2px 6px;border-radius:6px}</style></head><body>
+<h1>Project X Database Architecture</h1><p>Release 0.5 — Unified Teaching Database</p><div id="app">Loading database summary...</div>
+<script>
+async function main(){
+ const s=await fetch('../../../data/database/projectx-database-summary.json').then(r=>r.json());
+ const metrics=s.metrics;
+ const metricCards=Object.entries(metrics).map(([k,v])=>`<div class="card"><div class="metric">${v}</div><div>${k.replaceAll('_',' ')}</div></div>`).join('');
+ const domains=Object.entries(s.domainTableMap).map(([name,tables])=>`<div class="card"><h2>${name}</h2><ul>${tables.map(t=>`<li><code>${t.table}</code> — ${t.rowCount ?? 'n/a'} rows</li>`).join('')}</ul></div>`).join('');
+ document.getElementById('app').innerHTML=`<div class="grid">${metricCards}</div><div class="card"><h2>Canonical decision</h2><p>The SQLite database is the development source of truth. Browser modules consume exported JSON views until Project X has a server or local runtime.</p></div>${domains}`;
+}
+main();
+</script></body></html>

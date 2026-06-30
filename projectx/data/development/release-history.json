@@ -17,19 +17,11 @@
       "date": "2026-06-30"
     },
     {
-      "id": "PX-REL-004-041",
-      "name": "Project X v4.0 Release 0.4.1",
-      "codename": "Unified Curriculum Repository",
-      "status": "Implemented",
-      "summary": "Connects the Curriculum Centre Lesson Library to the canonical imported curriculum repository so Lesson Tracker units, lessons, resources, delivery records and assessment summaries are available through one source of truth.",
-      "date": "2026-06-30"
-    },
-    {
-      "id": "PX-REL-004-042",
-      "name": "Project X v4.0 Release 0.4.2",
-      "codename": "Year Group Filtering",
-      "status": "Implemented",
-      "summary": "Adds persistent Year Group filtering across the Curriculum Dashboard, Units Library, Lessons Library and Planner so the 2025-2026 lesson repository can be navigated by teaching cohort without duplicating curriculum data.",
+      "id": "PX-REL-004-005",
+      "name": "Project X v4.0 Release 0.5",
+      "codename": "Unified Teaching Database",
+      "status": "Foundation Added",
+      "summary": "Adopts exam_system.db as the canonical development database for curriculum, assessment, teaching, AI and analytics, with JSON exports for the current GitHub Pages runtime.",
       "date": "2026-06-30"
     }
   ]
