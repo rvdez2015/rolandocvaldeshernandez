@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Standards Centre | Project X</title>
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
+</head>
+<body>
+  <div class="projectx-shell">
+    <div id="projectxSidebar"></div>
+    <main class="projectx-main">
+      <div id="projectxHeader"></div>
+      <section class="projectx-content">
+        <section class="app-dashboard-hero">
+          <small>Release 1.0 Alpha • Privacy by Design • Professional Evidence</small>
+          <h2>Professional Standards Centre</h2>
+          <p>A safe professional compliance space for safeguarding, statutory training, CPD, qualifications and QTS evidence. This module stores professional evidence only and does not store pupil-identifiable data.</p>
+          <div class="workspace-actions" style="margin-top:22px;">
+            <a class="projectx-button" href="#safeguardingList">Open Safeguarding Certificates</a>
+          </div>
+        </section>
+
+        <section class="workspace-kpi-grid">
+          <div class="workspace-kpi"><span>Total Certificates</span><strong id="statTotal">0</strong></div>
+          <div class="workspace-kpi"><span>Current</span><strong id="statCurrent">0</strong></div>
+          <div class="workspace-kpi"><span>Categories</span><strong id="statCategories">0</strong></div>
+          <div class="workspace-kpi"><span>Pupil Data</span><strong>0</strong></div>
+        </section>
+
+        <section class="projectx-card" style="margin-bottom:20px;">
+          <div class="workspace-toolbar">
+            <div class="workspace-title">
+              <h2>Safeguarding Portfolio</h2>
+              <p>Browse professional safeguarding and compliance certificates. Files are stored separately from curriculum and assessment data.</p>
+            </div>
+            <div class="workspace-actions">
+              <input id="certSearch" type="search" placeholder="Search certificates..." style="min-width:260px;height:44px;border:1px solid var(--px-border);border-radius:999px;padding:0 16px;">
+              <select id="categoryFilter" style="height:44px;border:1px solid var(--px-border);border-radius:999px;padding:0 16px;background:white;"></select>
+              <button class="projectx-button" id="clearFilters" type="button">Clear Filters</button>
+            </div>
+          </div>
+          <div class="px-empty"><strong>Privacy rule:</strong> this centre is for professional certificates and compliance evidence only. Do not upload pupil names, SEND information, medical details, safeguarding notes or behaviour records here.</div>
+        </section>
+
+        <section id="safeguardingList" class="app-card-grid"></section>
+      </section>
+    </main>
+  </div>
+  <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
+  <script>
+    const DATA_URL='/rolandocvaldeshernandez/projectx/data/professional-standards/safeguarding-certificates.json';
+    const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    let certificates=[];
+    function render(){
+      const q=document.getElementById('certSearch').value.toLowerCase().trim();
+      const cat=document.getElementById('categoryFilter').value;
+      const list=certificates.filter(c=>{
+        const text=[c.title,c.category,c.provider,c.issueDate,c.status,(c.tags||[]).join(' ')].join(' ').toLowerCase();
+        return (!q || text.includes(q)) && (!cat || c.category===cat);
+      });
+      document.getElementById('safeguardingList').innerHTML=list.map(c=>`<article class="app-card"><div style="display:flex;justify-content:space-between;gap:12px;"><span style="font-size:1.5rem">🛡️</span><small style="font-weight:900;color:var(--px-muted);text-transform:uppercase;letter-spacing:.1em">${safe(c.category)}</small></div><h3>${safe(c.title)}</h3><p><strong>Issue date:</strong> ${safe(c.issueDate || 'Not recorded')}<br><strong>Status:</strong> ${safe(c.status || 'Current')}</p><footer><span class="projectx-status">${safe(c.status || 'Current')}</span><a href="${safe(c.filePath)}" target="_blank" rel="noopener">Open PDF →</a></footer></article>`).join('') || '<div class="px-empty">No certificates match the current filters.</div>';
+    }
+    async function load(){
+      try{
+        const r=await fetch(DATA_URL,{cache:'no-store'}); const data=await r.json(); certificates=data.certificates||[];
+        const cats=[...new Set(certificates.map(c=>c.category).filter(Boolean))].sort();
+        const sel=document.getElementById('categoryFilter'); sel.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option value="${safe(c)}">${safe(c)}</option>`).join('');
+        document.getElementById('statTotal').textContent=certificates.length;
+        document.getElementById('statCurrent').textContent=certificates.filter(c=>(c.status||'Current')==='Current').length;
+        document.getElementById('statCategories').textContent=cats.length;
+        document.getElementById('certSearch').addEventListener('input',render); sel.addEventListener('change',render);
+        document.getElementById('clearFilters').addEventListener('click',()=>{document.getElementById('certSearch').value='';sel.value='';render();});
+        render();
+      }catch(e){console.error(e);document.getElementById('safeguardingList').innerHTML='<div class="px-empty"><strong>Safeguarding data could not be loaded.</strong></div>';}
+      setTimeout(()=>{const t=document.getElementById('projectxPageTitle');const s=document.getElementById('projectxPageSubtitle');if(t)t.textContent='Professional Standards Centre';if(s)s.textContent='Safeguarding, compliance, CPD and professional evidence';},120);
+    }
+    document.addEventListener('DOMContentLoaded',load);
+  </script>
+</body>
+</html>
