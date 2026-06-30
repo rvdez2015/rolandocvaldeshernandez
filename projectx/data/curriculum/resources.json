@@ -2,52 +2,40 @@
   "metadata": {
     "academicYear": "2025-2026",
     "sourceWorkbook": "Lesson Traker 2025-2026.xlsx",
-    "generated": "2026-06-29T15:51:39",
+    "generated": "2026-06-30T00:00:00",
+    "importEngine": "Project X v3.0 Sprint 08",
+    "privacy": "Public-safe export. Student names and individual marks are not included. Only aggregate assessment statistics are exported.",
     "counts": {
-      "units": 102,
+      "units": 101,
       "lessons": 405,
       "deliveryRecords": 405,
-      "assessments": 245,
-      "resources": 2
+      "assessmentRecords": 322,
+      "resources": 1
     },
     "yearGroups": [
-      "Y10",
-      "Y11",
-      "Y12",
-      "Y13",
       "Y5",
       "Y6",
       "Y7",
       "Y8",
-      "Y9"
+      "Y9",
+      "Y10",
+      "Y11",
+      "Y12",
+      "Y13"
     ]
   },
   "resources": [
     {
       "id": "resource-0001",
-      "lessonId": "y8-uncategorised-l01-l1-the-motherboard",
-      "unitId": "y8-uncategorised",
-      "title": "Resource for L1 The Motherboard",
+      "title": "L1 The Motherboard,",
       "url": "https://www.csnewbs.com/ks3-themotherboard",
-      "type": "External Link",
+      "type": "web-link",
+      "lessonId": "lesson-y8-introduction-001-l1-the-motherboard",
+      "unitId": "unit-y8-001-y8-unassigned-introduction",
       "yearGroup": "Y8",
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
         "sheet": "Y8",
-        "row": 3
-      }
-    },
-    {
-      "id": "resource-0002",
-      "lessonId": "y9-unit1-hardware-ks3-computing-l01-l1-the-motherboard",
-      "unitId": "y9-unit1-hardware-ks3-computing",
-      "title": "Resource for L1 The Motherboard",
-      "url": "https://www.csnewbs.com/ks3-themotherboard",
-      "type": "External Link",
-      "yearGroup": "Y9",
-      "source": {
-        "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9",
         "row": 3
       }
     }

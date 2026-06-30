@@ -1,0 +1,20 @@
+{
+  "history": [
+    {
+      "id": "import-2025-2026-lesson-tracker",
+      "sourceType": "Excel Workbook",
+      "sourceFile": "Lesson Traker 2025-2026.xlsx",
+      "academicYear": "2025-2026",
+      "created": "2026-06-30",
+      "engine": "Sprint 08 Real Import Engine",
+      "outputs": [
+        "projectx/data/curriculum/units.json",
+        "projectx/data/curriculum/lessons.json",
+        "projectx/data/curriculum/resources.json",
+        "projectx/data/delivery/2025-2026.json",
+        "projectx/data/assessment/2025-2026.json"
+      ],
+      "privacy": "Student-identifiable data removed before export."
+    }
+  ]
+}

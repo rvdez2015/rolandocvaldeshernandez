@@ -1,0 +1,129 @@
+{
+  "metadata": {
+    "academicYear": "2025-2026",
+    "sourceWorkbook": "Lesson Traker 2025-2026.xlsx",
+    "generated": "2026-06-30T00:00:00",
+    "importEngine": "Project X v3.0 Sprint 08",
+    "privacy": "Public-safe export. Student names and individual marks are not included. Only aggregate assessment statistics are exported.",
+    "counts": {
+      "units": 101,
+      "lessons": 405,
+      "deliveryRecords": 405,
+      "assessmentRecords": 322,
+      "resources": 1
+    },
+    "yearGroups": [
+      "Y5",
+      "Y6",
+      "Y7",
+      "Y8",
+      "Y9",
+      "Y10",
+      "Y11",
+      "Y12",
+      "Y13"
+    ]
+  },
+  "sheetSummaries": [
+    {
+      "sheet": "Y5",
+      "yearGroup": "Y5",
+      "rowsRead": 34,
+      "units": 6,
+      "lessons": 34,
+      "assessmentRecords": 25,
+      "resources": 0,
+      "scoreCellsAggregated": 630
+    },
+    {
+      "sheet": "Y6",
+      "yearGroup": "Y6",
+      "rowsRead": 35,
+      "units": 7,
+      "lessons": 35,
+      "assessmentRecords": 34,
+      "resources": 0,
+      "scoreCellsAggregated": 913
+    },
+    {
+      "sheet": "Y7",
+      "yearGroup": "Y7",
+      "rowsRead": 34,
+      "units": 9,
+      "lessons": 34,
+      "assessmentRecords": 33,
+      "resources": 0,
+      "scoreCellsAggregated": 1021
+    },
+    {
+      "sheet": "Y8",
+      "yearGroup": "Y8",
+      "rowsRead": 30,
+      "units": 8,
+      "lessons": 30,
+      "assessmentRecords": 23,
+      "resources": 1,
+      "scoreCellsAggregated": 621
+    },
+    {
+      "sheet": "Y9",
+      "yearGroup": "Y9",
+      "rowsRead": 36,
+      "units": 8,
+      "lessons": 36,
+      "assessmentRecords": 32,
+      "resources": 0,
+      "scoreCellsAggregated": 187
+    },
+    {
+      "sheet": "Y10",
+      "yearGroup": "Y10",
+      "rowsRead": 43,
+      "units": 12,
+      "lessons": 43,
+      "assessmentRecords": 41,
+      "resources": 0,
+      "scoreCellsAggregated": 358
+    },
+    {
+      "sheet": "Y11",
+      "yearGroup": "Y11",
+      "rowsRead": 94,
+      "units": 26,
+      "lessons": 94,
+      "assessmentRecords": 81,
+      "resources": 0,
+      "scoreCellsAggregated": 832
+    },
+    {
+      "sheet": "Y12",
+      "yearGroup": "Y12",
+      "rowsRead": 57,
+      "units": 16,
+      "lessons": 57,
+      "assessmentRecords": 11,
+      "resources": 0,
+      "scoreCellsAggregated": 7
+    },
+    {
+      "sheet": "Y13",
+      "yearGroup": "Y13",
+      "rowsRead": 42,
+      "units": 9,
+      "lessons": 42,
+      "assessmentRecords": 41,
+      "resources": 0,
+      "scoreCellsAggregated": 80
+    }
+  ],
+  "validation": [
+    {
+      "level": "info",
+      "message": "Student-level scores have been aggregated to protect student privacy on GitHub Pages."
+    },
+    {
+      "level": "info",
+      "message": "Reusable units and lessons are separated from 2025-2026 delivery records."
+    }
+  ]
+}

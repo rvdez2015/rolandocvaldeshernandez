@@ -2,1352 +2,1644 @@
   "metadata": {
     "academicYear": "2025-2026",
     "sourceWorkbook": "Lesson Traker 2025-2026.xlsx",
-    "generated": "2026-06-29T15:51:39",
+    "generated": "2026-06-30T00:00:00",
+    "importEngine": "Project X v3.0 Sprint 08",
+    "privacy": "Public-safe export. Student names and individual marks are not included. Only aggregate assessment statistics are exported.",
     "counts": {
-      "units": 102,
+      "units": 101,
       "lessons": 405,
       "deliveryRecords": 405,
-      "assessments": 245,
-      "resources": 2
+      "assessmentRecords": 322,
+      "resources": 1
     },
     "yearGroups": [
-      "Y10",
-      "Y11",
-      "Y12",
-      "Y13",
       "Y5",
       "Y6",
       "Y7",
       "Y8",
-      "Y9"
+      "Y9",
+      "Y10",
+      "Y11",
+      "Y12",
+      "Y13"
     ]
   },
   "units": [
     {
-      "id": "y5-unit-1-digital-safety",
+      "id": "unit-y5-001-unit-1-digital-safety",
       "title": "Unit 1: Digital Safety",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 4
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y5-unit-2-scratch-jr-basic",
+      "id": "unit-y5-002-unit-2-scratch-jr-basic",
       "title": "Unit 2: Scratch Jr / Basic",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 12
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y5-robotics-logic",
+      "id": "unit-y5-003-robotics-logic",
       "title": "Robotics & Logic",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 20
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y5-computer-hardware",
+      "id": "unit-y5-004-computer-hardware",
       "title": "Computer Hardware",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 27
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y5-know-your-network",
+      "id": "unit-y5-005-know-your-network",
       "title": "Know Your Network",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 33
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y5-developing-for-the-web",
+      "id": "unit-y5-006-developing-for-the-web",
       "title": "Developing for the Web",
       "yearGroup": "Y5",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y5"
+        "sheet": "Y5",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-1-digital-literacy",
+      "id": "unit-y6-001-unit-1-digital-literacy",
       "title": "Unit 1: Digital Literacy",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 4
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-2-creating-media-web-page-creation",
+      "id": "unit-y6-002-unit-2-creating-media-web-page-creation",
       "title": "Unit 2: Creating media – Web page creation",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 12
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-3-intro-to-programming-scratch",
+      "id": "unit-y6-003-unit-3-intro-to-programming-scratch",
       "title": "Unit 3: Intro. to Programming – Scratch",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 14
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-3-programming-a-variables-in-games",
+      "id": "unit-y6-004-unit-3-programming-a-variables-in-games",
       "title": "Unit 3: Programming A – Variables in games",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 20
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-5-data-and-information-introduction-to-spreadsheets",
+      "id": "unit-y6-005-unit-5-data-and-information-introduction-to-spreadsheets",
       "title": "Unit 5: Data and information - Introduction to Spreadsheets",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 27
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-3-programming-a",
+      "id": "unit-y6-006-unit-3-programming-a",
       "title": "Unit 3: Programming A",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 33
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y6-unit-4-data-and-information-flat-file-databases",
+      "id": "unit-y6-007-unit-4-data-and-information-flat-file-databases",
       "title": "Unit 4: Data and information - Flat File Databases",
       "yearGroup": "Y6",
       "keyStage": "KS2",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y6"
+        "sheet": "Y6",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-1-online-safety",
+      "id": "unit-y7-001-unit-1-online-safety",
       "title": "Unit 1: Online Safety",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 4
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-2-computer-systems",
+      "id": "unit-y7-002-unit-2-computer-systems",
       "title": "Unit 2 Computer Systems",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 8
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-3-clear-messaging-in-digital-media",
+      "id": "unit-y7-003-unit-3-clear-messaging-in-digital-media",
       "title": "Unit 3: Clear messaging in digital media",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 12
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-4-networks-from-semaphores-to-the-internet",
+      "id": "unit-y7-004-unit-4-networks-from-semaphores-to-the-internet",
       "title": "Unit 4: Networks from semaphores to the Internet",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 17
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-5-networks-from-semaphores-to-the-internet",
+      "id": "unit-y7-005-unit-5-networks-from-semaphores-to-the-internet",
       "title": "Unit 5: Networks from semaphores to the Internet",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 19
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-6-programming-essentials-in-python-part-i",
+      "id": "unit-y7-006-unit-6-programming-essentials-in-python-part-i",
       "title": "Unit 6: Programming essentials in Python – part I",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 24
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-5-modelling-data-using-spreadsheets",
+      "id": "unit-y7-007-unit-5-modelling-data-using-spreadsheets",
       "title": "Unit 5: Modelling data using spreadsheets",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 32
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-introduction-to-binary-numbers",
+      "id": "unit-y7-008-introduction-to-binary-numbers",
       "title": "Introduction to Binary Numbers",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 35
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y7-unit-6-programming-essentials-in-pythonm-part-i",
+      "id": "unit-y7-009-unit-6-programming-essentials-in-pythonm-part-i",
       "title": "Unit 6: Programming essentials in Pythonm – part I",
       "yearGroup": "Y7",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 9,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y7"
+        "sheet": "Y7",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-uncategorised",
-      "title": "Y8 Uncategorised",
+      "id": "unit-y8-001-y8-unassigned-introduction",
+      "title": "Y8 Unassigned / Introduction",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 3
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-1-hardware-ks3-computing",
+      "id": "unit-y8-002-unit-1-hardware-ks3-computing",
       "title": "Unit 1 Hardware KS3 Computing",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 4
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-2-cybersecurity-ks3-computing",
+      "id": "unit-y8-003-unit-2-cybersecurity-ks3-computing",
       "title": "Unit 2 CyberSecurity KS3 Computing",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 7
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-3-developing-for-the-web",
+      "id": "unit-y8-004-unit-3-developing-for-the-web",
       "title": "Unit 3: Developing for the web",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 12
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-4-app-design-with-app-lab",
+      "id": "unit-y8-005-unit-4-app-design-with-app-lab",
       "title": "Unit 4 App Design with App Lab",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 16
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-5-data-representations-ks3-computing",
+      "id": "unit-y8-006-unit-5-data-representations-ks3-computing",
       "title": "Unit 5: Data Representations KS3 Computing",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 21
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-5-modelling-data-using-spreadsheets",
+      "id": "unit-y8-007-unit-5-modelling-data-using-spreadsheets",
       "title": "Unit 5: Modelling data using spreadsheets",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 26
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y8-unit-6-programming-essentials-in-pythonm-part-i",
+      "id": "unit-y8-008-unit-6-programming-essentials-in-pythonm-part-i",
       "title": "Unit 6: Programming essentials in Pythonm – part I",
       "yearGroup": "Y8",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y8"
+        "sheet": "Y8",
+        "firstRow": 32
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit1-hardware-ks3-computing",
+      "id": "unit-y9-001-unit1-hardware-ks3-computing",
       "title": "Unit1: Hardware KS3 Computing",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 3
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-2-cybersecurity-ks3-computing",
+      "id": "unit-y9-002-unit-2-cybersecurity-ks3-computing",
       "title": "Unit 2. CyberSecurity KS3 Computing",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 9
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-3-data-representations-ks3-computing",
+      "id": "unit-y9-003-unit-3-data-representations-ks3-computing",
       "title": "Unit 3: Data Representations KS3 Computing",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 12
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-4-understanding-binary",
+      "id": "unit-y9-004-unit-4-understanding-binary",
       "title": "Unit 4 Understanding Binary",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 16
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-5-introduction-to-python-programming",
+      "id": "unit-y9-005-unit-5-introduction-to-python-programming",
       "title": "Unit 5: Introduction to Python programming",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 20
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-6-introduction-to-python-programming-cont",
+      "id": "unit-y9-006-unit-6-introduction-to-python-programming-cont",
       "title": "Unit 6: Introduction to Python programming (cont)",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 27
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-7-intro-to-tkinter",
+      "id": "unit-y9-007-unit-7-intro-to-tkinter",
       "title": "Unit 7: Intro to Tkinter",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 33
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y9-unit-8-more-on-tkinter",
+      "id": "unit-y9-008-unit-8-more-on-tkinter",
       "title": "Unit 8: More on Tkinter",
       "yearGroup": "Y9",
       "keyStage": "KS3",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "KS2/KS3 Computing",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y9"
+        "sheet": "Y9",
+        "firstRow": 39
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-1-systems-architecture-ocr-gcse-specification",
+      "id": "unit-y10-001-slr-1-1-systems-architecture-ocr-gcse-specification",
       "title": "SLR 1.1 Systems Architecture OCR GCSE Specification.",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 2
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-2-memory-storage-part-1",
+      "id": "unit-y10-002-slr-1-2-memory-storage-part-1",
       "title": "SLR 1.2 Memory & Storage - Part 1",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 6
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-2-memory-storage-part-2",
+      "id": "unit-y10-003-slr-1-2-memory-storage-part-2",
       "title": "SLR 1.2 Memory & Storage - Part 2",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 17
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-3-computer-networks-connections-and-protocols",
+      "id": "unit-y10-004-slr-1-3-computer-networks-connections-and-protocols",
       "title": "SLR 1.3 Computer networks, connections and protocols",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 22
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-4-network-security",
+      "id": "unit-y10-005-slr-1-4-network-security",
       "title": "SLR 1.4 Network Security",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 28
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-slr-1-5-system-software",
+      "id": "unit-y10-006-slr-1-5-system-software",
       "title": "SLR 1.5 System software",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 32
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-6-impacts",
+      "id": "unit-y10-007-6-impacts",
       "title": "6. Impacts",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 34
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-revision",
-      "title": "Revision",
-      "yearGroup": "Y10",
-      "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
-      "source": {
-        "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
-      },
-      "notes": ""
-    },
-    {
-      "id": "y10-1-algorithms",
+      "id": "unit-y10-008-1-algorithms",
       "title": "1. Algorithms",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-2-programming-fundamentals",
+      "id": "unit-y10-009-2-programming-fundamentals",
       "title": "2. Programming Fundamentals",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 9,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 41
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-3-producing-robust-programs",
+      "id": "unit-y10-010-3-producing-robust-programs",
       "title": "3. Producing Robust Programs",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 10,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 48
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-4-boolean-logic",
+      "id": "unit-y10-011-4-boolean-logic",
       "title": "4. Boolean Logic",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 11,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 50
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y10-5-languages-ides",
+      "id": "unit-y10-012-5-languages-ides",
       "title": "5. Languages & IDEs",
       "yearGroup": "Y10",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 12,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y10"
+        "sheet": "Y10",
+        "firstRow": 51
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-1-system-architecture-ocr-gcse-computer-science-j277",
+      "id": "unit-y11-001-1-system-architecture-ocr-gcse-computer-science-j277",
       "title": "1. System Architecture OCR GCSE Computer Science (J277)",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 3
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-2-memory-storage",
+      "id": "unit-y11-002-2-memory-storage",
       "title": "2. Memory & Storage",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 11
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-2-1-data-representation",
+      "id": "unit-y11-003-2-1-data-representation",
       "title": "2.1 Data Representation",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 14
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-3-networks",
+      "id": "unit-y11-004-3-networks",
       "title": "3. Networks",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 24
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-3-networks-security",
+      "id": "unit-y11-005-3-networks-security",
       "title": "3. Networks & Security",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 30
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-5-systems-software",
+      "id": "unit-y11-006-5-systems-software",
       "title": "5. Systems Software",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 34
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-6-impacts",
+      "id": "unit-y11-007-6-impacts",
       "title": "6. Impacts",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-1-algorithms",
+      "id": "unit-y11-008-1-algorithms",
       "title": "1. Algorithms",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 42
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-2-programming-fundamentals",
+      "id": "unit-y11-009-2-programming-fundamentals",
       "title": "2. Programming Fundamentals",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 9,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 48
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-3-producing-robust-programs",
+      "id": "unit-y11-010-3-producing-robust-programs",
       "title": "3. Producing Robust Programs",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 10,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 53
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-4-boolean-logic",
+      "id": "unit-y11-011-4-boolean-logic",
       "title": "4. Boolean Logic",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 11,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 56
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-5-languages-ides",
+      "id": "unit-y11-012-5-languages-ides",
       "title": "5. Languages & IDEs",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 12,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 58
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-11-technological-issues",
+      "id": "unit-y11-013-11-technological-issues",
       "title": "11. Technological Issues",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 13,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 64
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-setting-up-python",
+      "id": "unit-y11-014-setting-up-python",
       "title": "Setting up Python",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 14,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 66
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-phyton-printing-and-variables",
+      "id": "unit-y11-015-phyton-printing-and-variables",
       "title": "Phyton Printing and Variables",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 15,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 67
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-inputting-data",
+      "id": "unit-y11-016-inputting-data",
       "title": "Inputting Data",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 16,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 72
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-data-types-and-calculations",
+      "id": "unit-y11-017-data-types-and-calculations",
       "title": "Data Types and Calculations",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 17,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 75
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-selection",
+      "id": "unit-y11-018-selection",
       "title": "Selection",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 18,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 78
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-importing-from-libraries",
+      "id": "unit-y11-019-importing-from-libraries",
       "title": "Importing from libraries",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 19,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 82
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-loops",
+      "id": "unit-y11-020-loops",
       "title": "Loops",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 20,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 88
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-subrtoutines",
+      "id": "unit-y11-021-subrtoutines",
       "title": "Subrtoutines",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 21,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 91
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-lists",
+      "id": "unit-y11-022-lists",
       "title": "Lists",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 22,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 94
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-string-handling",
+      "id": "unit-y11-023-string-handling",
       "title": "String Handling",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 23,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 98
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-file-handling",
+      "id": "unit-y11-024-file-handling",
       "title": "File Handling",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 24,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 101
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-user-interface",
+      "id": "unit-y11-025-user-interface",
       "title": "User Interface",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 25,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 105
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y11-authentication",
+      "id": "unit-y11-026-authentication",
       "title": "Authentication",
       "yearGroup": "Y11",
       "keyStage": "KS4",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR GCSE Computer Science J277",
+      "subject": "Computer Science",
+      "sequence": 26,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y11"
+        "sheet": "Y11",
+        "firstRow": 106
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-unit-01-computer-systems-ocr-computer-science-as-level-curriculum-under-specific",
+      "id": "unit-y12-001-unit-01-computer-systems-ocr-computer-science-as-level-curriculum-under-specific",
       "title": "Unit 01: Computer Systems ................ OCR Computer Science AS-Level curriculum, under specification H046/H446",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 3
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-slr3-input-output-and-storage-devices",
+      "id": "unit-y12-002-slr3-input-output-and-storage-devices",
       "title": "SLR3 Input, output and storage devices",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 11
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-software-and-software-development",
+      "id": "unit-y12-003-software-and-software-development",
       "title": "Software and software development",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 13
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-applicationsgeneration",
+      "id": "unit-y12-004-applicationsgeneration",
       "title": "Applicationsgeneration",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 19
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-introduction-to-programming-procedural-programming-language-techniques",
+      "id": "unit-y12-005-introduction-to-programming-procedural-programming-language-techniques",
       "title": "Introduction to Programming Procedural programming language techniques:",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 23
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-binary-numbers",
+      "id": "unit-y12-006-binary-numbers",
       "title": "Binary Numbers",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 26
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-databases",
+      "id": "unit-y12-007-databases",
       "title": "Databases",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 36
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-networks",
+      "id": "unit-y12-008-networks",
       "title": "Networks",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 42
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-web-technologies",
+      "id": "unit-y12-009-web-technologies",
       "title": "Web Technologies",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 9,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 45
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-data-types",
+      "id": "unit-y12-010-data-types",
       "title": "Data Types",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 10,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 46
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-data-structures",
+      "id": "unit-y12-011-data-structures",
       "title": "Data Structures",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 11,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 48
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-boolean-algebra",
+      "id": "unit-y12-012-boolean-algebra",
       "title": "Boolean Algebra",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 12,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 50
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-legal-moral-ethical-and-cultural-issues",
+      "id": "unit-y12-013-legal-moral-ethical-and-cultural-issues",
       "title": "Legal, moral, ethical and cultural issues",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 13,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 53
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-elements-of-computational-thinking",
+      "id": "unit-y12-014-elements-of-computational-thinking",
       "title": "Elements of computational thinking",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 14,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 56
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-problem-solving-and-programming",
+      "id": "unit-y12-015-problem-solving-and-programming",
       "title": "Problem solving and programming",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 15,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 68
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y12-algorithms",
+      "id": "unit-y12-016-algorithms",
       "title": "Algorithms",
       "yearGroup": "Y12",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Draft",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 16,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y12"
+        "sheet": "Y12",
+        "firstRow": 74
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-1-hardware-ocr-h446-computer-science-a-level-specification-revision",
+      "id": "unit-y13-001-1-hardware-ocr-h446-computer-science-a-level-specification-revision",
       "title": "1. Hardware OCR H446 Computer Science A Level Specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 1,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 2
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-2-software-ocr-h446-computer-science-a-level-specification-revision",
+      "id": "unit-y13-002-2-software-ocr-h446-computer-science-a-level-specification-revision",
       "title": "2 Software OCR H446 Computer Science A Level Specification.. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 2,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 18
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-1-computational-thinking-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-003-1-computational-thinking-ocr-h446-computer-science-specification-revision",
       "title": "1. Computational Thinking OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 3,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 22
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-2-problem-solving-programming-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-004-2-problem-solving-programming-ocr-h446-computer-science-specification-revision",
       "title": "2. Problem Solving & Programming OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 4,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 27
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-3-networks-databases-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-005-3-networks-databases-ocr-h446-computer-science-specification-revision",
       "title": "3. Networks & Databases OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 5,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 38
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-3-algorithms-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-006-3-algorithms-ocr-h446-computer-science-specification-revision",
       "title": "3. Algorithms OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 6,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 47
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-revision",
+      "id": "unit-y13-007-revision",
       "title": "Revision",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 7,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 54
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-4-data-logic-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-008-4-data-logic-ocr-h446-computer-science-specification-revision",
       "title": "4. Data & Logic OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 8,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 57
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     },
     {
-      "id": "y13-5-laws-ocr-h446-computer-science-specification-revision",
+      "id": "unit-y13-009-5-laws-ocr-h446-computer-science-specification-revision",
       "title": "5. Laws OCR H446 Computer Science specification. REVISION",
       "yearGroup": "Y13",
       "keyStage": "KS5",
-      "course": "Computer Science",
-      "status": "Live",
+      "programme": "OCR AS/A Level Computer Science H046/H446",
+      "subject": "Computer Science",
+      "sequence": 9,
       "source": {
         "workbook": "Lesson Traker 2025-2026.xlsx",
-        "sheet": "Y13"
+        "sheet": "Y13",
+        "firstRow": 61
       },
-      "notes": ""
+      "reusable": true,
+      "status": "Imported"
     }
   ]
 }
