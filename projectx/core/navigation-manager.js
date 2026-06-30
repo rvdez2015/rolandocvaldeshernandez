@@ -7,7 +7,9 @@ function getCurrentAppKey() {
   if (path.includes("/apps/question-banks/")) return "question-banks";
   if (path.includes("/apps/tools/")) return "tools";
   if (path.includes("/apps/evidence/")) return "evidence";
+  if (path.includes("/apps/import-centre/")) return "import-centre";
   if (path.includes("/apps/documentation/")) return "documentation";
+  if (path.includes("/apps/prospect-centre/")) return "prospect-centre";
   if (path.includes("/apps/ai-lab/")) return "ai-lab";
   if (path.includes("/apps/analytics/")) return "analytics";
   if (path.includes("/apps/admin/")) return "admin";

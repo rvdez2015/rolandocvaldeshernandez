@@ -1,0 +1,81 @@
+{
+  "version": "3.0-sprint09",
+  "updated": "2026-06-30",
+  "baseUrl": "https://rvdez2015.github.io/rolandocvaldeshernandez",
+  "packs": [
+    {
+      "id": "prospect-pack-main",
+      "title": "Recruiter / School Prospect Pack",
+      "audience": "Recruiters, Heads of Department, Senior Leaders",
+      "status": "Ready to Share",
+      "url": "/projectx/share/prospect-pack/index.html",
+      "description": "A curated public page introducing Rolando Valdes, Project X, QTS recommendation status, teaching evidence and professional links."
+    }
+  ],
+  "links": [
+    {
+      "title": "Prospect Pack",
+      "category": "Share Pack",
+      "url": "/projectx/share/prospect-pack/index.html",
+      "description": "Single curated page to send to prospects."
+    },
+    {
+      "title": "Professional Portfolio",
+      "category": "Portfolio",
+      "url": "/index.html",
+      "description": "Main recruiter-ready landing page."
+    },
+    {
+      "title": "Career Profile",
+      "category": "Portfolio",
+      "url": "/career.html",
+      "description": "Career history, teaching experience and professional profile."
+    },
+    {
+      "title": "Teaching Evidence Centre",
+      "category": "Evidence",
+      "url": "/teaching-evidence-centre.html",
+      "description": "Lesson evidence, QTS materials and supporting documentation."
+    },
+    {
+      "title": "Professional Recommendations",
+      "category": "Evidence",
+      "url": "/professional/recommendations.html",
+      "description": "Recommendations and professional reference collection."
+    },
+    {
+      "title": "Project X Dashboard",
+      "category": "Project X",
+      "url": "/projectx/index.html",
+      "description": "Teaching operating system dashboard."
+    },
+    {
+      "title": "Curriculum Centre",
+      "category": "Project X",
+      "url": "/projectx/apps/curriculum/index.html",
+      "description": "Curriculum intelligence and data-driven teaching workspace."
+    },
+    {
+      "title": "Documentation Centre",
+      "category": "Project X",
+      "url": "/projectx/apps/documentation/index.html",
+      "description": "Architecture documentation and release records."
+    },
+    {
+      "title": "Project X Architecture Bible PDF",
+      "category": "Documentation",
+      "url": "/projectx/documents/architecture/Project_X_Architecture_Bible_v1.pdf",
+      "description": "Project X architecture, roadmap and design principles."
+    }
+  ],
+  "messageTemplates": [
+    {
+      "title": "Recruiter Follow-up",
+      "body": "Thank you for your message. I have prepared a concise prospect pack with my career profile, teaching evidence, QTS recommendation status, Project X teaching platform and professional recommendations: https://rvdez2015.github.io/rolandocvaldeshernandez/projectx/share/prospect-pack/"
+    },
+    {
+      "title": "School Application Follow-up",
+      "body": "For convenience, I have included a prospect pack with direct access to my professional portfolio, teaching evidence, Project X platform, curriculum work and recommendations: https://rvdez2015.github.io/rolandocvaldeshernandez/projectx/share/prospect-pack/"
+    }
+  ]
+}

@@ -248,5 +248,31 @@
       "label": "Settings",
       "view": "settings"
     }
+  ],
+  "prospect-centre": [
+    {
+      "label": "Dashboard",
+      "view": "dashboard"
+    },
+    {
+      "label": "Share Packs",
+      "view": "share-packs"
+    },
+    {
+      "label": "Prospect Links",
+      "view": "links"
+    },
+    {
+      "label": "Evidence Links",
+      "view": "evidence"
+    },
+    {
+      "label": "Message Templates",
+      "view": "templates"
+    },
+    {
+      "label": "Settings",
+      "view": "settings"
+    }
   ]
 }

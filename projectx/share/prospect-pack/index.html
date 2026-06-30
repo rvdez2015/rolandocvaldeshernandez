@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rolando Valdes | Prospect Pack</title>
+  <style>
+    :root { --blue:#0b5cad; --blue2:#1e5eff; --navy:#092943; --green:#8cbf2f; --bg:#f5f8fc; --text:#102033; --muted:#617085; --border:#d7e4f5; --card:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { width:min(1120px, calc(100% - 32px)); margin:0 auto; }
+    header { padding:24px 0; }
+    .brand { display:flex; justify-content:space-between; align-items:center; gap:18px; }
+    .brand strong { color:var(--blue); font-size:1.05rem; }
+    .pill { display:inline-flex; align-items:center; border-radius:999px; padding:8px 12px; background:#eaf4ff; color:var(--blue); font-size:.78rem; font-weight:800; }
+    .hero { margin:8px 0 24px; padding:42px; border-radius:28px; color:white; background:radial-gradient(circle at 80% 10%, rgba(255,255,255,.25), transparent 26%), linear-gradient(135deg,var(--navy),var(--blue2) 58%,var(--green)); box-shadow:0 22px 48px rgba(7,47,84,.18); }
+    .hero h1 { font-size:clamp(2.4rem,7vw,5rem); line-height:.95; letter-spacing:-.06em; margin:12px 0 16px; }
+    .hero p { max-width:850px; line-height:1.75; color:rgba(255,255,255,.93); font-size:1.05rem; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .actions a { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 18px; border-radius:999px; font-weight:900; text-decoration:none; border:1px solid rgba(255,255,255,.35); }
+    .primary { background:#fff; color:var(--blue); } .secondary { background:rgba(255,255,255,.12); color:#fff; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:18px 0; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px; box-shadow:0 14px 30px rgba(7,47,84,.08); }
+    .card h2, .card h3 { margin:8px 0 10px; color:var(--blue); letter-spacing:-.03em; }
+    .card p { color:var(--muted); line-height:1.6; }
+    .link-list { display:grid; gap:12px; }
+    .link { display:flex; justify-content:space-between; gap:14px; align-items:center; background:#fff; border:1px solid var(--border); border-radius:16px; padding:16px; text-decoration:none; color:var(--text); }
+    .link:hover { border-color:#8ebdff; box-shadow:0 12px 28px rgba(30,94,255,.12); }
+    .link span { display:block; color:var(--muted); font-size:.9rem; margin-top:4px; }
+    .open { color:var(--blue); font-weight:900; white-space:nowrap; }
+    footer { padding:32px 0; color:var(--muted); font-size:.9rem; }
+    @media(max-width:700px){ .hero{padding:28px 22px;} .link{display:block;} .open{display:block; margin-top:10px;} }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="brand">
+      <strong>Rolando Valdes Hernandez MSc</strong>
+      <span class="pill">Project X Prospect Pack</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="pill" style="background:rgba(255,255,255,.18); color:#fff;">Computer Science Teacher • QTS Recommended • Project X Creator</span>
+      <h1>Professional Prospect Pack</h1>
+      <p>
+        A curated professional pack for recruiters, schools and senior leaders. It brings together
+        my career profile, teaching evidence, QTS recommendation status, professional recommendations,
+        and Project X: a teaching operating system for curriculum, assessment, evidence, import workflows and AI-supported practice.
+      </p>
+      <div class="actions">
+        <a class="primary" href="../../../index.html">Open Portfolio</a>
+        <a class="secondary" href="../../../teaching-evidence-centre.html">Teaching Evidence</a>
+        <a class="secondary" href="../../index.html">Project X Dashboard</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card"><span class="pill">Status</span><h3>QTS Recommended</h3><p>Officially recommended for Qualified Teacher Status following the Assessment Only route.</p></article>
+      <article class="card"><span class="pill">Platform</span><h3>Project X</h3><p>A professional teaching operating system combining curriculum, evidence, documentation and import workflows.</p></article>
+      <article class="card"><span class="pill">Evidence</span><h3>Teaching Evidence Centre</h3><p>Central access to lesson evidence, observation materials, professional review and supporting documentation.</p></article>
+    </section>
+
+    <section class="card" style="margin-top:18px;">
+      <h2>Key Links</h2>
+      <div class="link-list">
+        <a class="link" href="../../../index.html"><div><strong>Professional Portfolio</strong><span>Main recruiter-ready landing page.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../../career.html"><div><strong>Career Profile</strong><span>Professional experience, teaching profile and career information.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../../teaching-evidence-centre.html"><div><strong>Teaching Evidence Centre</strong><span>QTS evidence, observation resources, lesson materials and professional reflection.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../../professional/recommendations.html"><div><strong>Professional Recommendations</strong><span>Recommendations, testimonials and professional reference collection.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../index.html"><div><strong>Project X Dashboard</strong><span>Teaching intelligence platform and operating system dashboard.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../apps/curriculum/index.html"><div><strong>Curriculum Centre</strong><span>Reusable curriculum data, imported lesson tracker information and curriculum dashboard.</span></div><div class="open">Open →</div></a>
+        <a class="link" href="../../apps/documentation/index.html"><div><strong>Documentation Centre</strong><span>Architecture Bible and Project X documentation.</span></div><div class="open">Open →</div></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Project X Prospect Pack • Public professional link • Last updated for Project X v3.0 Sprint 09
+  </footer>
+</body>
+</html>

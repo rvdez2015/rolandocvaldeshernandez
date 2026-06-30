@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prospect Centre | Project X</title>
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
+</head>
+<body>
+  <div class="projectx-shell">
+    <div id="projectxSidebar"></div>
+
+    <main class="projectx-main">
+      <div id="projectxHeader"></div>
+
+      <section class="projectx-content">
+        <div class="projectx-card" style="margin-bottom: 24px;">
+          <span class="projectx-status">Professional Hub</span>
+          <h2>Prospect Centre</h2>
+          <p>
+            Create, manage and copy public-facing links for recruiters, schools,
+            senior leaders and professional contacts. This centre turns Project X
+            into a shareable professional evidence system.
+          </p>
+        </div>
+
+        <div class="module-shell">
+          <aside class="module-panel">
+            <h3>Prospect Menu</h3>
+            <nav id="moduleNavigation" class="module-nav"></nav>
+          </aside>
+
+          <section class="module-workspace">
+            <h2 id="moduleTitle" style="margin-top: 0;">Dashboard</h2>
+            <div id="moduleWorkspace"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/app-shell.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/apps/prospect-centre/prospect-centre-module.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const app = new ProjectXApp({
+        moduleKey: "prospect-centre",
+        moduleTitle: "Prospect Centre",
+        moduleSubtitle: "Shareable professional links for recruiters and schools",
+        defaultView: "dashboard"
+      });
+
+      app.initialise();
+    });
+  </script>
+</body>
+</html>
