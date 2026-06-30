@@ -1,6 +1,13 @@
 {
   "releases": [
     {
+      "version": "0.6.2",
+      "title": "Inherited Year Group Mapping Fix",
+      "date": "2026-06-30",
+      "status": "Completed",
+      "summary": "Fixed Curriculum Centre filtering by deriving Year Group, Key Stage and Scheme metadata from the parent Scheme of Work when units or lessons do not store these fields directly. Empty placeholder schemes are now hidden from filters. 2025-2026 lessons remain Completed."
+    },
+    {
       "id": "PX-REL-004-000",
       "name": "Project X v4.0 Release 0",
       "codename": "Foundation",
@@ -40,6 +47,13 @@
         "Database-linked Digital Lesson Twin",
         "ADR-0008"
       ]
+    },
+    {
+      "release": "0.6.1",
+      "title": "Academic Year Completion Fix",
+      "date": "2026-06-30",
+      "status": "Completed",
+      "summary": "Marked all 2025-2026 lessons as Completed and bumped Curriculum Centre localStorage key to avoid stale planned statuses."
     }
   ]
 }
