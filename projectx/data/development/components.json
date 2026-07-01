@@ -1,0 +1,127 @@
+{
+  "components": [
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "category": "Navigation",
+      "version": "1.0",
+      "status": "Active",
+      "purpose": "Show the active path from academic year to lesson workspace.",
+      "usedBy": [
+        "Curriculum Intelligence Centre",
+        "Lesson Workspace",
+        "Unit Workspace",
+        "Development Studio"
+      ]
+    },
+    {
+      "id": "teaching-ribbon",
+      "name": "Teaching Ribbon",
+      "category": "Workflow",
+      "version": "0.1",
+      "status": "Designing",
+      "purpose": "Expose teacher workflow commands: Home, Teach, Resources, Assess, Review, Improve and Publish.",
+      "usedBy": [
+        "Lesson Workspace",
+        "Unit Workspace"
+      ]
+    },
+    {
+      "id": "workspace-tabs",
+      "name": "Workspace Tabs",
+      "category": "Workspace",
+      "version": "0.1",
+      "status": "Designing",
+      "purpose": "Provide consistent tabs such as Overview, Resources, Assessment, Evidence, Reflection, History and AI.",
+      "usedBy": [
+        "Lesson Workspace",
+        "Unit Workspace",
+        "Professional Standards Centre"
+      ]
+    },
+    {
+      "id": "curriculum-tree",
+      "name": "Curriculum Tree",
+      "category": "Navigation",
+      "version": "1.0",
+      "status": "Active",
+      "purpose": "Browse Year Group \u2192 Scheme \u2192 Unit \u2192 Lesson without leaving the Curriculum Intelligence Centre.",
+      "usedBy": [
+        "Curriculum Intelligence Centre"
+      ]
+    },
+    {
+      "id": "readiness-indicator",
+      "name": "Readiness Indicator",
+      "category": "Teaching",
+      "version": "0.1",
+      "status": "Designing",
+      "purpose": "Calculate whether a lesson is ready to teach based on required planning, resource, assessment and reflection components.",
+      "usedBy": [
+        "Lesson Workspace",
+        "Unit Workspace"
+      ]
+    },
+    {
+      "id": "metric-card",
+      "name": "Metric Card",
+      "category": "Dashboard",
+      "version": "1.0",
+      "status": "Active",
+      "purpose": "Display a key system metric with context and status.",
+      "usedBy": [
+        "Curriculum Centre",
+        "Development Studio",
+        "Professional Standards Centre"
+      ]
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "category": "Progression",
+      "version": "0.1",
+      "status": "Designing",
+      "purpose": "Show lesson sequence, unit journey, teaching history and release activity.",
+      "usedBy": [
+        "Lesson Workspace",
+        "Unit Workspace",
+        "Release Manager"
+      ]
+    },
+    {
+      "id": "ai-panel",
+      "name": "AI Panel",
+      "category": "AI",
+      "version": "0.1",
+      "status": "Planned",
+      "purpose": "Provide context-aware support using lesson, unit, resources, reflection and assessment summaries.",
+      "usedBy": [
+        "Lesson Workspace",
+        "AI Lab"
+      ]
+    },
+    {
+      "id": "reflection-card",
+      "name": "Reflection Card",
+      "category": "Review",
+      "version": "0.1",
+      "status": "Designing",
+      "purpose": "Capture structured reflection and improvement actions after delivery.",
+      "usedBy": [
+        "Lesson Workspace",
+        "Evidence Centre"
+      ]
+    },
+    {
+      "id": "build-validator",
+      "name": "Build Validator",
+      "category": "Engineering",
+      "version": "1.0",
+      "status": "Active",
+      "purpose": "Validate release readiness across architecture, data, documentation and testing.",
+      "usedBy": [
+        "Development Studio"
+      ]
+    }
+  ]
+}

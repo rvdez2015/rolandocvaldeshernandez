@@ -1,0 +1,70 @@
+{
+  "modules": [
+    {
+      "id": "curriculum",
+      "name": "Curriculum Intelligence Centre",
+      "type": "Teaching",
+      "connectsTo": [
+        "Lesson Workspace",
+        "Assessment Centre",
+        "Question Banks",
+        "AI Lab",
+        "Analytics",
+        "Evidence Centre"
+      ]
+    },
+    {
+      "id": "lesson-workspace",
+      "name": "Lesson Workspace",
+      "type": "Teaching Workspace",
+      "connectsTo": [
+        "Curriculum Intelligence Centre",
+        "Teaching Assets",
+        "Assessment Centre",
+        "Evidence Centre",
+        "Reflection Engine",
+        "AI Lab"
+      ]
+    },
+    {
+      "id": "assessment",
+      "name": "Assessment Centre",
+      "type": "Teaching",
+      "connectsTo": [
+        "Question Banks",
+        "Lesson Workspace",
+        "Analytics"
+      ]
+    },
+    {
+      "id": "professional-standards",
+      "name": "Professional Standards Centre",
+      "type": "Professional",
+      "connectsTo": [
+        "Evidence Centre",
+        "Privacy Governance"
+      ]
+    },
+    {
+      "id": "development-studio",
+      "name": "Development Studio 2.0",
+      "type": "Engineering",
+      "connectsTo": [
+        "Architecture",
+        "Releases",
+        "Workspaces",
+        "Components",
+        "Database",
+        "Build Validator"
+      ]
+    }
+  ],
+  "principles": [
+    "Store once. Reuse everywhere.",
+    "Every teaching artefact is connected.",
+    "Privacy by Design.",
+    "Three clicks to any lesson.",
+    "Every lesson becomes more valuable every time it is taught.",
+    "Nothing enters Project X until it has first been designed in Development Studio."
+  ]
+}

@@ -79,20 +79,36 @@
       "view": "dashboard"
     },
     {
-      "label": "TDS Chapters",
-      "view": "tds-chapters"
+      "label": "Workspaces",
+      "view": "workspaces"
     },
     {
-      "label": "Roadmap",
-      "view": "roadmap"
+      "label": "Components",
+      "view": "components"
+    },
+    {
+      "label": "Blueprint",
+      "view": "blueprint"
+    },
+    {
+      "label": "Release Manager",
+      "view": "releases"
+    },
+    {
+      "label": "Sprint Board",
+      "view": "sprint"
+    },
+    {
+      "label": "Build Validator",
+      "view": "validator"
     },
     {
       "label": "ADRs",
       "view": "adrs"
     },
     {
-      "label": "Release History",
-      "view": "release-history"
+      "label": "Roadmap",
+      "view": "roadmap"
     }
   ]
 }

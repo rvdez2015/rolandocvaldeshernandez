@@ -1,6 +1,32 @@
 {
   "decisions": [
     {
+      "id": "ADR-0013",
+      "title": "Development Studio 2.0 Engineering Control Room",
+      "status": "Accepted",
+      "date": "2026-07-01",
+      "context": "As Project X becomes a Teaching Operating System, releases require design governance, component tracking, workspace specifications, validation and impact analysis.",
+      "decision": "Development Studio becomes the engineering control room for architecture, releases, workspaces, components, database health, sprint tracking, build validation and blueprint exploration.",
+      "consequences": [
+        "Every major feature is designed before implementation.",
+        "Reusable components and workspace dependencies are visible.",
+        "Release readiness can be validated inside Project X."
+      ]
+    },
+    {
+      "id": "ADR-0012",
+      "title": "Universal Workspace Architecture",
+      "status": "Accepted",
+      "date": "2026-07-01",
+      "context": "Project X is moving from pages and separate modules to reusable workspaces where teaching workflows happen inside a consistent professional environment.",
+      "decision": "Define Unit, Lesson and future module interfaces using a Universal Workspace Architecture with breadcrumb, context panel, ribbon, tabs, quick actions and status/readiness indicators.",
+      "consequences": [
+        "The Lesson Workspace becomes the core operational screen for teaching.",
+        "Future modules reuse the same workspace framework.",
+        "Teacher-facing workflows become consistent across Project X."
+      ]
+    },
+    {
       "id": "ADR-0001",
       "title": "Project X Documentation Architecture",
       "status": "Accepted",

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Development Studio | Project X</title>
+  <title>Development Studio 2.0 | Project X</title>
   <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
   <style>
-    .studio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.studio-table{width:100%;border-collapse:collapse}.studio-table th,.studio-table td{padding:12px;border-bottom:1px solid var(--px-border);text-align:left}.studio-table th{color:var(--px-muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.studio-section{margin-top:24px}.studio-link{font-weight:800;color:var(--px-blue)}
+    .studio-hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:22px}.studio-badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:#eaf2ff;color:#0f4fb8;font-weight:800;font-size:.78rem}.studio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.studio-card{border:1px solid var(--px-border);border-radius:18px;background:#fff;padding:18px;box-shadow:0 12px 35px rgba(15,23,42,.06)}.studio-card h3{margin:0 0 8px}.metric{font-size:2rem;font-weight:900;color:var(--px-blue);line-height:1}.muted{color:var(--px-muted)}.studio-layout{display:grid;grid-template-columns:270px 1fr;gap:18px;align-items:start;margin-top:20px}.studio-nav{position:sticky;top:90px}.studio-nav button{width:100%;display:block;margin-bottom:8px;padding:12px 14px;border:1px solid var(--px-border);border-radius:14px;background:#fff;text-align:left;font-weight:800;cursor:pointer}.studio-nav button.active{background:var(--px-blue);color:#fff;border-color:var(--px-blue)}.studio-section{display:none}.studio-section.active{display:block}.studio-table{width:100%;border-collapse:collapse}.studio-table th,.studio-table td{padding:12px;border-bottom:1px solid var(--px-border);text-align:left;vertical-align:top}.studio-table th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--px-muted)}.pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#1d4ed8;font-size:.75rem;font-weight:800;margin:2px}.pill.pass{background:#dcfce7;color:#166534}.pill.ready{background:#fef9c3;color:#854d0e}.pill.warn{background:#fee2e2;color:#991b1b}.blueprint{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.module-node{border:1px solid var(--px-border);border-radius:16px;padding:14px;background:linear-gradient(180deg,#fff,#f8fbff)}.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}.principle{border-left:4px solid var(--px-blue);background:#f8fafc;border-radius:12px;padding:12px 14px;font-weight:800}@media(max-width:850px){.studio-layout{grid-template-columns:1fr}.studio-nav{position:static}.studio-hero{flex-direction:column}}
   </style>
 </head>
 <body>
@@ -15,28 +15,46 @@
     <main class="projectx-main">
       <div id="projectxHeader"></div>
       <section class="projectx-content">
-        <div class="projectx-card" style="margin-bottom:24px;">
-          <span class="projectx-status">Administration</span>
-          <h2>Development Studio</h2>
-          <p>The internal engineering control room for Project X. Track architecture, releases, roadmap, technical design chapters, decisions and future development.</p>
+        <div class="projectx-card studio-hero">
+          <div>
+            <span class="studio-badge">Engineering Module</span>
+            <h2>Development Studio 2.0</h2>
+            <p>The engineering control room for Project X: architecture, workspaces, components, releases, sprint tracking, validation and blueprint exploration.</p>
+          </div>
+          <div class="studio-card" style="min-width:230px;">
+            <div class="muted">Current Release</div>
+            <div class="metric">1.0 Alpha.2A</div>
+            <span class="pill pass">Build Healthy</span>
+          </div>
         </div>
-        <div class="studio-grid">
-          <div class="projectx-card"><h3>TDS Chapters</h3><p id="chapterCount">Loading...</p></div>
-          <div class="projectx-card"><h3>Architecture Decisions</h3><p id="decisionCount">Loading...</p></div>
-          <div class="projectx-card"><h3>Releases</h3><p id="releaseCount">Loading...</p></div>
-          <div class="projectx-card"><h3>Roadmap</h3><p id="roadmapCount">Loading...</p></div>
-        </div>
-        <div class="projectx-card studio-section">
-          <h3>Technical Design Specification Chapters</h3>
-          <table class="studio-table"><thead><tr><th>ID</th><th>Title</th><th>Version</th><th>Status</th><th>Source</th></tr></thead><tbody id="tdsRows"></tbody></table>
-        </div>
-        <div class="projectx-card studio-section">
-          <h3>Architecture Decision Records</h3>
-          <table class="studio-table"><thead><tr><th>ID</th><th>Decision</th><th>Status</th><th>Date</th></tr></thead><tbody id="adrRows"></tbody></table>
-        </div>
-        <div class="projectx-card studio-section">
-          <h3>Roadmap</h3>
-          <table class="studio-table"><thead><tr><th>Release</th><th>Title</th><th>Status</th></tr></thead><tbody id="roadmapRows"></tbody></table>
+
+        <div class="studio-grid" id="metricCards"></div>
+
+        <div class="studio-layout">
+          <aside class="studio-nav" id="studioNav">
+            <button data-view="dashboard" class="active">Project Dashboard</button>
+            <button data-view="workspaces">Workspace Designer</button>
+            <button data-view="components">Component Library</button>
+            <button data-view="blueprint">Blueprint Explorer</button>
+            <button data-view="releases">Release Manager</button>
+            <button data-view="sprint">Sprint Board</button>
+            <button data-view="validator">Build Validator</button>
+            <button data-view="adrs">Architecture Decisions</button>
+            <button data-view="roadmap">Roadmap</button>
+          </aside>
+          <main>
+            <section id="view-dashboard" class="studio-section active">
+              <div class="projectx-card"><h3>Engineering Status</h3><p>Development Studio is now the design-before-build layer for the Teaching Operating System. Every workspace, component, database change and release should be represented here before implementation.</p><div class="principles" id="principles"></div></div>
+            </section>
+            <section id="view-workspaces" class="studio-section"><div class="projectx-card"><h3>Workspace Designer</h3><p class="muted">Every Project X workspace has a purpose, component contract, data source list, ribbon model and dependencies.</p><table class="studio-table"><thead><tr><th>Workspace</th><th>Type</th><th>Status</th><th>Components</th><th>Dependencies</th></tr></thead><tbody id="workspaceRows"></tbody></table></div></section>
+            <section id="view-components" class="studio-section"><div class="projectx-card"><h3>Component Library</h3><p class="muted">Reusable components prevent duplicate UI work and keep Project X consistent as it grows.</p><table class="studio-table"><thead><tr><th>Component</th><th>Category</th><th>Version</th><th>Status</th><th>Purpose</th><th>Used By</th></tr></thead><tbody id="componentRows"></tbody></table></div></section>
+            <section id="view-blueprint" class="studio-section"><div class="projectx-card"><h3>Blueprint Explorer</h3><p class="muted">A live map of the Teaching Operating System and the relationships between modules.</p><div class="blueprint" id="blueprintRows"></div></div></section>
+            <section id="view-releases" class="studio-section"><div class="projectx-card"><h3>Release Manager</h3><table class="studio-table"><thead><tr><th>Release</th><th>Title</th><th>Status</th><th>Summary</th></tr></thead><tbody id="releaseRows"></tbody></table></div></section>
+            <section id="view-sprint" class="studio-section"><div class="projectx-card"><h3>Sprint Board</h3><div id="sprintRows"></div></div></section>
+            <section id="view-validator" class="studio-section"><div class="projectx-card"><h3>Build Validator</h3><table class="studio-table"><thead><tr><th>Area</th><th>Status</th><th>Detail</th></tr></thead><tbody id="validatorRows"></tbody></table></div></section>
+            <section id="view-adrs" class="studio-section"><div class="projectx-card"><h3>Architecture Decision Records</h3><table class="studio-table"><thead><tr><th>ID</th><th>Decision</th><th>Status</th><th>Date</th></tr></thead><tbody id="adrRows"></tbody></table></div></section>
+            <section id="view-roadmap" class="studio-section"><div class="projectx-card"><h3>Roadmap</h3><table class="studio-table"><thead><tr><th>Release</th><th>Title</th><th>Status</th></tr></thead><tbody id="roadmapRows"></tbody></table></div></section>
+          </main>
         </div>
       </section>
     </main>
@@ -46,26 +64,39 @@
   <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
   <script>
-    const safe=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     async function json(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(url);return r.json();}
+    function pills(items){return (items||[]).map(x=>`<span class="pill">${safe(x)}</span>`).join('');}
+    function statusPill(s){const v=String(s||'').toLowerCase();const cls=v.includes('pass')||v.includes('complete')||v.includes('active')||v.includes('healthy')?'pass':v.includes('ready')?'ready':v.includes('warn')||v.includes('fail')?'warn':'';return `<span class="pill ${cls}">${safe(s)}</span>`;}
+    function show(view){document.querySelectorAll('.studio-section').forEach(s=>s.classList.remove('active'));document.querySelector(`#view-${view}`)?.classList.add('active');document.querySelectorAll('#studioNav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));}
     async function initStudio(){
-      try{
-        const [tds,adr,rel,road]=await Promise.all([
-          json('/rolandocvaldeshernandez/projectx/data/development/tds-chapters.json'),
-          json('/rolandocvaldeshernandez/projectx/data/development/architecture-decisions.json'),
-          json('/rolandocvaldeshernandez/projectx/data/development/release-history.json'),
-          json('/rolandocvaldeshernandez/projectx/data/development/roadmap.json')
-        ]);
-        chapterCount.textContent=(tds.chapters||[]).length+' tracked chapter(s)';
-        decisionCount.textContent=(adr.decisions||[]).length+' accepted decision(s)';
-        releaseCount.textContent=(rel.releases||[]).length+' release record(s)';
-        roadmapCount.textContent=(road.roadmap||[]).length+' roadmap item(s)';
-        tdsRows.innerHTML=(tds.chapters||[]).map(c=>`<tr><td>${safe(c.id)}</td><td>${safe(c.title)}</td><td>${safe(c.version)}</td><td>${safe(c.status)}</td><td><a class="studio-link" href="${safe(c.source)}">Open</a></td></tr>`).join('');
-        adrRows.innerHTML=(adr.decisions||[]).map(d=>`<tr><td>${safe(d.id)}</td><td>${safe(d.title)}</td><td>${safe(d.status)}</td><td>${safe(d.date)}</td></tr>`).join('');
-        roadmapRows.innerHTML=(road.roadmap||[]).map(r=>`<tr><td>${safe(r.release)}</td><td>${safe(r.title)}</td><td>${safe(r.status)}</td></tr>`).join('');
-      }catch(e){console.error(e)}
+      const [tds,adr,rel,road,work,comp,tasks,valid,blue]=await Promise.all([
+        json('/rolandocvaldeshernandez/projectx/data/development/tds-chapters.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/architecture-decisions.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/release-history.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/roadmap.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/workspaces.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/components.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/release-tasks.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/build-validator.json'),
+        json('/rolandocvaldeshernandez/projectx/data/development/blueprint.json')
+      ]);
+      metricCards.innerHTML=`
+        <div class="studio-card"><h3>Workspaces</h3><div class="metric">${(work.workspaces||[]).length}</div><p class="muted">tracked workspace contracts</p></div>
+        <div class="studio-card"><h3>Components</h3><div class="metric">${(comp.components||[]).length}</div><p class="muted">reusable UI components</p></div>
+        <div class="studio-card"><h3>ADRs</h3><div class="metric">${(adr.decisions||[]).length}</div><p class="muted">architecture decisions</p></div>
+        <div class="studio-card"><h3>Build Checks</h3><div class="metric">${(valid.checks||[]).length}</div><p class="muted">release validation checks</p></div>`;
+      principles.innerHTML=(blue.principles||[]).map(p=>`<div class="principle">${safe(p)}</div>`).join('');
+      workspaceRows.innerHTML=(work.workspaces||[]).map(w=>`<tr><td><strong>${safe(w.name)}</strong><br><span class="muted">${safe(w.purpose)}</span></td><td>${safe(w.type)}</td><td>${statusPill(w.status)}</td><td>${pills(w.components)}</td><td>${pills(w.dependencies)}</td></tr>`).join('');
+      componentRows.innerHTML=(comp.components||[]).map(c=>`<tr><td><strong>${safe(c.name)}</strong></td><td>${safe(c.category)}</td><td>${safe(c.version)}</td><td>${statusPill(c.status)}</td><td>${safe(c.purpose)}</td><td>${pills(c.usedBy)}</td></tr>`).join('');
+      blueprintRows.innerHTML=(blue.modules||[]).map(m=>`<div class="module-node"><h3>${safe(m.name)}</h3><p class="muted">${safe(m.type)}</p><div>${pills(m.connectsTo)}</div></div>`).join('');
+      releaseRows.innerHTML=(rel.releases||[]).slice(0,10).map(r=>`<tr><td>${safe(r.version||r.id||r.name)}</td><td><strong>${safe(r.title||r.name)}</strong></td><td>${statusPill(r.status)}</td><td>${safe(r.summary||'')}</td></tr>`).join('');
+      sprintRows.innerHTML=(tasks.sprints||[]).map(s=>`<div class="studio-card" style="margin-bottom:14px"><h3>${safe(s.name)} ${statusPill(s.status)}</h3><table class="studio-table"><tbody>${(s.tasks||[]).map(t=>`<tr><td>${safe(t.id)}</td><td>${safe(t.title)}</td><td>${statusPill(t.status)}</td></tr>`).join('')}</tbody></table></div>`).join('');
+      validatorRows.innerHTML=(valid.checks||[]).map(c=>`<tr><td><strong>${safe(c.area)}</strong></td><td>${statusPill(c.status)}</td><td>${safe(c.detail)}</td></tr>`).join('');
+      adrRows.innerHTML=(adr.decisions||[]).map(d=>`<tr><td>${safe(d.id)}</td><td><strong>${safe(d.title)}</strong></td><td>${statusPill(d.status)}</td><td>${safe(d.date)}</td></tr>`).join('');
+      roadmapRows.innerHTML=(road.roadmap||[]).map(r=>`<tr><td>${safe(r.release)}</td><td>${safe(r.title)}</td><td>${statusPill(r.status)}</td></tr>`).join('');
     }
-    document.addEventListener('DOMContentLoaded',()=>{initStudio();setTimeout(()=>{projectxPageTitle.textContent='Development Studio';projectxPageSubtitle.textContent='Engineering, architecture, roadmap and release control';},200)});
+    document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#studioNav button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));initStudio().catch(console.error);setTimeout(()=>{projectxPageTitle.textContent='Development Studio 2.0';projectxPageSubtitle.textContent='Engineering control room for Project X';},200)});
   </script>
 </body>
 </html>

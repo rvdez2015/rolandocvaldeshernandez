@@ -1,0 +1,171 @@
+{
+  "workspaces": [
+    {
+      "id": "lesson-workspace",
+      "name": "Lesson Workspace",
+      "type": "Teaching",
+      "status": "Designing",
+      "release": "1.0 Alpha.2",
+      "purpose": "Activate the Digital Lesson Twin for planning, teaching, assessing, reflecting and improving a lesson.",
+      "components": [
+        "Breadcrumb",
+        "Teaching Ribbon",
+        "Workspace Tabs",
+        "Readiness Indicator",
+        "Context Panel",
+        "Teaching Timeline",
+        "Reflection Card",
+        "AI Panel"
+      ],
+      "dataSources": [
+        "schemes_of_work",
+        "scheme_units",
+        "scheme_lessons",
+        "teaching_assets",
+        "assessment_summaries",
+        "lesson_reflections"
+      ],
+      "ribbon": [
+        "Home",
+        "Teach",
+        "Resources",
+        "Assess",
+        "Review",
+        "Improve",
+        "Publish"
+      ],
+      "dependencies": [
+        "Curriculum Intelligence Centre",
+        "Assessment Centre",
+        "Evidence Centre",
+        "AI Lab",
+        "Analytics"
+      ]
+    },
+    {
+      "id": "unit-workspace",
+      "name": "Unit Workspace",
+      "type": "Teaching",
+      "status": "Designing",
+      "release": "1.0 Alpha.2",
+      "purpose": "Manage a unit journey, its lesson sequence, readiness, resources, assessment and improvement notes.",
+      "components": [
+        "Breadcrumb",
+        "Teaching Ribbon",
+        "Metric Cards",
+        "Lesson Timeline",
+        "Workspace Tabs",
+        "Progress Bar",
+        "Quick Actions"
+      ],
+      "dataSources": [
+        "scheme_units",
+        "scheme_lessons",
+        "unit_spec_points",
+        "teaching_assets"
+      ],
+      "ribbon": [
+        "Home",
+        "Plan",
+        "Resources",
+        "Assess",
+        "Review",
+        "Improve"
+      ],
+      "dependencies": [
+        "Curriculum Intelligence Centre",
+        "Lesson Workspace",
+        "Question Banks"
+      ]
+    },
+    {
+      "id": "curriculum-workspace",
+      "name": "Curriculum Intelligence Workspace",
+      "type": "Teaching",
+      "status": "Implemented Phase 1",
+      "release": "1.0 Alpha.1",
+      "purpose": "Navigate Year Group \u2192 Scheme \u2192 Unit \u2192 Lesson in no more than three clicks.",
+      "components": [
+        "Curriculum Tree",
+        "Search",
+        "Filter Bar",
+        "Navigation Context",
+        "Curriculum Health Panel"
+      ],
+      "dataSources": [
+        "database-derived-curriculum.json"
+      ],
+      "ribbon": [
+        "Home",
+        "Explore",
+        "Validate",
+        "Improve"
+      ],
+      "dependencies": [
+        "Unified Teaching Database"
+      ]
+    },
+    {
+      "id": "professional-standards-workspace",
+      "name": "Professional Standards Workspace",
+      "type": "Professional",
+      "status": "Implemented",
+      "release": "1.0 Alpha",
+      "purpose": "Manage safeguarding, compliance certificates, CPD and professional evidence safely.",
+      "components": [
+        "Certificate Cards",
+        "Search",
+        "Category Filter",
+        "Evidence Links"
+      ],
+      "dataSources": [
+        "safeguarding-certificates.json"
+      ],
+      "ribbon": [
+        "Home",
+        "Safeguarding",
+        "CPD",
+        "Evidence"
+      ],
+      "dependencies": [
+        "Privacy and Data Governance"
+      ]
+    },
+    {
+      "id": "development-studio",
+      "name": "Development Studio 2.0",
+      "type": "Engineering",
+      "status": "Implemented",
+      "release": "1.0 Alpha.2A",
+      "purpose": "Design, document, validate and evolve Project X as a Teaching Operating System.",
+      "components": [
+        "Project Dashboard",
+        "Workspace Designer",
+        "Component Library",
+        "Database Explorer",
+        "Release Manager",
+        "Sprint Board",
+        "Build Validator",
+        "Blueprint Explorer"
+      ],
+      "dataSources": [
+        "architecture-decisions.json",
+        "release-history.json",
+        "roadmap.json",
+        "workspaces.json",
+        "components.json"
+      ],
+      "ribbon": [
+        "Architecture",
+        "Releases",
+        "Workspaces",
+        "Components",
+        "Database",
+        "Validate"
+      ],
+      "dependencies": [
+        "All modules"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,13 @@
 {
   "releases": [
     {
+      "version": "1.0 Alpha.2A",
+      "title": "Development Studio 2.0",
+      "date": "2026-07-01",
+      "status": "Completed",
+      "summary": "Transforms Development Studio into the engineering control room for Project X with workspace design, component registry, release manager, sprint board, build validator and blueprint explorer."
+    },
+    {
       "version": "1.0 Alpha.1",
       "title": "Curriculum Intelligence Centre \u2014 Phase 1 Navigation",
       "date": "2026-06-30",

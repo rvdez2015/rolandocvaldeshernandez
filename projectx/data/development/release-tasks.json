@@ -1,0 +1,73 @@
+{
+  "currentRelease": "1.0 Alpha.2A",
+  "title": "Development Studio 2.0",
+  "sprints": [
+    {
+      "name": "Sprint 1 \u2014 Engineering Control Room",
+      "status": "Completed",
+      "tasks": [
+        {
+          "id": "DS-001",
+          "title": "Project Dashboard",
+          "status": "Completed"
+        },
+        {
+          "id": "DS-002",
+          "title": "Workspace Designer Registry",
+          "status": "Completed"
+        },
+        {
+          "id": "DS-003",
+          "title": "Component Library",
+          "status": "Completed"
+        },
+        {
+          "id": "DS-004",
+          "title": "Release Manager",
+          "status": "Completed"
+        },
+        {
+          "id": "DS-005",
+          "title": "Build Validator",
+          "status": "Completed"
+        },
+        {
+          "id": "DS-006",
+          "title": "Blueprint Explorer",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "name": "Sprint 2 \u2014 Curriculum Workspaces",
+      "status": "Ready",
+      "tasks": [
+        {
+          "id": "CW-001",
+          "title": "Universal Workspace Framework",
+          "status": "Ready"
+        },
+        {
+          "id": "CW-002",
+          "title": "Teaching Ribbon",
+          "status": "Ready"
+        },
+        {
+          "id": "CW-003",
+          "title": "Unit Workspace",
+          "status": "Ready"
+        },
+        {
+          "id": "CW-004",
+          "title": "Lesson Workspace / Digital Lesson Twin 2.0",
+          "status": "Ready"
+        },
+        {
+          "id": "CW-005",
+          "title": "Readiness Engine",
+          "status": "Ready"
+        }
+      ]
+    }
+  ]
+}
