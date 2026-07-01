@@ -1,5 +1,5 @@
 {
-  "platformVersion": "1.3 Alpha Preview",
+  "platformVersion": "1.3 Alpha Sprint 1.1",
   "module": "Story Studio",
   "updated": "2026-07-01",
   "stories": [
@@ -29,7 +29,34 @@
         "Story Studio and Media Centre",
         "Learning OS Vision",
         "Closing"
-      ]
+      ],
+      "media": {
+        "audio": {
+          "title": "Project X General Story Audio",
+          "path": "/rolandocvaldeshernandez/projectx/assets/story-studio/audio/project-x-story.mp3",
+          "type": "audio/mpeg",
+          "status": "Awaiting generated file"
+        },
+        "video": {
+          "title": "Project X General Story Video",
+          "path": "/rolandocvaldeshernandez/projectx/assets/story-studio/video/project-x-story.mp4",
+          "type": "video/mp4",
+          "status": "Awaiting generated file"
+        },
+        "infographic": {
+          "title": "Project X Architecture Infographic",
+          "path": "/rolandocvaldeshernandez/projectx/assets/story-studio/infographics/project-x-architecture.png",
+          "type": "image/png",
+          "status": "Awaiting generated file"
+        },
+        "transcript": {
+          "title": "Project X Story Transcript",
+          "path": "/rolandocvaldeshernandez/projectx/assets/story-studio/transcripts/project-x-story-transcript.md",
+          "type": "text/markdown",
+          "status": "Optional"
+        }
+      }
     }
-  ]
+  ],
+  "mediaAssetSchema": "story-media-v1"
 }

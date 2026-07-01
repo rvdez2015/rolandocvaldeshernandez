@@ -1,0 +1,1 @@
+Put generated video exports here, for example `project-x-story.mp4`.

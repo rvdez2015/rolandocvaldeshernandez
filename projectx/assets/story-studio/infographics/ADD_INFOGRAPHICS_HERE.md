@@ -1,0 +1,1 @@
+Put infographic images here, for example `project-x-architecture.png`.
