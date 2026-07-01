@@ -1,6 +1,6 @@
 # Curriculum Integrity Report — 2025–2026
 
-Generated: 2026-07-01T11:18:21Z
+Generated: 2026-07-01T11:48:44Z
 
 ## Summary
 | Check | Result |

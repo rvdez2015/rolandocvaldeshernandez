@@ -5,7 +5,7 @@
 **Platform Version:** 1.0 Alpha  
 **Curriculum Package:** PX-CURR-2025-2026  
 **Knowledge Package:** PX-KNOWLEDGE-v1  
-**Generated:** 2026-07-01T11:18:21Z
+**Generated:** 2026-07-01T11:48:44Z
 
 ## Achievement
 Milestone 1 establishes the complete curriculum foundation for Project X. The platform now contains a populated canonical curriculum package for Years 5–13, generated from PX-CDL v1.0 and written into both the Unified Teaching Database and the database-powered Curriculum Centre export.
