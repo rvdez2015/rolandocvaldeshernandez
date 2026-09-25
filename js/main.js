@@ -1,9 +1,9 @@
 const SITE_DATA = {
   "name": "Rolando Valdés Hernández MSc",
-  "role": "Computer Science Teacher | Boarding Tutor | Curriculum Developer | AI in Education Practitioner",
-  "location": "Liverpool area opportunities",
+  "role": "Qualified Computer Science Teacher | Boarding Tutor | Curriculum Developer | AI in Education Practitioner",
+  "location": "Willing to relocate anywhere",
   "currentSalary": "£43,000",
-  "minimumSalary": "£48,000+",
+  "minimumSalary": "£50,000–£55,000+",
   "summary": "Dedicated Computer Science educator with 20+ years of teaching, curriculum development, leadership and technology experience. Currently teaching Computer Science across KS2–KS5, including GCSE and A Level, with additional boarding responsibilities. Strong interest in AI-supported learning, interactive dashboards, assessment systems, programming, robotics and evidence-informed teaching.",
   "pages": [
     ["index.html", "Home"],
@@ -23,8 +23,8 @@ const SITE_DATA = {
   "stats": [
     ["20+", "Years of teaching and training experience"],
     ["KS2–KS5", "Current teaching range"],
-    ["£43k", "Current salary"],
-    ["£48k+", "Minimum salary expectation"]
+    ["QTS", "Qualified Teacher Status obtained in 2026"],
+    ["£50k–£55k+", "Target salary depending on responsibilities and relocation package"]
   ],
   "career": {
     "seeking": [
@@ -32,19 +32,14 @@ const SITE_DATA = {
       "Lead Teacher of Computing or Head of Computing considered",
       "GCSE and A Level Computer Science teaching",
       "Curriculum development and digital learning leadership",
-      "Liverpool area or reasonable commuting/relocation distance"
+      "UK-wide opportunities; willing to relocate for the right role"
     ],
     "location": [
-      "Liverpool",
-      "Wirral",
-      "Sefton",
-      "Knowsley",
-      "St Helens",
-      "Southport",
-      "Warrington",
-      "Cheshire and surrounding areas"
+      "Willing to relocate anywhere in the UK",
+      "UK-wide opportunities considered",
+      "Relocation support/package welcomed where available"
     ],
-    "salary": "Current salary: £43,000. Minimum expectation: £48,000+, depending on leadership responsibility, TLR, boarding expectations, relocation support and total package.",
+    "salary": "Current salary: £43,000. Target: £50,000–£55,000+, depending on leadership responsibility, TLR, boarding expectations, relocation support and total package.",
     "ideal": "A supportive school with a collaborative staff culture, strong behaviour systems, scope for innovation, and an opportunity to develop Computer Science provision across GCSE and A Level."
   },
   "documents": [
@@ -181,7 +176,7 @@ function nav(data) {
 function footer(data) {
   return `
     <div class="footer">
-      ${data.name} · Professional Teaching Website · Liverpool Area Opportunities
+      ${data.name} · Professional Teaching Website · UK-wide opportunities · Willing to relocate
     </div>
   `;
 }
