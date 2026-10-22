@@ -7,29 +7,30 @@
   <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
 </head>
 <body>
+  <a class="px-skip" href="#main">Skip to main content</a>
   <div class="projectx-shell">
     <div id="projectxSidebar"></div>
-    <main class="projectx-main">
+    <main class="projectx-main" id="main">
       <div id="projectxHeader"></div>
       <section class="projectx-content">
         <section class="app-dashboard-hero">
-          <small>Professional Hub • Teaching Workspace • Evidence • AI</small>
+          <small>CURRICULUM • ASSESSMENT • TEACHING TOOLS • DEVELOPMENT</small>
           <h2>Project X</h2>
-          <p>A professional teaching operating system combining a recruiter-ready portfolio with curriculum, assessment, revision, question-bank, analytics, AI and evidence tools.</p>
+          <p>An evolving teaching intelligence platform for curriculum planning, assessment, instructional resources and educational application development. Explore the available modules below.</p>
           <div class="workspace-actions" style="margin-top:22px;">
-            <a class="projectx-button" href="/rolandocvaldeshernandez/teaching-evidence-centre.html">Open Teaching Evidence</a>
+            <a class="projectx-button" href="/rolandocvaldeshernandez/index.html">← Back to Portfolio</a>
             <a class="projectx-button" href="/rolandocvaldeshernandez/projectx/apps/curriculum/">Open Curriculum</a>
           </div>
         </section>
         <section class="workspace-kpi-grid">
           <div class="workspace-kpi"><span>Total Apps</span><strong id="statApps">0</strong></div>
-          <div class="workspace-kpi"><span>Professional Pages</span><strong id="statProfessional">0</strong></div>
-          <div class="workspace-kpi"><span>Teaching Apps</span><strong id="statWorkspace">0</strong></div>
-          <div class="workspace-kpi"><span>QTS Status</span><strong>Obtained • 2026</strong></div>
+          <div class="workspace-kpi"><span>Available Modules</span><strong id="statAvailable">0</strong></div>
+          <div class="workspace-kpi"><span>Preview Modules</span><strong id="statPreview">0</strong></div>
+          <div class="workspace-kpi"><span>Platform</span><strong>Alpha</strong></div>
         </section>
         <section class="projectx-card">
           <div class="workspace-toolbar">
-            <div class="workspace-title"><h2>Application Dashboard</h2><p>Open portfolio pages, teaching tools, dashboards and evidence resources.</p></div>
+            <div class="workspace-title"><h2>Application Dashboard</h2><p>Browse the registered teaching, assessment, media and development modules. Features may vary by release.</p></div>
             <input id="pxSearch" type="search" placeholder="Search Project X..." style="min-width:280px;height:44px;border:1px solid var(--px-border);border-radius:999px;padding:0 16px;">
           </div>
           <div id="pxContent" class="px-empty">Loading Project X registry...</div>
@@ -37,6 +38,7 @@
       </section>
     </main>
   </div>
+  <style>.px-skip{position:absolute;left:-9999px}.px-skip:focus{left:12px;top:12px;z-index:1000;background:white;color:#102033;padding:10px}.app-dashboard-hero .projectx-button{background:#fff;color:#0b5cad}.app-dashboard-hero .projectx-button:hover{background:#e6ff9c;color:#0b2f4f}</style>
   <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
   <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
@@ -44,7 +46,35 @@
   <script>
     function safe(v){return String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
     function section(title,apps){if(!apps.length)return'';return `<div style="margin-top:24px;"><h3>${safe(title)} <span class="projectx-status">${apps.length} items</span></h3><div class="app-card-grid">${apps.map(app=>`<a class="app-card" href="${safe(app.url)}"><div style="display:flex;justify-content:space-between;gap:12px;"><span style="font-size:1.5rem">${safe(app.icon)}</span><small style="font-weight:900;color:var(--px-muted);text-transform:uppercase;letter-spacing:.1em">${safe(app.category)}</small></div><h3>${safe(app.title)}</h3><p>${safe(app.description)}</p><footer><span class="projectx-status">${safe(app.status)}</span><span>Open →</span></footer></a>`).join('')}</div></div>`}
-    async function loadDashboard(){const content=document.getElementById('pxContent');const search=document.getElementById('pxSearch');try{let r=await fetch('/rolandocvaldeshernandez/data/projectx_registry.json',{cache:'no-store'});if(!r.ok){r=await fetch('/rolandocvaldeshernandez/projectx/data/projectx_registry.json',{cache:'no-store'});}const data=await r.json();const apps=data.apps||[];const isPro=a=>['Professional Hub','Portfolio','Evidence'].includes(a.category);function render(list){const sorted=[...list].sort((a,b)=>(b.priority||0)-(a.priority||0));content.className='';content.innerHTML=section('Professional Hub',sorted.filter(isPro))+section('Teaching Workspace',sorted.filter(a=>!isPro(a)))||'<div class="px-empty">No results found.</div>';document.getElementById('statApps').textContent=apps.length;document.getElementById('statProfessional').textContent=apps.filter(isPro).length;document.getElementById('statWorkspace').textContent=apps.filter(a=>!isPro(a)).length}search.addEventListener('input',()=>{const q=search.value.toLowerCase().trim();render(apps.filter(a=>[a.title,a.category,a.section,a.description,a.status].join(' ').toLowerCase().includes(q)))});render(apps)}catch(e){console.error(e);content.innerHTML='<div class="px-empty"><strong>Registry not loaded.</strong></div>'}}
+    async function loadDashboard(){
+      const content=document.getElementById('pxContent');
+      const search=document.getElementById('pxSearch');
+      try{
+        let response=await fetch('/rolandocvaldeshernandez/data/projectx_registry.json',{cache:'no-store'});
+        if(!response.ok) response=await fetch('/rolandocvaldeshernandez/projectx/data/projectx_registry.json',{cache:'no-store'});
+        if(!response.ok) throw new Error('Application registry unavailable');
+        const data=await response.json();
+        const apps=Array.isArray(data.apps)?data.apps:[];
+        // Professional evidence belongs to the portfolio; preserve its module in the registry.
+        const workspaceApps=apps.filter(a=>!['Professional Hub','Portfolio','Evidence'].includes(a.category));
+        function render(list){
+          const sorted=[...list].sort((a,b)=>(b.priority||0)-(a.priority||0));
+          content.className='';
+          content.innerHTML=section('Project X Applications',sorted)||'<div class="px-empty">No matching modules found.</div>';
+        }
+        document.getElementById('statApps').textContent=workspaceApps.length;
+        document.getElementById('statAvailable').textContent=workspaceApps.filter(a=>a.status!=='Preview').length;
+        document.getElementById('statPreview').textContent=workspaceApps.filter(a=>a.status==='Preview').length;
+        search.addEventListener('input',()=>{
+          const q=search.value.toLowerCase().trim();
+          render(workspaceApps.filter(a=>[a.title,a.category,a.section,a.description,a.status].join(' ').toLowerCase().includes(q)));
+        });
+        render(workspaceApps);
+      }catch(error){
+        console.error('Project X registry:',error);
+        content.innerHTML='<div class="px-empty"><strong>Application registry could not be loaded.</strong><p>Check the registry file and deployment paths.</p></div>';
+      }
+    }
     document.addEventListener('DOMContentLoaded',()=>{loadDashboard();setTimeout(()=>{const t=document.getElementById('projectxPageTitle');const s=document.getElementById('projectxPageSubtitle');if(t)t.textContent='Project X Dashboard';if(s)s.textContent='Teaching Intelligence Platform'},120)})
   </script>
 </body>
