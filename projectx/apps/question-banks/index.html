@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Question Banks | Project X</title>
   <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
-</head>
+<style>.px-service-preview{display:grid;grid-template-columns:minmax(220px,1fr) 1.4fr;gap:22px;align-items:center;background:#fff;border:1px solid #d6e3f5;border-radius:18px;overflow:hidden;margin:0 0 24px;box-shadow:0 14px 32px rgba(30,94,255,.08)}.px-service-preview img{width:100%;height:240px;object-fit:cover;display:block}.px-service-preview-copy{padding:20px 24px 20px 0}.px-service-preview-copy h3{margin:10px 0;color:#0b2f4f}.px-service-preview-copy p{color:#52647b;line-height:1.65}.px-service-preview-label{display:inline-block;border-radius:999px;padding:6px 12px;background:#eef4ff;color:#1647c7;font-weight:800;font-size:.8rem}@media(max-width:750px){.px-service-preview{grid-template-columns:1fr}.px-service-preview img{height:190px}.px-service-preview-copy{padding:0 20px 22px}}</style></head>
 <body>
   <div class="projectx-shell">
     <div id="projectxSidebar"></div>
@@ -17,7 +17,7 @@
           <h2>Question Banks</h2>
           <p>Build reusable GCSE, A Level, retrieval practice and quiz questions for teaching and revision.</p>
         </div>
-        <div class="module-shell">
+        <section class="px-service-preview" aria-label="Proposed Question Banks service"><img src="/rolandocvaldeshernandez/projectx/assets/module-previews/question-banks.webp" alt="Concept illustration for Question Banks" loading="lazy"><div class="px-service-preview-copy"><span class="px-service-preview-label">Concept preview · Not yet fully implemented</span><h3>What Question Banks will offer</h3><p>Create, organise and reuse topic-aligned questions, quizzes and assessment items.</p><p><small>Illustrative concept only. Features shown are proposed and may differ from the final application.</small></p></div></section><div class="module-shell">
           <aside class="module-panel">
             <h3>Question Bank Menu</h3>
             <nav id="moduleNavigation" class="module-nav"></nav>
@@ -39,9 +39,10 @@
   <script>
     window.ProjectXViews = window.ProjectXViews || {};
     window.ProjectXViews['question_banks_dashboard'] = function(){
-      return '<div class="workspace-kpi-grid"><div class="workspace-kpi"><span>Status</span><strong>Ready</strong></div><div class="workspace-kpi"><span>Module</span><strong>v3</strong></div><div class="workspace-kpi"><span>Views</span><strong>Live</strong></div></div><div class="projectx-grid"><div class="projectx-card"><h3>Module Dashboard</h3><p>This module now runs inside the Project X Workspace Engine.</p></div><div class="projectx-card"><h3>Secondary Navigation</h3><p>Use the module menu to switch views without leaving the application shell.</p></div><div class="projectx-card"><h3>Next Build</h3><p>Functional data tools will be added in future sprints.</p></div></div>';
+      return '<div class="workspace-kpi-grid"><div class="workspace-kpi"><span>Status</span><strong>Concept</strong></div><div class="workspace-kpi"><span>Module</span><strong>v3</strong></div><div class="workspace-kpi"><span>Views</span><strong>Preview</strong></div></div><div class="projectx-grid"><div class="projectx-card"><h3>Module Dashboard</h3><p>This module now runs inside the Project X Workspace Engine.</p></div><div class="projectx-card"><h3>Secondary Navigation</h3><p>Use the module menu to switch views without leaving the application shell.</p></div><div class="projectx-card"><h3>Next Build</h3><p>Functional data tools will be added in future sprints.</p></div></div>';
     };
     document.addEventListener('DOMContentLoaded',()=>{const app=new ProjectXApp({moduleKey:'question_banks',moduleTitle:'Question Banks',moduleSubtitle:'Build reusable GCSE, A Level, retrieval practice and quiz questions for teaching and revision.',defaultView:'dashboard'});app.initialise();});
   </script>
 </body>
 </html>
+
