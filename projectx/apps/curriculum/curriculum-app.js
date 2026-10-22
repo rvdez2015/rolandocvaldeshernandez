@@ -184,7 +184,7 @@
       "startedAt", "startedDate", "lastTaught", "lastTaughtDate", "progressPercent",
       "completionPercent", "completionPercentage", "actualMinutes", "teachingHistory",
       "deliveryHistory", "progressHistory", "trackerHistory", "trackingNotes",
-      "teacherReflection", "reflectionDate"].forEach(key => { delete item[key]; });
+      "teacherReflection", "reflectionDate", "teachingLog"].forEach(key => { delete item[key]; });
     // Digital lesson twins are curriculum content; only reset their delivery tracking.
     if (item.digitalLessonTwin && typeof item.digitalLessonTwin === "object" && !Array.isArray(item.digitalLessonTwin)) {
       item.digitalLessonTwin = { ...item.digitalLessonTwin };
@@ -675,6 +675,58 @@
     `;
   }
 
+  function lessonTrackingPanel(lesson) {
+    const status = lesson.status || "Not Started";
+    const log = Array.isArray(lesson.teachingLog) ? lesson.teachingLog : [];
+    const date = lesson.startedDate || lesson.completedDate || "";
+    return `<div class="workspace-card" style="margin-bottom:16px">
+      <h3>Teach &amp; Complete · ${escape(ACTIVE_ACADEMIC_YEAR)}</h3>
+      <p><strong>Current status:</strong> ${statusPill(status)} ${date ? ` · <strong>Recorded date:</strong> ${escape(date)}` : ""}</p>
+      <div class="curriculum-actions" style="flex-wrap:wrap;align-items:center">
+        <label for="lessonTrackingDate">Teaching date</label>
+        <input type="date" id="lessonTrackingDate" class="curriculum-input" style="max-width:190px" value="${escape(date || new Date().toISOString().slice(0,10))}">
+        <button type="button" class="curriculum-button secondary" data-lesson-status="Planned" data-lesson-id="${escape(lesson.id)}">Plan</button>
+        <button type="button" class="curriculum-button" data-lesson-status="In Progress" data-lesson-id="${escape(lesson.id)}">Start Teaching</button>
+        <button type="button" class="curriculum-button" data-lesson-status="Completed" data-lesson-id="${escape(lesson.id)}">Complete Lesson</button>
+        <button type="button" class="curriculum-button secondary" data-lesson-status="Not Started" data-lesson-id="${escape(lesson.id)}">Reopen / Reset Status</button>
+      </div>
+      <p class="muted">Changes save in this browser. Export JSON in Settings to keep a portable copy. Do not enter identifiable pupil information.</p>
+      ${log.length ? `<details><summary>Teaching activity (${log.length})</summary><ul>${log.slice(-12).reverse().map(entry => `<li>${escape(entry.date)} · ${escape(entry.status)}</li>`).join("")}</ul></details>` : ""}
+    </div>`;
+  }
+
+  function updateLessonStatus(lessonId, nextStatus) {
+    const lesson = getLesson(lessonId);
+    if (!lesson || !["Not Started", "Planned", "In Progress", "Completed"].includes(nextStatus)) return;
+    const dateInput = document.getElementById("lessonTrackingDate");
+    const date = dateInput?.value || "";
+    if (nextStatus !== "Not Started" && (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(date)))) {
+      alert("Select a valid teaching date first."); return;
+    }
+    if (nextStatus === "Not Started" && !confirm("Reopen this lesson as Not Started? The activity log will be retained.")) return;
+    if (nextStatus === "Completed" && !confirm("Mark this lesson Completed for " + ACTIVE_ACADEMIC_YEAR + "?")) return;
+    lesson.status = nextStatus;
+    lesson.academicYear = ACTIVE_ACADEMIC_YEAR;
+    if (nextStatus === "In Progress") { lesson.startedDate = date; delete lesson.completedDate; }
+    if (nextStatus === "Completed") { lesson.startedDate ||= date; lesson.completedDate = date; }
+    if (nextStatus === "Planned") { lesson.plannedDate = date; delete lesson.completedDate; }
+    if (nextStatus === "Not Started") { delete lesson.startedDate; delete lesson.completedDate; delete lesson.plannedDate; }
+    lesson.teachingLog = Array.isArray(lesson.teachingLog) ? lesson.teachingLog : [];
+    lesson.teachingLog.push({ date: nextStatus === "Not Started" ? new Date().toISOString().slice(0,10) : date, status: nextStatus });
+    try { save(); } catch (error) { alert("Could not save teaching status: " + error.message); return; }
+    state.activeWorkspaceTab = "overview";
+    openLessonTwin(lessonId);
+    notice("Lesson updated: " + nextStatus);
+  }
+
+  function syncModuleNavigation() {
+    document.querySelectorAll("#moduleNavigation .module-nav-item").forEach(item => {
+      const active = item.dataset.view === state.activeView;
+      item.classList.toggle("active", active);
+      if (active) item.setAttribute("aria-current", "page"); else item.removeAttribute("aria-current");
+    });
+  }
+
   function renderLessonTwin(lessonId) {
     const lesson = getLesson(lessonId);
     if (!lesson) return `<div class="curriculum-empty">Lesson not found.</div>`;
@@ -696,11 +748,11 @@
       assessment: `<div class="workspace-card"><h3>Assessment</h3><p>Assessment shell ready for AFL, exit tickets, homework, OCR question links and question-bank integration.</p><div class="workspace-metrics"><div><span>AFL</span><strong>Ready</strong></div><div><span>Exit Ticket</span><strong>Pending</strong></div><div><span>Question Bank</span><strong>Linked Later</strong></div></div></div>`,
       evidence: `<div class="workspace-card"><h3>Evidence</h3><p>Evidence space for observation notes, anonymised class-level outcomes, teacher evidence and professional reflections. No pupil names should be stored here.</p></div>`,
       reflection: `<div class="workspace-card"><h3>Reflection</h3><div class="reflection-prompts"><label>What worked well?</label><textarea class="curriculum-textarea" placeholder="Add reflection after teaching..."></textarea><label>What needs improving next year?</label><textarea class="curriculum-textarea" placeholder="Add improvement actions..."></textarea><label>Common misconceptions</label><textarea class="curriculum-textarea" placeholder="Record class-level misconceptions only..."></textarea></div></div>`,
-      history: `<div class="workspace-card"><h3>Teaching History</h3><p>Active academic year: ${escape(state.data.meta?.activeAcademicYear || ACTIVE_ACADEMIC_YEAR)}.</p><p>No teaching history has been recorded in this clean tracking cycle.</p></div>`,
+      history: `<div class="workspace-card"><h3>Teaching History</h3><p>Active academic year: ${escape(state.data.meta?.activeAcademicYear || ACTIVE_ACADEMIC_YEAR)}.</p>${(lesson.teachingLog || []).length ? `<ul>${lesson.teachingLog.map(entry => `<li>${escape(entry.date)} — ${escape(entry.status)}</li>`).join("")}</ul>` : "<p>No teaching activity recorded yet.</p>"}</div>`,
       knowledge: `<div class="workspace-card"><h3>Knowledge Graph</h3><p><strong>Concepts:</strong> ${escape((lesson.knowledgeGraph?.concepts || []).map(c => c.name).join(", ") || "No concepts recorded yet.")}</p><p><strong>Previous Lesson:</strong> ${escape(getLesson(lesson.knowledgeGraph?.relationships?.previousLessonId)?.title || "Start of unit")}</p><p><strong>Next Lesson:</strong> ${escape(getLesson(lesson.knowledgeGraph?.relationships?.nextLessonId)?.title || "End of unit")}</p><p class="muted">Relationship status: ${escape(lesson.knowledgeGraph?.relationshipStatus || "Pending")}</p></div>`,
       ai: `<div class="workspace-card"><h3>AI Assistant</h3><p>Context-aware AI shell. Later this panel will use the lesson, unit, scheme, resources, assessment summary and reflections to generate support.</p><div class="workspace-action-stack horizontal"><button class="curriculum-button secondary">Generate Starter</button><button class="curriculum-button secondary">Differentiate</button><button class="curriculum-button secondary">Suggest Improvements</button></div></div>`
     }[tab] || "";
-    const content = `${renderWorkspaceTabs(tab)}<div class="workspace-tab-panel">${tabContent}</div>`;
+    const content = `${lessonTrackingPanel(lesson)}${renderWorkspaceTabs(tab)}<div class="workspace-tab-panel">${tabContent}</div>`;
     return renderWorkspaceFrame(context, content);
   }
 
@@ -725,7 +777,7 @@
     const unit = context.unit || {};
     const lesson = context.lesson || {};
     const title = lesson.title || unit.title || scheme.title || "Workspace";
-    return `<div class="workspace-shell"><div class="workspace-breadcrumb">${escape(scheme.yearGroup || unit.yearGroup || lesson.yearGroup || "Curriculum")} › ${escape(scheme.title || "Scheme")} › ${escape(unit.title || "Unit")} ${lesson.title ? "› " + escape(lesson.title) : ""}</div><div class="workspace-header"><div><span class="projectx-status">Digital Workspace</span><h2>${escape(title)}</h2></div><div class="curriculum-actions"><button class="curriculum-button secondary">Teach</button><button class="curriculum-button secondary">Assess</button><button class="curriculum-button secondary">Reflect</button></div></div>${content}</div>`;
+    return `<div class="workspace-shell"><div class="workspace-breadcrumb">${escape(scheme.yearGroup || unit.yearGroup || lesson.yearGroup || "Curriculum")} › ${escape(scheme.title || "Scheme")} › ${escape(unit.title || "Unit")} ${lesson.title ? "› " + escape(lesson.title) : ""}</div><div class="workspace-header"><div><span class="projectx-status">Digital Workspace</span><h2>${escape(title)}</h2></div><div class="curriculum-actions"><button class="curriculum-button secondary" data-workspace-action="teach">Teach</button><button class="curriculum-button secondary" data-workspace-action="assessment">Assess</button><button class="curriculum-button secondary" data-workspace-action="reflection">Reflect</button></div></div>${content}</div>`;
   }
 
   function renderResources() {
@@ -832,10 +884,18 @@
     if (state.activeView === "planner") body = renderPlanner();
     if (state.activeView === "settings") body = renderSettings();
     workspace.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${renderNavigationChips()}<div class="curriculum-intelligence-layout"><aside class="curriculum-tree-sidebar">${renderCurriculumTree()}</aside><section class="curriculum-intelligence-main">${body}</section></div>${renderModal()}`;
+    syncModuleNavigation();
     bindEvents();
   }
 
   function bindEvents() {
+    document.querySelectorAll("[data-lesson-status]").forEach(btn => btn.addEventListener("click", () => updateLessonStatus(btn.dataset.lessonId, btn.dataset.lessonStatus)));
+    document.querySelectorAll("[data-workspace-action]").forEach(btn => btn.addEventListener("click", () => {
+      const action = btn.dataset.workspaceAction;
+      if (action === "teach") { document.getElementById("lessonTrackingDate")?.focus(); return; }
+      state.activeWorkspaceTab = action;
+      if (state.selectedLessonId) openLessonTwin(state.selectedLessonId);
+    }));
     document.getElementById("curriculumSearch")?.addEventListener("input", e => { state.search = e.target.value; render(); });
     document.getElementById("yearGroupFilter")?.addEventListener("change", e => { state.filters.yearGroup = e.target.value; state.filters.schemeId = "all"; state.filters.unitId = "all"; saveFilters(); render(); });
     document.getElementById("schemeFilter")?.addEventListener("change", e => { state.filters.schemeId = e.target.value; state.filters.unitId = "all"; saveFilters(); render(); });
@@ -873,6 +933,7 @@
     const lesson = getLesson(lessonId);
     if (!lesson) return;
     state.selectedLessonId = lesson.id;
+    state.activeView = "lessons";
     state.selectedUnitId = lesson.unitId;
     state.activeWorkspaceTab = state.activeWorkspaceTab || "overview";
     state.filters.yearGroup = lesson.yearGroup || state.filters.yearGroup;
@@ -881,13 +942,15 @@
     saveFilters();
     const title = document.getElementById("moduleTitle");
     if (title) title.textContent = "Digital Lesson Twin";
+    state.activeView = "lessons";
     const ws = document.getElementById("moduleWorkspace");
     if (ws) ws.innerHTML = `<div id="curriculumNotice" class="curriculum-notice"></div>${renderToolbar()}${renderNavigationChips()}<div class="curriculum-intelligence-layout"><aside class="curriculum-tree-sidebar">${renderCurriculumTree()}</aside><section class="curriculum-intelligence-main">${renderLessonTwin(lesson.id)}</section></div>${renderModal()}`;
+    syncModuleNavigation();
     bindEvents();
   }
 
-  function openModal(mode, id = null) { state.modalMode = mode; state.editingId = id; render(); }
-  function closeModal() { state.modalMode = null; state.editingId = null; render(); }
+  function openModal(mode, id = null) { state.modalMode = mode; state.editingId = id; if (state.selectedLessonId) openLessonTwin(state.selectedLessonId); else render(); }
+  function closeModal() { state.modalMode = null; state.editingId = null; if (state.selectedLessonId) openLessonTwin(state.selectedLessonId); else render(); }
   function formData(form) { return Object.fromEntries(new FormData(form).entries()); }
 
   function saveUnitForm(event) {
@@ -932,6 +995,7 @@
   function connectModuleNavigation() {
     document.querySelectorAll("#moduleNavigation .module-nav-item").forEach(button => {
       button.addEventListener("click", () => {
+        state.selectedLessonId = null;
         state.activeView = button.dataset.view || "dashboard";
         document.querySelectorAll("#moduleNavigation .module-nav-item").forEach(item => item.classList.remove("active"));
         button.classList.add("active");
@@ -962,3 +1026,4 @@
     }
   };
 })();
+
