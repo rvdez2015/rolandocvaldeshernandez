@@ -82,7 +82,7 @@
       enriched.keyStage = isBlankYear(enriched.keyStage) ? (scheme.keyStage || "Unspecified") : enriched.keyStage;
       enriched.examBoard = enriched.examBoard || scheme.examBoard || "";
       enriched.academicYear = enriched.academicYear || scheme.academicYear || "2025-2026";
-      if (enriched.academicYear === "2025-2026") enriched.status = "Completed";
+      // Preserve recorded status; academic year alone is not evidence of completion.
       return enriched;
     });
 
@@ -97,14 +97,7 @@
       enriched.keyStage = isBlankYear(enriched.keyStage) ? (unit.keyStage || scheme.keyStage || "Unspecified") : enriched.keyStage;
       enriched.examBoard = enriched.examBoard || unit.examBoard || scheme.examBoard || "";
       enriched.academicYear = enriched.academicYear || unit.academicYear || scheme.academicYear || "2025-2026";
-      if (enriched.academicYear === "2025-2026") {
-        enriched.status = "Completed";
-        enriched.digitalLessonTwin = {
-          ...(enriched.digitalLessonTwin || {}),
-          deliveryStatus: "Completed",
-          academicYearStatus: "2025-2026 lessons marked complete; year group inherited from parent Scheme of Work where needed."
-        };
-      }
+      // Preserve lesson and digital-twin delivery status from the source data.
       return enriched;
     });
 
@@ -112,7 +105,12 @@
   }
 
   function uid(prefix, collection) {
-    const next = collection.length + 1;
+    const existing = new Set(collection.map(item => String(item.id)));
+    let next = collection.reduce((max, item) => {
+      const match = String(item.id || "").match(new RegExp(`^${prefix}-(\d+)$`));
+      return match ? Math.max(max, Number(match[1])) : max;
+    }, 0) + 1;
+    while (existing.has(`${prefix}-${String(next).padStart(4, "0")}`)) next++;
     return `${prefix}-${String(next).padStart(4, "0")}`;
   }
 
@@ -148,7 +146,7 @@
       "projectx.curriculum.database.v06",
       "projectx.curriculum.data.v1"
     ];
-    legacyKeys.forEach(key => localStorage.removeItem(key));
+    // Do not silently delete older local drafts; retain them for manual recovery.
 
     const loadCanonical = async () => {
       try {
@@ -163,11 +161,13 @@
       const parsed = normaliseData(JSON.parse(stored));
       const lessonCount = Array.isArray(parsed.lessons) ? parsed.lessons.length : 0;
       const unitCount = Array.isArray(parsed.units) ? parsed.units.length : 0;
-      if (lessonCount >= 400 && unitCount >= 90) {
+      if (lessonCount > 0 || unitCount > 0 || parsed.schemes.length > 0) {
         state.data = parsed;
         return;
       }
-      localStorage.removeItem(STORAGE_KEY);
+      // Empty local data is retained too; reset must be an explicit user action.
+      state.data = parsed;
+      return;
     }
 
     state.data = await loadCanonical();
@@ -193,10 +193,12 @@
     const reader = new FileReader();
     reader.onload = () => {
       try {
-        const parsed = normaliseData(JSON.parse(reader.result));
-        if (!parsed.schemes || !parsed.units || !parsed.lessons) {
-          throw new Error("Invalid Project X database curriculum export.");
+        const raw = JSON.parse(reader.result);
+        if (!raw || !Array.isArray(raw.schemes) || !Array.isArray(raw.units) || !Array.isArray(raw.lessons) || !Array.isArray(raw.resources)) {
+          throw new Error("Invalid Project X curriculum export: schemes, units, lessons and resources must be arrays.");
         }
+        const parsed = normaliseData(raw);
+        if (!confirm("Import will replace this browser's current curriculum data. Export a backup first. Continue?")) return;
         state.data = parsed;
         save();
         render();
@@ -894,10 +896,16 @@
 
   window.ProjectXCurriculum = {
     async initialise() {
-      await loadData();
-      state.activeView = "dashboard";
-      render();
-      setTimeout(connectModuleNavigation, 300);
+      try {
+        await loadData();
+        state.activeView = "dashboard";
+        render();
+        connectModuleNavigation();
+      } catch (error) {
+        console.error("Curriculum Centre failed to initialise:", error);
+        const workspace = document.getElementById("moduleWorkspace");
+        if (workspace) workspace.innerHTML = '<div class="projectx-card" role="alert"><h3>Curriculum data unavailable</h3><p>Check that the curriculum JSON files were uploaded and try refreshing this page. Existing browser data has not been reset.</p></div>';
+      }
     }
   };
 })();
