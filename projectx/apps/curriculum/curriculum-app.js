@@ -389,6 +389,7 @@
           <button class="curriculum-tab ${state.activeView === "schemes" ? "active" : ""}" data-view="schemes">Schemes</button>
           <button class="curriculum-tab ${state.activeView === "units" ? "active" : ""}" data-view="units">Units</button>
           <button class="curriculum-tab ${state.activeView === "lessons" ? "active" : ""}" data-view="lessons">Lessons</button>
+          <a class="curriculum-tab" href="/rolandocvaldeshernandez/projectx/apps/timetable/" style="text-decoration:none">Timetable Planner ↗</a>
         </div>
       </div>
     `;
@@ -1148,6 +1149,5 @@
     }
   };
 })();
-
 
 
