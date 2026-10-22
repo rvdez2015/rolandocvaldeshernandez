@@ -1,7 +1,8 @@
-<aside class="projectx-sidebar">
+<aside class="projectx-sidebar" aria-label="Project X navigation">
   <div class="projectx-brand">Project X</div>
-  <nav class="projectx-nav" id="projectxNav">
+  <nav class="projectx-nav" id="projectxNav" aria-label="Application navigation">
     <a href="/rolandocvaldeshernandez/projectx/index.html" data-app="dashboard">Dashboard</a>
+    <div class="projectx-nav-label">Teaching &amp; learning</div>
     <a href="/rolandocvaldeshernandez/projectx/apps/curriculum/index.html" data-app="curriculum">Curriculum Centre</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/assessment/index.html" data-app="assessment">Assessment Centre</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/revision/index.html" data-app="revision">Revision Centre</a>
@@ -9,14 +10,18 @@
     <a href="/rolandocvaldeshernandez/projectx/apps/tools/index.html" data-app="tools">Teaching Tools</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/ai-lab/index.html" data-app="ai-lab">AI Lab</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/analytics/index.html" data-app="analytics">Analytics</a>
-    <a href="/rolandocvaldeshernandez/projectx/apps/evidence/index.html" data-app="evidence">Evidence Centre</a>
-    <a href="/rolandocvaldeshernandez/projectx/apps/professional-standards/index.html" data-app="professional-standards">Professional Standards</a>
-    <a href="/rolandocvaldeshernandez/projectx/apps/prospect-centre/index.html" data-app="prospect-centre">Prospect Centre</a>
+    <div class="projectx-nav-label">Resources &amp; platform</div>
     <a href="/rolandocvaldeshernandez/projectx/apps/story-studio/index.html" data-app="story-studio">Story Studio</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/import-centre/index.html" data-app="import-centre">Import Centre</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/document-library/index.html" data-app="document-library">Document Library</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/help-centre/index.html" data-app="help-centre">Help Centre</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/development-studio/index.html" data-app="development-studio">Development Studio</a>
     <a href="/rolandocvaldeshernandez/projectx/apps/admin/index.html" data-app="admin">Administration</a>
+    <div class="projectx-nav-label">Professional portfolio</div>
+    <a href="/rolandocvaldeshernandez/index.html">← Back to Portfolio</a>
   </nav>
 </aside>
+<style>
+.projectx-nav-label{margin:18px 12px 6px;font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--px-muted,#93a9bd)}
+.projectx-nav a[aria-current="page"]{font-weight:800}
+</style>
