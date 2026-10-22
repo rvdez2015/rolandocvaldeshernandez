@@ -786,6 +786,55 @@
     notice("Teaching asset removed.");
   }
 
+  function renderAssessmentEditor(lesson) {
+    const a = lesson.formativeAssessment || {};
+    const area = (key, title, hint) => `<label style="display:block;margin:12px 0 5px;font-weight:600" for="assessment-${key}">${title}</label><textarea id="assessment-${key}" class="curriculum-textarea" name="${key}" rows="3" placeholder="${escape(hint)}">${escape(a[key] || "")}</textarea>`;
+    return `<div class="workspace-card">
+      <h3>Formative Assessment</h3>
+      <p class="muted">Record anonymised, class-level observations only. This is a teacher assessment record, not an automatic grading system.</p>
+      <form id="lessonAssessmentForm" data-lesson-id="${escape(lesson.id)}">
+        <label style="display:block;margin:12px 0 5px;font-weight:600">Understanding observed</label>
+        <select class="curriculum-select" name="understanding">
+          ${["Not Assessed","Emerging","Developing","Secure","Exceeding"].map(v => `<option value="${v}" ${a.understanding === v ? "selected" : ""}>${v}</option>`).join("")}
+        </select>
+        ${area("afl","Assessment for learning / checks","Questioning, mini-whiteboards, practical checks...")}
+        ${area("exitTicket","Exit ticket / plenary findings","Summarise what the class demonstrated...")}
+        ${area("homework","Homework / follow-up assessment","Set work and note class-level findings...")}
+        ${area("misconceptions","Misconceptions identified","What needs reteaching?")}
+        ${area("nextSteps","Next teaching steps","Revisit, scaffold, extend...")}
+        <div class="curriculum-actions" style="margin-top:14px"><button type="submit" class="curriculum-button">Save Assessment</button></div>
+      </form>
+    </div>`;
+  }
+
+  function renderReflectionEditor(lesson) {
+    const r = lesson.teachingReflection || {};
+    const area = (key, title, hint) => `<label style="display:block;margin:12px 0 5px;font-weight:600" for="reflection-${key}">${title}</label><textarea id="reflection-${key}" class="curriculum-textarea" name="${key}" rows="3" placeholder="${escape(hint)}">${escape(r[key] || "")}</textarea>`;
+    return `<div class="workspace-card">
+      <h3>Teaching Reflection</h3>
+      <p class="muted">Reflections are linked to this lesson and retained after refresh in this browser.</p>
+      <form id="lessonReflectionForm" data-lesson-id="${escape(lesson.id)}">
+        ${area("workedWell","What worked well?","Successful explanations, activities and engagement...")}
+        ${area("improvements","What should improve?","Changes to pacing, modelling, scaffolding...")}
+        ${area("misconceptions","Common misconceptions","Anonymised class-level observations...")}
+        ${area("nextLesson","Actions for the next lesson","What will you do next?")}
+        <div class="curriculum-actions" style="margin-top:14px"><button type="submit" class="curriculum-button">Save Reflection</button></div>
+      </form>
+    </div>`;
+  }
+
+  function saveLessonNotes(event, field, keys, tab, label) {
+    event.preventDefault();
+    const lesson = getLesson(event.currentTarget.dataset.lessonId);
+    if (!lesson) return;
+    const form = new FormData(event.currentTarget);
+    lesson[field] = Object.fromEntries(keys.map(key => [key, String(form.get(key) || "").trim()]));
+    save();
+    state.activeWorkspaceTab = tab;
+    openLessonTwin(lesson.id);
+    notice(label + " saved in this browser.");
+  }
+
   function renderLessonTwin(lessonId) {
     const lesson = getLesson(lessonId);
     if (!lesson) return `<div class="curriculum-empty">Lesson not found.</div>`;
@@ -804,9 +853,9 @@
         <div class="workspace-card"><h3>Unit Timeline</h3>${renderUnitTimeline(unit, lesson.id)}</div>`,
       objectives: renderObjectivesEditor(lesson),
       resources: `<div class="workspace-card"><h3>Teaching Assets</h3><p class="muted">Add a link to a teaching file or website. This stores a reference, not the file itself.</p><div class="curriculum-actions" style="margin:12px 0"><button class="curriculum-button" data-add-lesson-resource="${escape(lesson.id)}">Add Teaching Asset</button></div>${renderResourcesTable(resources)}</div>`,
-      assessment: `<div class="workspace-card"><h3>Assessment</h3><p>Assessment shell ready for AFL, exit tickets, homework, OCR question links and question-bank integration.</p><div class="workspace-metrics"><div><span>AFL</span><strong>Ready</strong></div><div><span>Exit Ticket</span><strong>Pending</strong></div><div><span>Question Bank</span><strong>Linked Later</strong></div></div></div>`,
+      assessment: renderAssessmentEditor(lesson),
       evidence: `<div class="workspace-card"><h3>Evidence</h3><p>Evidence space for observation notes, anonymised class-level outcomes, teacher evidence and professional reflections. No pupil names should be stored here.</p></div>`,
-      reflection: `<div class="workspace-card"><h3>Reflection</h3><div class="reflection-prompts"><label>What worked well?</label><textarea class="curriculum-textarea" placeholder="Add reflection after teaching..."></textarea><label>What needs improving next year?</label><textarea class="curriculum-textarea" placeholder="Add improvement actions..."></textarea><label>Common misconceptions</label><textarea class="curriculum-textarea" placeholder="Record class-level misconceptions only..."></textarea></div></div>`,
+      reflection: renderReflectionEditor(lesson),
       history: `<div class="workspace-card"><h3>Teaching History</h3><p>Active academic year: ${escape(state.data.meta?.activeAcademicYear || ACTIVE_ACADEMIC_YEAR)}.</p>${(lesson.teachingLog || []).length ? `<ul>${lesson.teachingLog.map(entry => `<li>${escape(entry.date)} — ${escape(entry.status)}</li>`).join("")}</ul>` : "<p>No teaching activity recorded yet.</p>"}</div>`,
       knowledge: `<div class="workspace-card"><h3>Knowledge Graph</h3><p><strong>Concepts:</strong> ${escape((lesson.knowledgeGraph?.concepts || []).map(c => c.name).join(", ") || "No concepts recorded yet.")}</p><p><strong>Previous Lesson:</strong> ${escape(getLesson(lesson.knowledgeGraph?.relationships?.previousLessonId)?.title || "Start of unit")}</p><p><strong>Next Lesson:</strong> ${escape(getLesson(lesson.knowledgeGraph?.relationships?.nextLessonId)?.title || "End of unit")}</p><p class="muted">Relationship status: ${escape(lesson.knowledgeGraph?.relationshipStatus || "Pending")}</p></div>`,
       ai: `<div class="workspace-card"><h3>AI Assistant</h3><p>Context-aware AI shell. Later this panel will use the lesson, unit, scheme, resources, assessment summary and reflections to generate support.</p><div class="workspace-action-stack horizontal"><button class="curriculum-button secondary">Generate Starter</button><button class="curriculum-button secondary">Differentiate</button><button class="curriculum-button secondary">Suggest Improvements</button></div></div>`
@@ -983,6 +1032,10 @@
     document.getElementById("lessonForm")?.addEventListener("submit", saveLessonForm);
     document.getElementById("resourceForm")?.addEventListener("submit", saveResourceForm);
     document.getElementById("lessonObjectivesForm")?.addEventListener("submit", saveObjectivesForm);
+    document.getElementById("lessonAssessmentForm")?.addEventListener("submit", event =>
+      saveLessonNotes(event, "formativeAssessment", ["understanding","afl","exitTicket","homework","misconceptions","nextSteps"], "assessment", "Assessment"));
+    document.getElementById("lessonReflectionForm")?.addEventListener("submit", event =>
+      saveLessonNotes(event, "teachingReflection", ["workedWell","improvements","misconceptions","nextLesson"], "reflection", "Reflection"));
     document.querySelectorAll("[data-add-lesson-resource]").forEach(btn => btn.addEventListener("click", () => {
       state.selectedLessonId = btn.dataset.addLessonResource;
       openModal("resource");
@@ -1095,5 +1148,6 @@
     }
   };
 })();
+
 
 
