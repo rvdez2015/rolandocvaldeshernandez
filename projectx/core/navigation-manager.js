@@ -1,25 +1,15 @@
+// Shared navigation for Project X. Does not alter module data or routing.
 function getCurrentAppKey() {
   const path = window.location.pathname;
-  if (path.includes('/apps/curriculum/')) return 'curriculum';
-  if (path.includes('/apps/assessment/')) return 'assessment';
-  if (path.includes('/apps/revision/')) return 'revision';
-  if (path.includes('/apps/question-banks/')) return 'question-banks';
-  if (path.includes('/apps/tools/')) return 'tools';
-  if (path.includes('/apps/ai-lab/')) return 'ai-lab';
-  if (path.includes('/apps/analytics/')) return 'analytics';
-  if (path.includes('/apps/evidence/')) return 'evidence';
-  if (path.includes('/apps/professional-standards/')) return 'professional-standards';
-  if (path.includes('/apps/prospect-centre/')) return 'prospect-centre';
-  if (path.includes('/apps/import-centre/')) return 'import-centre';
-  if (path.includes('/apps/document-library/')) return 'document-library';
-  if (path.includes('/apps/help-centre/')) return 'help-centre';
-  if (path.includes('/apps/development-studio/')) return 'development-studio';
-  if (path.includes('/apps/admin/')) return 'admin';
-  return 'dashboard';
+  const match = path.match(/\/projectx\/apps\/([^/]+)\//);
+  return match ? match[1] : 'dashboard';
 }
 function initialiseNavigation() {
   const currentApp = getCurrentAppKey();
-  document.querySelectorAll('#projectxNav a').forEach(link => {
-    if (link.dataset.app === currentApp) link.classList.add('active');
+  document.querySelectorAll('#projectxNav a[data-app]').forEach(link => {
+    const active = link.dataset.app === currentApp;
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   });
 }
