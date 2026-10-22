@@ -727,6 +727,65 @@
     });
   }
 
+  function lines(value) {
+    return Array.isArray(value) ? value : (typeof value === "string" ? value.split(/\\r?\\n/) : []);
+  }
+
+  function safeResourceUrl(value) {
+    const raw = String(value || "").trim();
+    if (!raw || raw === "#") return "";
+    if (raw.startsWith("/") && !raw.startsWith("//")) return raw;
+    try {
+      const parsed = new URL(raw);
+      return ["https:", "http:"].includes(parsed.protocol) ? parsed.href : "";
+    } catch (_) { return ""; }
+  }
+
+  function renderObjectivesEditor(lesson) {
+    const field = (name, title, value, placeholder) =>
+      `<label style="display:block;margin:12px 0 5px;font-weight:600" for="objective-${name}">${title}</label>` +
+      `<textarea id="objective-${name}" name="${name}" class="curriculum-textarea" rows="3" placeholder="${escape(placeholder)}">${escape(lines(value).join("\\n"))}</textarea>`;
+    return `<div class="workspace-card">
+      <h3>Learning Objectives & Success Criteria</h3>
+      <p class="muted">One item per line. Changes apply only to this lesson.</p>
+      <form id="lessonObjectivesForm" data-lesson-id="${escape(lesson.id)}">
+        ${field("objectives","Learning objectives",lesson.objectives,"Understand...\\nExplain...")}
+        ${field("successCriteria","Success criteria",lesson.successCriteria,"I can identify...\\nI can explain...")}
+        ${field("supportExpectations","Support / scaffold",lesson.supportExpectations,"With support, I can...")}
+        ${field("coreExpectations","Core expectations",lesson.coreExpectations,"Most pupils can...")}
+        ${field("stretchExpectations","Stretch / challenge",lesson.stretchExpectations,"I can evaluate...")}
+        ${field("vocabulary","Keywords",lesson.vocabulary,"keyword one\\nkeyword two")}
+        ${field("misconceptions","Common misconceptions",lesson.misconceptions,"Potential misunderstanding...")}
+        <div class="curriculum-actions" style="margin-top:14px">
+          <button class="curriculum-button" type="submit">Save Objectives</button>
+        </div>
+      </form>
+    </div>`;
+  }
+
+  function saveObjectivesForm(event) {
+    event.preventDefault();
+    const lesson = getLesson(event.currentTarget.dataset.lessonId);
+    if (!lesson) return;
+    const data = new FormData(event.currentTarget);
+    ["objectives","successCriteria","supportExpectations","coreExpectations","stretchExpectations","vocabulary","misconceptions"].forEach(key => {
+      lesson[key] = String(data.get(key) || "").split(/\\r?\\n/).map(x => x.trim()).filter(Boolean);
+    });
+    save();
+    state.activeWorkspaceTab = "objectives";
+    openLessonTwin(lesson.id);
+    notice("Lesson objectives saved in this browser.");
+  }
+
+  function deleteResource(id) {
+    const resource = state.data.resources.find(item => item.id === id);
+    if (!resource || !confirm(`Remove teaching asset "${resource.title}"?`)) return;
+    state.data.resources = state.data.resources.filter(item => item.id !== id);
+    save();
+    if (state.selectedLessonId) openLessonTwin(state.selectedLessonId); else render();
+    notice("Teaching asset removed.");
+  }
+
   function renderLessonTwin(lessonId) {
     const lesson = getLesson(lessonId);
     if (!lesson) return `<div class="curriculum-empty">Lesson not found.</div>`;
@@ -743,8 +802,8 @@
           ${renderReadinessIndicator(lesson)}
         </div>
         <div class="workspace-card"><h3>Unit Timeline</h3>${renderUnitTimeline(unit, lesson.id)}</div>`,
-      objectives: `<div class="workspace-card"><h3>Objectives & Success Criteria</h3><ul>${objectives.map(item => `<li>${escape(item)}</li>`).join("") || "<li>No learning objectives recorded yet.</li>"}</ul><h4>Concepts</h4><p>${escape((lesson.knowledgeGraph?.concepts || []).map(c => c.name).join(", ") || (lesson.conceptTags || []).join(", ") || "No concepts recorded yet.")}</p><h4>Keywords</h4><p>${escape((lesson.vocabulary || []).join(", ") || "No keywords recorded yet.")}</p><h4>Misconceptions</h4><p>${escape((lesson.misconceptions || []).join(" ") || "No misconceptions recorded yet.")}</p></div>`,
-      resources: `<div class="workspace-card"><h3>Teaching Assets</h3>${renderResourcesTable(resources)}<div class="workspace-action-stack horizontal"><button class="curriculum-button secondary">Add Slides</button><button class="curriculum-button secondary">Add Worksheet</button><button class="curriculum-button secondary">Add Code File</button></div></div>`,
+      objectives: renderObjectivesEditor(lesson),
+      resources: `<div class="workspace-card"><h3>Teaching Assets</h3><p class="muted">Add a link to a teaching file or website. This stores a reference, not the file itself.</p><div class="curriculum-actions" style="margin:12px 0"><button class="curriculum-button" data-add-lesson-resource="${escape(lesson.id)}">Add Teaching Asset</button></div>${renderResourcesTable(resources)}</div>`,
       assessment: `<div class="workspace-card"><h3>Assessment</h3><p>Assessment shell ready for AFL, exit tickets, homework, OCR question links and question-bank integration.</p><div class="workspace-metrics"><div><span>AFL</span><strong>Ready</strong></div><div><span>Exit Ticket</span><strong>Pending</strong></div><div><span>Question Bank</span><strong>Linked Later</strong></div></div></div>`,
       evidence: `<div class="workspace-card"><h3>Evidence</h3><p>Evidence space for observation notes, anonymised class-level outcomes, teacher evidence and professional reflections. No pupil names should be stored here.</p></div>`,
       reflection: `<div class="workspace-card"><h3>Reflection</h3><div class="reflection-prompts"><label>What worked well?</label><textarea class="curriculum-textarea" placeholder="Add reflection after teaching..."></textarea><label>What needs improving next year?</label><textarea class="curriculum-textarea" placeholder="Add improvement actions..."></textarea><label>Common misconceptions</label><textarea class="curriculum-textarea" placeholder="Record class-level misconceptions only..."></textarea></div></div>`,
@@ -762,7 +821,7 @@
   }
 
   function renderReadinessIndicator(lesson) {
-    const score = Number(lesson.readinessScore || 20);
+    const score = Number(lesson.readinessScore ?? 20);
     return `<div class="workspace-card"><h3>Teaching Readiness</h3><div class="curriculum-progress-row"><span>Digital Twin</span><strong>${score}%</strong><div class="curriculum-progress"><i style="width:${Math.min(100, score)}%"></i></div></div><p class="muted">Readiness will increase as resources, assessments, reflections and evidence are linked.</p></div>`;
   }
 
@@ -789,7 +848,7 @@
     return `
       <table class="curriculum-table">
         <thead><tr><th>Asset</th><th>Type</th><th>Lesson</th><th>Link</th><th>Actions</th></tr></thead>
-        <tbody>${resources.map(resource => { const lesson = getLesson(resource.lessonId); return `<tr><td><strong>${escape(resource.title)}</strong><br><span>${escape(resource.notes || "")}</span></td><td>${escape(resource.type || "Resource")}</td><td>${escape(lesson?.title || "Unlinked")}</td><td>${resource.url && resource.url !== "#" ? `<a href="${escape(resource.url)}" target="_blank">Open</a>` : "No link"}</td><td><button class="curriculum-button secondary" data-edit-resource="${escape(resource.id)}">Edit</button></td></tr>`; }).join("")}</tbody>
+        <tbody>${resources.map(resource => { const lesson = getLesson(resource.lessonId); return `<tr><td><strong>${escape(resource.title)}</strong><br><span>${escape(resource.notes || "")}</span></td><td>${escape(resource.type || "Resource")}</td><td>${escape(lesson?.title || "Unlinked")}</td><td>${safeResourceUrl(resource.url) ? `<a href="${escape(safeResourceUrl(resource.url))}" target="_blank" rel="noopener noreferrer">Open</a>` : "No valid link"}</td><td><div class="curriculum-actions"><button class="curriculum-button secondary" data-edit-resource="${escape(resource.id)}">Edit</button><button class="curriculum-button secondary" data-delete-resource="${escape(resource.id)}">Remove</button></div></td></tr>`; }).join("")}</tbody>
       </table>
     `;
   }
@@ -859,8 +918,8 @@
         <h2>${state.editingId ? "Edit Teaching Asset" : "New Teaching Asset"}</h2>
         <form id="resourceForm" class="curriculum-form-grid">
           <input name="title" class="curriculum-input" placeholder="Asset title" value="${escape(resource.title)}" required>
-          <select name="lessonId" class="curriculum-select">${state.data.lessons.map(lesson => `<option value="${escape(lesson.id)}" ${resource.lessonId === lesson.id ? "selected" : ""}>${escape(lesson.title)}</option>`).join("")}</select>
-          <input name="type" class="curriculum-input" placeholder="Type e.g. PDF, Canva, Code" value="${escape(resource.type)}">
+          <select name="lessonId" class="curriculum-select">${state.data.lessons.map(lesson => `<option value="${escape(lesson.id)}" ${(resource.lessonId || state.selectedLessonId) === lesson.id ? "selected" : ""}>${escape(lesson.title)}</option>`).join("")}</select>
+          <select name="type" class="curriculum-select">${["Presentation","Worksheet","PDF","Video","Python / Code","Website","Quiz","Other"].map(type => `<option value="${escape(type)}" ${resource.type === type ? "selected" : ""}>${escape(type)}</option>`).join("")}</select>
           <input name="url" class="curriculum-input" placeholder="URL or file path" value="${escape(resource.url)}">
           <div style="grid-column:1/-1;"><textarea name="notes" class="curriculum-textarea" placeholder="Notes">${escape(resource.notes)}</textarea></div>
           <div class="curriculum-actions" style="grid-column:1/-1;"><button class="curriculum-button" type="submit">Save Asset</button><button class="curriculum-button secondary" type="button" data-close-modal>Cancel</button></div>
@@ -923,6 +982,12 @@
     document.getElementById("unitForm")?.addEventListener("submit", saveUnitForm);
     document.getElementById("lessonForm")?.addEventListener("submit", saveLessonForm);
     document.getElementById("resourceForm")?.addEventListener("submit", saveResourceForm);
+    document.getElementById("lessonObjectivesForm")?.addEventListener("submit", saveObjectivesForm);
+    document.querySelectorAll("[data-add-lesson-resource]").forEach(btn => btn.addEventListener("click", () => {
+      state.selectedLessonId = btn.dataset.addLessonResource;
+      openModal("resource");
+    }));
+    document.querySelectorAll("[data-delete-resource]").forEach(btn => btn.addEventListener("click", () => deleteResource(btn.dataset.deleteResource)));
     document.getElementById("exportCurriculumBtn")?.addEventListener("click", exportData);
     document.getElementById("resetTrackingBtn")?.addEventListener("click", resetTrackingData);
     document.getElementById("resetCurriculumBtn")?.addEventListener("click", () => { if (confirm("Reset local curriculum data to the database seed?")) resetData(); });
@@ -976,6 +1041,10 @@
   function saveResourceForm(event) {
     event.preventDefault();
     const data = formData(event.target);
+    if (data.url && !safeResourceUrl(data.url)) {
+      alert("Use an https:// or http:// link, or a site-root path beginning with /.");
+      return;
+    }
     if (state.editingId) Object.assign(state.data.resources.find(r => r.id === state.editingId), data);
     else state.data.resources.push({ id: uid("PX-AST", state.data.resources), ...data });
     save(); closeModal(); notice("Teaching asset saved.");
@@ -1026,4 +1095,5 @@
     }
   };
 })();
+
 
