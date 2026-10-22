@@ -18,19 +18,18 @@
           <h2>Project X</h2>
           <p>An evolving teaching intelligence platform for curriculum planning, assessment, instructional resources and educational application development. Explore the available modules below.</p>
           <div class="workspace-actions" style="margin-top:22px;">
-            <a class="projectx-button" href="/rolandocvaldeshernandez/index.html">← Back to Portfolio</a>
             <a class="projectx-button" href="/rolandocvaldeshernandez/projectx/apps/curriculum/">Open Curriculum</a>
           </div>
         </section>
         <section class="workspace-kpi-grid">
           <div class="workspace-kpi"><span>Total Apps</span><strong id="statApps">0</strong></div>
-          <div class="workspace-kpi"><span>Available Modules</span><strong id="statAvailable">0</strong></div>
-          <div class="workspace-kpi"><span>Preview Modules</span><strong id="statPreview">0</strong></div>
+          <div class="workspace-kpi"><span>Verified Modules</span><strong id="statAvailable">0</strong></div>
+          <div class="workspace-kpi"><span>Awaiting Verification</span><strong id="statPreview">0</strong></div>
           <div class="workspace-kpi"><span>Platform</span><strong>Alpha</strong></div>
         </section>
         <section class="projectx-card">
           <div class="workspace-toolbar">
-            <div class="workspace-title"><h2>Application Dashboard</h2><p>Browse the registered teaching, assessment, media and development modules. Features may vary by release.</p></div>
+            <div class="workspace-title"><h2>Application Dashboard</h2><p>Browse modules from the shared navigation. Functional verification is still in progress.</p></div>
             <input id="pxSearch" type="search" placeholder="Search Project X..." style="min-width:280px;height:44px;border:1px solid var(--px-border);border-radius:999px;padding:0 16px;">
           </div>
           <div id="pxContent" class="px-empty">Loading Project X registry...</div>
@@ -45,37 +44,40 @@
   <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
   <script>
     function safe(v){return String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-    function section(title,apps){if(!apps.length)return'';return `<div style="margin-top:24px;"><h3>${safe(title)} <span class="projectx-status">${apps.length} items</span></h3><div class="app-card-grid">${apps.map(app=>`<a class="app-card" href="${safe(app.url)}"><div style="display:flex;justify-content:space-between;gap:12px;"><span style="font-size:1.5rem">${safe(app.icon)}</span><small style="font-weight:900;color:var(--px-muted);text-transform:uppercase;letter-spacing:.1em">${safe(app.category)}</small></div><h3>${safe(app.title)}</h3><p>${safe(app.description)}</p><footer><span class="projectx-status">${safe(app.status)}</span><span>Open →</span></footer></a>`).join('')}</div></div>`}
+    const base='/rolandocvaldeshernandez/projectx/';
+    const fallbackNames={'curriculum':'Curriculum Centre','assessment':'Assessment Centre','revision':'Revision Centre','question-banks':'Question Banks','tools':'Teaching Tools','ai-lab':'AI Lab','analytics':'Analytics','story-studio':'Story Studio','import-centre':'Import Centre','document-library':'Document Library','help-centre':'Help Centre','development-studio':'Development Studio','admin':'Administration'};
+    function card(app){
+      const label=app.verification==='preview'?'Preview / in development':'Not yet verified';
+      return `<a class="app-card" href="${safe(app.url)}"><div style="display:flex;justify-content:space-between;gap:12px"><span style="font-size:1.5rem">${safe(app.icon||'▣')}</span><small style="font-weight:900;color:var(--px-muted);text-transform:uppercase">${safe(app.category||'Project X module')}</small></div><h3>${safe(app.title)}</h3><p>${safe(app.description||'Module listed in Project X navigation; functionality requires testing.')}</p><footer><span class="projectx-status">${label}</span><span>Open →</span></footer></a>`;
+    }
+    function renderApps(apps){return apps.length?`<div class="app-card-grid">${apps.map(card).join('')}</div>`:'<div class="px-empty">No matching modules found.</div>'}
     async function loadDashboard(){
-      const content=document.getElementById('pxContent');
-      const search=document.getElementById('pxSearch');
+      const content=document.getElementById('pxContent'),search=document.getElementById('pxSearch');
       try{
-        let response=await fetch('/rolandocvaldeshernandez/data/projectx_registry.json',{cache:'no-store'});
-        if(!response.ok) response=await fetch('/rolandocvaldeshernandez/projectx/data/projectx_registry.json',{cache:'no-store'});
-        if(!response.ok) throw new Error('Application registry unavailable');
-        const data=await response.json();
-        const apps=Array.isArray(data.apps)?data.apps:[];
-        // Professional evidence belongs to the portfolio; preserve its module in the registry.
-        const workspaceApps=apps.filter(a=>!['Professional Hub','Portfolio','Evidence'].includes(a.category));
-        function render(list){
-          const sorted=[...list].sort((a,b)=>(b.priority||0)-(a.priority||0));
-          content.className='';
-          content.innerHTML=section('Project X Applications',sorted)||'<div class="px-empty">No matching modules found.</div>';
-        }
-        document.getElementById('statApps').textContent=workspaceApps.length;
-        document.getElementById('statAvailable').textContent=workspaceApps.filter(a=>a.status!=='Preview').length;
-        document.getElementById('statPreview').textContent=workspaceApps.filter(a=>a.status==='Preview').length;
-        search.addEventListener('input',()=>{
-          const q=search.value.toLowerCase().trim();
-          render(workspaceApps.filter(a=>[a.title,a.category,a.section,a.description,a.status].join(' ').toLowerCase().includes(q)));
+        // Read the deployed registry, but do not assume its statuses prove functionality.
+        const sources=[base+'data/projectx_registry.json','/rolandocvaldeshernandez/data/projectx_registry.json'];
+        let records=[];
+        for(const url of sources){try{const r=await fetch(url,{cache:'no-store'});if(r.ok){const d=await r.json();if(Array.isArray(d.apps)){records=d.apps;break}}}catch(e){console.warn('Registry source unavailable',url,e)}}
+        const sidebar=document.querySelectorAll('#projectxNav a[data-app]');
+        if(!sidebar.length)throw new Error('Sidebar navigation unavailable');
+        const entries=[...sidebar].filter(a=>a.dataset.app!=='dashboard').map(a=>{
+          const url=new URL(a.getAttribute('href'),location.href);
+          const record=records.find(r=>{try{return new URL(r.url,location.href).pathname.replace(/\/$/,'')===url.pathname.replace(/\/$/,'')}catch{return false}});
+          const status=String(record?.status||'').toLowerCase();
+          return {title:record?.title||a.textContent.trim()||fallbackNames[a.dataset.app],url:url.pathname,description:record?.description||'Module listed in Project X navigation; functionality requires testing.',category:record?.category||'Project X module',icon:record?.icon||'▣',verification:/preview|development|planned|alpha|beta/.test(status)?'preview':'unverified'};
         });
-        render(workspaceApps);
-      }catch(error){
-        console.error('Project X registry:',error);
-        content.innerHTML='<div class="px-empty"><strong>Application registry could not be loaded.</strong><p>Check the registry file and deployment paths.</p></div>';
-      }
+        const unique=[...new Map(entries.map(a=>[a.url,a])).values()];
+        document.getElementById('statApps').textContent=unique.length;
+        document.getElementById('statAvailable').textContent='0';
+        document.getElementById('statPreview').textContent=unique.length;
+        const note=document.createElement('p');note.className='muted';note.textContent='Module availability has not been independently tested. “Verified” remains zero until each module passes a functional check.';
+        content.before(note);
+        const render=()=>{const q=search.value.toLowerCase().trim();content.className='';content.innerHTML=renderApps(unique.filter(a=>[a.title,a.category,a.description,a.verification].join(' ').toLowerCase().includes(q)))};
+        search.addEventListener('input',render);render();
+      }catch(error){console.error('Project X navigation registry:',error);content.innerHTML='<div class="px-empty"><strong>Modules could not be loaded.</strong><p>Check the sidebar component and deployment paths.</p></div>'}
     }
     document.addEventListener('DOMContentLoaded',()=>{loadDashboard();setTimeout(()=>{const t=document.getElementById('projectxPageTitle');const s=document.getElementById('projectxPageSubtitle');if(t)t.textContent='Project X Dashboard';if(s)s.textContent='Teaching Intelligence Platform'},120)})
   </script>
 </body>
 </html>
+
