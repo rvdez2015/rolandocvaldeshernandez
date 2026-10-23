@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Curriculum Intelligence Centre | Project X</title>
+
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/assets/projectx.css" />
+  <link rel="stylesheet" href="/rolandocvaldeshernandez/projectx/apps/curriculum/curriculum.css" />
+<style>
+.px-hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
+.px-hub-card{border:1px solid #d6e0ee;border-radius:12px;padding:18px;background:var(--card-bg,#fff);color:inherit}
+.px-hub-card h3{margin:0 0 8px}.px-hub-card p{font-size:.93rem;line-height:1.5}
+.px-hub-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.px-hub-actions a,.px-hub-actions button{display:inline-block;padding:9px 12px;border-radius:8px;background:#164b8c;color:white;text-decoration:none;border:0;cursor:pointer;font:inherit;font-size:.88rem}
+.px-hub-actions a:focus-visible,.px-hub-actions button:focus-visible{outline:3px solid #ffb900;outline-offset:2px}
+.px-hub-notice{background:#eef4fc;border-left:4px solid #2864aa;padding:14px;border-radius:7px;margin:14px 0;color:#163354}
+.px-help{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;border:1px solid #7292b7;border-radius:50%;font-size:12px;font-weight:700;cursor:help;margin-left:5px;vertical-align:middle;background:#f1f6fc;color:#173e69}
+#pxTooltip{position:fixed;z-index:99999;max-width:min(330px,calc(100vw - 24px));padding:10px 13px;background:#162b47;color:white;border-radius:8px;box-shadow:0 8px 25px #0004;font-size:13px;line-height:1.45;pointer-events:none;display:none}
+.px-embed{width:100%;min-height:800px;border:1px solid #d6e0ee;border-radius:10px;background:white}
+.px-help details{border:1px solid #d6e0ee;border-radius:9px;padding:12px;margin:10px 0}.px-help summary{cursor:pointer;font-weight:700}
+</style>
+</head>
+
+<body>
+  <div class="projectx-shell">
+    <div id="projectxSidebar"></div>
+
+    <main class="projectx-main">
+      <div id="projectxHeader"></div>
+
+      <section class="projectx-content">
+        <div class="projectx-card" style="margin-bottom: 24px;">
+          <span class="projectx-status">Operational Module</span>
+          <h2>Curriculum Intelligence Centre</h2>
+          <p>
+            Database-powered curriculum navigation for Schemes of Work, units, lessons, teaching assets and planning status. Navigate the curriculum, manage cloud lessons and prepare Google Classroom drafts from one place. Use the help icons for explanations.
+          </p>
+        </div>
+
+        <div class="module-shell">
+          <aside class="module-panel">
+            <h3>Curriculum Menu</h3>
+            <nav id="moduleNavigation" class="module-nav">
+              <button class="module-nav-item active" data-view="dashboard">Dashboard</button>
+              <button class="module-nav-item" data-view="units">Units</button>
+              <button class="module-nav-item" data-view="lessons">Lessons</button>
+              <button class="module-nav-item" data-view="cloud">☁ Cloud & Publishing</button>
+              <button class="module-nav-item" data-view="schemes">Schemes of Work</button>
+              <button class="module-nav-item" data-view="resources">Teaching Assets</button>
+              <button class="module-nav-item" data-view="planner">Planner</button>
+              <a class="module-nav-item" href="/rolandocvaldeshernandez/projectx/apps/timetable/" style="display:block;text-decoration:none;">Dynamic Timetable Planner ↗</a>
+              <button class="module-nav-item" data-view="help">❔ Help & Guidance</button>
+              <button class="module-nav-item" data-view="settings">Settings</button>
+            </nav>
+          </aside>
+
+          <section class="module-workspace">
+            <h2 id="moduleTitle" style="margin-top: 0;">Curriculum Dashboard</h2>
+            <div id="moduleWorkspace">
+              <div class="curriculum-empty">Loading Curriculum Centre...</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/rolandocvaldeshernandez/projectx/core/navigation-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/theme-manager.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/projectx-loader.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/core/bootstrap.js"></script>
+  <script src="/rolandocvaldeshernandez/projectx/apps/curriculum/curriculum-app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        const title = document.getElementById("projectxPageTitle");
+        const subtitle = document.getElementById("projectxPageSubtitle");
+
+        if (title) title.textContent = "Curriculum Intelligence Centre";
+        if (subtitle) subtitle.textContent = "Three-click navigation across Schemes of Work, units, lessons and assets";
+
+        if (window.ProjectXCurriculum) {
+          window.ProjectXCurriculum.initialise();
+        }
+      }, 250);
+    });
+  </script>
+<div id="pxTooltip" role="tooltip"></div>
+<script>
+(function(){
+ const help={
+  'Dashboard':'Overview of curriculum progress and navigation. The current legacy inventory is stored in this browser.',
+  'Units':'Browse and edit teaching units. Current edits are browser-local unless explicitly saved through a cloud workspace.',
+  'Lessons':'View the curriculum inventory. Cloud lesson documents are managed in Cloud & Publishing.',
+  '☁ Cloud & Publishing':'Central access to Firebase cloud lessons, private lesson import, previews and Google Classroom drafts.',
+  'Schemes of Work':'Browse year-group teaching sequences and specification mapping.',
+  'Teaching Assets':'Manage links to resources; adding a link does not upload the file itself.',
+  'Planner':'Plan lesson delivery and inspect unfinished lessons.',
+  'Settings':'Export local curriculum data and manage local tracking. Reset actions do not delete Firestore documents.',
+  '❔ Help & Guidance':'Instructions for the Project X workflow, storage, security and publishing.',
+  'New Unit':'Create a unit in the current browser-local curriculum inventory.',
+  'New Lesson':'Create a lesson record in the current browser-local inventory, not in Firebase.',
+  'New Asset':'Add a reference link to a teaching resource.',
+  'Clear Filters':'Remove active year, scheme, unit and status filters.',
+  'Export JSON':'Download a backup of the browser-local curriculum inventory.',
+  'Import JSON':'Replace browser-local curriculum inventory from a compatible JSON export; does not upload to Firebase.',
+  'Reset Tracking: Years 5–13':'Reset local teaching progress for all year groups. Does not delete cloud lessons.',
+  'Reload Original Database Seed':'Discard current browser-local curriculum data and reload the initial seed. Export a backup first.'
+ };
+ const tooltip=document.getElementById('pxTooltip');
+ function describe(el){return el?.getAttribute('data-help')||help[(el?.textContent||'').trim().replace(/\s+/g,' ')]||''}
+ function show(el){const message=describe(el);if(!message)return;tooltip.textContent=message;tooltip.style.display='block';const r=el.getBoundingClientRect();const x=Math.min(window.innerWidth-tooltip.offsetWidth-12,Math.max(12,r.left));const y=r.bottom+tooltip.offsetHeight+10>window.innerHeight?Math.max(12,r.top-tooltip.offsetHeight-8):r.bottom+8;tooltip.style.left=x+'px';tooltip.style.top=y+'px';}
+ document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-help],#moduleNavigation button,.curriculum-button');if(el)show(el)});
+ document.addEventListener('pointerout',e=>{if(e.target.closest('[data-help],#moduleNavigation button,.curriculum-button'))tooltip.style.display='none'});
+ document.addEventListener('focusin',e=>{const el=e.target.closest('[data-help],#moduleNavigation button,.curriculum-button');if(el)show(el)});
+ document.addEventListener('focusout',()=>tooltip.style.display='none');
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')tooltip.style.display='none'});
+})();
+</script>
+</body>
+</html>
