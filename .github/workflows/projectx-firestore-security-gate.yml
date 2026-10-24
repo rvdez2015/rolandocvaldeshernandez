@@ -1,1 +1,35 @@
 
+name: Project X Firestore Security Gate
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'projectx-security-tests/**'
+      - '.github/workflows/projectx-firestore-security-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  security-rules-emulator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Java for Firebase Emulator
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install test dependencies
+        working-directory: projectx-security-tests
+        run: npm install --no-audit --no-fund
+      - name: Verify Firestore rules in emulator (never production)
+        working-directory: projectx-security-tests
+        run: npm test
+
