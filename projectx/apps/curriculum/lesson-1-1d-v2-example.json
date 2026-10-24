@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 2,
+  "lessonId": "1.1d",
+  "revisionId": "v2-pilot",
+  "yearGroup": 10,
+  "title": "Embedded Systems: Purpose and Characteristics",
+  "durationMinutes": 45,
+  "frameworkObjectiveIds": ["ocr-j277-1.1.3-VERIFY"],
+  "teacherPlan": {
+    "learningObjectives": ["Define an embedded system", "Distinguish embedded from general-purpose systems", "Apply the distinction to unfamiliar devices"],
+    "successCriteria": ["Explain a dedicated function", "Describe typical characteristics with qualifications", "Justify a classification using evidence"],
+    "priorKnowledge": ["Purpose of computer systems", "Inputs, processing and outputs"],
+    "misconceptions": ["All embedded systems are necessarily real-time", "Any device containing a computer is itself only an embedded system"],
+    "vocabulary": ["embedded system", "dedicated function", "general-purpose computer", "sensor", "actuator"],
+    "subjectExplanation": "An embedded system is a computer system designed for a specific function or limited set of functions within a larger device or system. Characteristics vary by application.",
+    "differentiation": {"support": "Sentence stems and worked classification", "stretch": "Justify borderline cases and constraints", "sendEal": "Accessible glossary and chunked instructions"},
+    "teacherOnlyGuidance": "Do not present classification as a simple device-name checklist; use purpose and system context.",
+    "homework": "Provide a justified example of an embedded system encountered outside school."
+  },
+  "studentPlan": {
+    "intro": "Identify and justify embedded systems in real devices.",
+    "publicUrl": "https://rvdez2015.github.io/rolandocvaldeshernandez/projectx/apps/curriculum/student-lesson-1-1d.html",
+    "submissionInstructions": "Complete the interactive lesson, download your TXT responses, attach to the Classroom assignment and turn in.",
+    "answerKeysIncluded": false
+  },
+  "activities": [
+    {"stageId":"starter","sequence":1,"minutes":5,"phase":"retrieve","teacherActions":"Prompt device examples and probe purpose","studentActions":"Identify possible embedded systems","checksForUnderstanding":["Can the student describe a dedicated function?"],"resourceRefs":[],"objectiveIds":["LO1"]},
+    {"stageId":"explain","sequence":2,"minutes":8,"phase":"explain","teacherActions":"Model definition and contrast with general-purpose computing","studentActions":"Write a definition and compare examples","checksForUnderstanding":["Uses function and context, not size alone"],"resourceRefs":[],"objectiveIds":["LO1","LO2"]},
+    {"stageId":"classify","sequence":3,"minutes":10,"phase":"guided-practice","teacherActions":"Question reasoning for five scenarios","studentActions":"Classify and justify each scenario","checksForUnderstanding":["Reasoning explains the function"],"resourceRefs":[],"objectiveIds":["LO2","LO3"]},
+    {"stageId":"apply","sequence":4,"minutes":7,"phase":"independent-practice","teacherActions":"Support irrigation-system reasoning","studentActions":"Explain sensor-processing-output control","checksForUnderstanding":["Links system purpose to classification"],"resourceRefs":[],"objectiveIds":["LO3"]},
+    {"stageId":"exam","sequence":5,"minutes":12,"phase":"assessment","teacherActions":"Use four original exam-style questions","studentActions":"Answer questions independently","checksForUnderstanding":["Apply mark allocations and key terms"],"resourceRefs":[],"objectiveIds":["LO1","LO2","LO3"]},
+    {"stageId":"exit","sequence":6,"minutes":3,"phase":"exit-ticket","teacherActions":"Collect final misconception check","studentActions":"Give one justified example","checksForUnderstanding":["Distinguishes embedded from general purpose"],"resourceRefs":[],"objectiveIds":["LO3"]}
+  ],
+  "assessmentItemRefs": [
+    {"itemId":"1.1d-q1","marks":1,"stageId":"exam"},
+    {"itemId":"1.1d-q2","marks":2,"stageId":"exam"},
+    {"itemId":"1.1d-q3","marks":3,"stageId":"exam"},
+    {"itemId":"1.1d-q4","marks":4,"stageId":"exam"}
+  ],
+  "standardsAlignment": [
+    {"standardId":"TS1","status":"proposed","plannedOpportunity":true,"stageIds":["starter","exam"],"rationale":"Explicit challenge and expectations for justified explanations","indicators":["Students explain and justify rather than guess"],"evidenceToCollect":["Task completion and participation"]},
+    {"standardId":"TS2","status":"proposed","plannedOpportunity":true,"stageIds":["explain","apply","exit"],"rationale":"Progression from definition to independent application","indicators":["Improved justification in exit response"],"evidenceToCollect":["Starter versus exit responses"]},
+    {"standardId":"TS3","status":"proposed","plannedOpportunity":true,"stageIds":["explain","classify"],"rationale":"Accurate distinction between embedded and general-purpose systems","indicators":["Precise explanation and handling of edge cases"],"evidenceToCollect":["Teacher explanation and student examples"]},
+    {"standardId":"TS4","status":"proposed","plannedOpportunity":true,"stageIds":["starter","explain","classify","apply","exam","exit"],"rationale":"Sequenced 45-minute lesson with retrieval, modelling, practice and assessment","indicators":["Appropriate pacing and transitions"],"evidenceToCollect":["Timing and lesson sequence notes"]},
+    {"standardId":"TS5","status":"proposed","plannedOpportunity":true,"stageIds":["classify","apply"],"rationale":"Sentence stems, glossary and stretch reasoning are planned","indicators":["Adaptations respond to learning needs"],"evidenceToCollect":["Examples of scaffolds and student responses"]},
+    {"standardId":"TS6","status":"proposed","plannedOpportunity":true,"stageIds":["classify","exam","exit"],"rationale":"Formative checks, 10-mark assessment and exit ticket","indicators":["Assessment evidence informs feedback"],"evidenceToCollect":["Responses, marking and feedback"]},
+    {"standardId":"TS7","status":"not_evidenced_in_plan","plannedOpportunity":false,"stageIds":[],"rationale":"No specific behaviour routine documented in source lesson; add only after teacher planning","indicators":[],"evidenceToCollect":[]},
+    {"standardId":"TS8","status":"not_evidenced_in_plan","plannedOpportunity":false,"stageIds":[],"rationale":"Wider professional responsibilities usually need separate evidence","indicators":[],"evidenceToCollect":[]}
+  ],
+  "observationTemplate": {
+    "type": null,"observerUid":null,"sessionId":null,"focus":[],"observedEvidence":[],"strengths":[],"developmentPriorities":[],"teacherReflection":null,"actionPlan":[],"reviewDate":null,"verificationStatus":"not_started"
+  },
+  "quality": {"contentReadinessStatus":"draft","reviewerSignoff":false,"warnings":["Verify exact OCR specification objective wording/edition", "Teacher review of proposed TS alignments required", "Confirm stage timings against actual live student page"]},
+  "sourceLineage": {"legacyId":"1.1d","sourceType":"existing validated Project X pilot plus proposed v2 additions","migrationStatus":"fixture_only_no_live_write"}
+}
