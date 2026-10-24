@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+ <title>Project X | Curriculum Import Centre</title>
+ <meta name="robots" content="noindex,nofollow"/>
+ <link rel="stylesheet" href="./import-centre.css"/>
+</head>
+<body>
+ <header class="topbar"><a href="../">← Curriculum Centre</a><span class="brand">PROJECT <b>X</b></span><span class="pill">OWNER · PRIVATE PILOT</span></header>
+ <main class="wrap">
+   <section class="hero"><p class="eyebrow">CURRICULUM INTELLIGENCE · CONTROLLED MIGRATION</p><h1>Curriculum Import Centre</h1><p>Validate and import the 94-lesson OCR J277 pilot into private, versioned Firestore collections. The importer never publishes lessons to students.</p></section>
+   <section class="metricrow" aria-label="Expected payload statistics"><div><strong>94</strong><small>lessons</small></div><div><strong>376</strong><small>questions</small></div><div><strong>376</strong><small>concept families</small></div><div><strong>1,410</strong><small>private revision documents</small></div></section>
+   <section class="panel"><div class="panelhead"><h2>1. Load the PRIVATE curriculum file</h2><span class="step">LOCAL ONLY UNTIL IMPORT</span></div>
+    <p>Select <code>PRIVATE_IMPORT_PAYLOAD.json</code> from the private ZIP on your computer. <strong>Never upload this JSON to GitHub Pages</strong>.</p>
+    <label class="filebox" for="upload">Choose local JSON file<input type="file" accept=".json,application/json" id="upload" /></label>
+    <div class="status" id="loadStatus" role="status">No file loaded.</div>
+    <div class="data" id="fileFacts" hidden></div>
+   </section>
+   <section class="panel"><div class="panelhead"><h2>2. Authenticate as Project X owner</h2><span class="step">FIREBASE AUTH</span></div>
+     <p>The built-in owner identifier applies only to the current personal Project X pilot. The server-side Firestore rules must enforce the same restriction.</p>
+     <div class="actions"><button id="signin">Sign in with Google</button><button id="signout" class="light" disabled>Sign out</button></div>
+     <div class="status" id="authStatus" role="status">Not signed in.</div>
+   </section>
+   <section class="panel"><div class="panelhead"><h2>3. Test and review the import</h2><span class="step">NO WRITES</span></div>
+      <p><b>Local validation</b> checks the structure and reference integrity. <b>Remote preflight</b> checks every target document for an existing matching revision or a conflict; it writes nothing.</p>
+      <div class="actions"><button id="localCheck" class="light" disabled>Validate local package</button><button id="preflight" disabled>Run Firestore dry run</button><button id="downloadLog" class="light" disabled>Download import log</button></div>
+      <div class="status" id="dryStatus" role="status">Load a package and sign in to run the Firestore preflight.</div>
+      <progress id="progress" value="0" max="1410" aria-label="Import progress"></progress>
+      <small id="progressText" class="muted">No operations started.</small>
+   </section>
+   <section class="panel warning"><div class="panelhead"><h2>4. Import private revisions</h2><span class="step">OWNER WRITE</span></div>
+      <p>The write operation creates immutable version records. Existing identical revisions are skipped; conflicting revisions stop the import. Partial imports can be resumed after another dry run.</p>
+      <label class="tick"><input type="checkbox" id="securityAck"/> <span>I have verified the deployed Firestore rules with the emulator, including anonymous/non-owner denial and immutable revisions.</span></label>
+      <label class="tick"><input type="checkbox" id="approvalAck"/> <span>I approve an <b>owner-private initial-teaching pilot</b>, not unrestricted student publication or final independent moderation.</span></label>
+      <label class="tick"><input type="checkbox" id="revisionsAck"/> <span>I understand subsequent teacher changes must create attributed new revisions, not overwrite these imported versions.</span></label>
+      <div class="actions"><button id="import" class="gold" disabled>Import private curriculum</button></div>
+      <div class="status" id="importStatus" role="status">Import disabled until all safeguards are complete.</div>
+   </section>
+   <section class="panel"><div class="panelhead"><h2>5. Verify and prepare the private index</h2><span class="step">NO STUDENT RELEASE</span></div>
+      <p>After every imported revision is verified, create the owner-only pilot index and a completion marker. Existing Project X lesson pages are not automatically changed.</p>
+      <button id="finalize" class="light" disabled>Verify all 1,410 documents and prepare private index</button>
+      <div class="status" id="finalStatus" role="status">Complete the import first.</div>
+   </section>
+   <footer>Project X · Year 11 J277 pilot · Teacher answer keys remain restricted · <a href="./README.txt">Deployment guide</a></footer>
+ </main>
+ <script type="module" src="./import-centre.mjs"></script>
+</body></html>
