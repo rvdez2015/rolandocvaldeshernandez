@@ -1,27 +1,33 @@
-# Project X — Landing page and universal UI standard v1
+# Project X — School Profile & Timetable Management Centre (local pilot)
 
-## Included
-- `index.html` — replacement for `/projectx/index.html`; shows only currently relevant working centres and current development priorities.
-- `assets/projectx-ui.css` — shared visual system, accessibility, layout, responsive design and print styling.
-- `assets/projectx-ui.js` — shared theme preference.
-- `templates/module-template.html` — starting template for NEW or deliberately migrated modules.
+## Install on GitHub Pages
+1. Back up existing `/projectx/index.html` and `/projectx/assets/` files.
+2. Upload `index.html` to `/projectx/index.html` to expose the new centre on the landing page.
+3. Upload `assets/projectx-ui.css` and `assets/projectx-ui.js` to `/projectx/assets/` (same shared UI standard as previously supplied).
+4. Upload the entire `apps/school-profile/` folder into `/projectx/apps/school-profile/`.
+5. Open `https://rvdez2015.github.io/rolandocvaldeshernandez/projectx/apps/school-profile/`.
+6. Create a custom school profile, configure periods, add a timetable slot, test duration resolution, export JSON, reload, and test import.
 
-## Install
-1. Back up the existing `/projectx/index.html`.
-2. Upload `index.html` to `/projectx/index.html`.
-3. Upload both `assets` files to `/projectx/assets/`.
-4. Test links, mobile layout and light/dark theme.
-5. Do NOT replace the existing curriculum or observation HTML/JS with the example template.
-6. Legacy modules and old navigation files remain untouched. The new landing uses a self-contained, minimal sidebar rather than the old registry that listed unfinished apps.
+## Implemented
+- Read-only default school profile: 45 minutes, eight periods/day, one-week rotation, Years 5–13, Europe/London.
+- Custom school profiles with independently configurable duration, periods, rotation and time zone.
+- Versioned profile edits; active profile selection.
+- Per-period duration overrides and optional validated bell times.
+- Teacher/class/subject timetable slots, week/day/period allocations, conflict checks.
+- Double-period duration calculations with explicit intervening break subtraction.
+- Date-exception duration preview (manual override only; calendar integration is not yet built).
+- Local browser persistence, JSON export/import with schema validation, deletion confirmation.
+- Lesson allocation preview and insufficient-time warning.
+- Shared Project X sidebar, header, responsive layout and light/dark theme.
 
-## UI contract
-- All new pages use the same sidebar, top header, spacing, typography, cards, status language and theme.
-- Modules retain their own authenticated workflows; the template does NOT grant permissions.
-- Do not show 'verified' unless a module was actually functionally tested.
-- Do not display planned features as clickable apps.
-- Do not inject untrusted text with innerHTML.
-- Keep forms labelled and announce outcomes via role=status.
-- When migrating existing modules, merge the shell without replacing their working JavaScript or Firebase wiring.
+## Important limitations
+- This is a **functional browser-local pilot**, not a deployed multi-user administration service. Data is saved to browser localStorage only and is not shared across browsers or devices.
+- **No Firestore changes**, school-role permissions, secure multi-school tenancy, calendar exceptions database, teacher directory, AI imports or curriculum scheduler writes are included.
+- The lesson resolver previews an allocation but does not create or publish a scheduled lesson.
+- Timetable changes affect current previews; historical immutable session snapshots are not implemented.
+- No live GitHub Pages or browser end-to-end tests have been performed. JavaScript syntax checked.
+- For privacy, use pseudonymous teacher/class references in this pilot; do not import personal pupil records.
+- The default template is immutable in the UI and import validator; custom schools derive from it.
 
-## Scope / limitations
-This package standardises the NEW landing page and provides the reference HTML template; it does NOT automatically migrate every existing Project X page. Links assume GitHub Pages project path `/rolandocvaldeshernandez/projectx/`. It has not been tested in the live deployment.
+## Next step for production
+Add Firebase Authentication + owner-only Firestore security rules for organisation-owned school profiles and timetable records; migrate local JSON through a controlled, reviewed import. Later implement school-scoped roles, audit logs, immutable schedule/session snapshots and approved AI import staging.
