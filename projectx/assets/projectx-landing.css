@@ -24,3 +24,8 @@
 [data-theme="dark"] .landing-card h3,[data-theme="dark"] .roadmap strong{color:#dce8ff}
 @media(max-width:1080px){.landing-cards{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr}}
 @media(max-width:650px){.module-hero{padding:23px 17px}.hero-icon,.hero-brand,.top-brand{display:none}.sidebar-quote{display:none}}
+
+/* Landing page violet accent alignment */
+.landing-card .card-icon{background:#eee1ff;color:#6826c8}
+.landing-card h3{color:#3d1976}
+.roadmap strong{color:#54218f}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#0b0630"/><stop offset=".58" stop-color="#32106c"/><stop offset="1" stop-color="#7b2ab0"/></linearGradient>
+<radialGradient id="light"><stop stop-color="#fff8e5"/><stop offset=".08" stop-color="#ffdcff"/><stop offset=".24" stop-color="#c46bff" stop-opacity=".78"/><stop offset=".55" stop-color="#8032e5" stop-opacity=".25"/><stop offset="1" stop-color="#5122ac" stop-opacity="0"/></radialGradient>
+<linearGradient id="mountain" x2="0" y2="1"><stop stop-color="#7b4dce"/><stop offset=".25" stop-color="#3a1d83"/><stop offset="1" stop-color="#100b3d"/></linearGradient>
+<linearGradient id="aurora"><stop stop-color="#bc7fff" stop-opacity="0"/><stop offset=".52" stop-color="#edb4ff" stop-opacity=".92"/><stop offset="1" stop-color="#a85dff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1200" height="360" fill="url(#sky)"/>
+<ellipse cx="770" cy="95" rx="280" ry="205" fill="url(#light)"/>
+<g fill="none" stroke="url(#aurora)" stroke-linecap="round">
+<path d="M70 168 C320 205 430 10 770 83 S1010 170 1200 20" stroke-width="4"/>
+<path d="M20 180 C330 210 445 20 770 84 S1020 160 1220 38" stroke-width="12" opacity=".35"/>
+<path d="M260 210 C450 112 565 90 770 84 S1030 110 1200 170" stroke-width="3" opacity=".9"/>
+<path d="M100 210 C400 125 560 165 770 84 S1050 35 1200 100" stroke-width="2" opacity=".75"/>
+</g>
+<path d="M0 318 L135 254 214 285 315 196 400 259 490 207 585 270 680 175 735 210 770 85 828 202 890 163 968 243 1040 190 1120 252 1200 214 1200 360 0 360Z" fill="url(#mountain)"/>
+<path d="M675 181 L770 85 823 198 785 168 771 126 750 172 735 157Z" fill="#d4a7ff" opacity=".75"/>
+<path d="M0 335 Q330 315 600 335 T1200 326 L1200 360 0 360Z" fill="#190a4c" opacity=".8"/>
+<g stroke="#f9dfff" stroke-linecap="round">
+<path d="M770 7V168 M694 84H846 M717 31L823 137 M717 137L823 31" stroke-width="2.8" opacity=".9"/>
+<path d="M770 30V138 M716 84H824" stroke-width="8" opacity=".35"/>
+</g>
+<circle cx="770" cy="84" r="11" fill="#fff9ea"/>
+<g fill="#f8d5ff"><circle cx="185" cy="35" r="2"/><circle cx="350" cy="55" r="1.5"/><circle cx="570" cy="35" r="2"/><circle cx="1050" cy="62" r="1.5"/><circle cx="1150" cy="112" r="2"/></g>
+</svg>
