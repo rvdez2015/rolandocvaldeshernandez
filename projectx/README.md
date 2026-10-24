@@ -1,26 +1,22 @@
-# Project X · Seventh Ray · School Profile & Timetable Centre v2
+# Project X — Seventh Ray official landing and shared theme v2.1
 
-## What is included
-- `index.html`: landing page using the established dark-blue identity and progression.
-- `assets/projectx-ui.css`: shared dark-blue, indigo and gold visual system.
-- `assets/seventh-ray-mark.svg`: provisional original seven-ray emblem.
-- `apps/school-profile/index.html`: redesigned School Profile & Timetable Centre.
-- `apps/school-profile/school-centre.css`: module-specific responsive styling.
-- `apps/school-profile/school-centre.js`: original school-profile/timetable engine, plus dynamic summary and selected-school bell-time display.
-- `apps/school-profile/default_school_profile.json`: unchanged 45-minute default template with confirmed school-day times.
-- Other included files are from the previous v1.1 bundle.
+## Deliverables
+- `index.html`: new landing page using the approved navy, violet and gold Seventh Ray dashboard style.
+- `assets/projectx-ui.css`: shared platform design system (from working School Centre v2).
+- `assets/projectx-landing.css`: landing-specific responsive layout.
+- `assets/seventh-ray-mark.svg`: original provisional seven-ray emblem.
+- `apps/school-profile/index.html`, `school-centre.css`, `school-centre.js`, `default_school_profile.json`: working browser-local School Centre from previous v2 package, unchanged in this release.
 
-## Deploy
-Back up/export browser-local school configurations first.
-Upload files to matching paths under `/projectx/`. Avoid replacing the Curriculum or Observation Centre pages or their JS.
-Hard refresh `/projectx/` and `/projectx/apps/school-profile/`.
+## Install
+1. Back up `/projectx/index.html` and export any browser-local school configuration.
+2. Replace `/projectx/index.html` and upload `assets/projectx-landing.css` and other missing assets.
+3. Keep the v2 School Centre files in their existing paths. If already deployed, they do not need replacing.
+4. Hard-refresh `/projectx/` and test overview, school centre, curriculum and observation links.
+5. Do not overwrite Curriculum Centre or Observation Centre JavaScript/HTML. Their migration to the shared theme is a separate, controlled change.
 
-## What should work
-Create, edit, activate and delete custom school profiles; immutable default; period definitions; teacher/class slots; conflict checks; timetable duration resolver; JSON import/export; reset; theme; in-page section navigation. The timetable summary now follows the selected profile rather than showing hardcoded default times.
+## Design contract for future pages
+Shared dark navy sidebar; blue/violet banner; gold Seventh Ray signature; serif headings; white content cards; responsive accessible controls; functional workflows untouched.
+The screenshot is a visual reference, not a functional UI file. The generated SVG is an original placeholder emblem, not an official I AM Movement insignia.
 
-## Known limitations
-This is still a localStorage-only pilot, not Firestore or multi-user.
-The import mechanism requires exact schema v2.1 and matching system template; exported configurations from older versions may need migration. The current localStorage migration from template v1 is preserved.
-No AI import or live school data integration is implemented.
-The SVG is an original placeholder emblem inspired by seven rays, not an official religious or movement logo.
-Static checks passed, but a full live browser and GitHub Pages integration test is still needed.
+## Limits
+This release changes the landing and theme assets; it does not connect Firebase, migrate legacy modules or prove browser integration. School Centre remains localStorage-only.
