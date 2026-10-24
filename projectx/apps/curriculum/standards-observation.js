@@ -48,13 +48,39 @@ function syncFactualEvidence(){
  field.value=[generated,manual].filter(Boolean).join('\n\n');
  $('evidenceAutoStatus').textContent=entries.length?`${entries.length} confirmed indicator(s) inserted below. Add specific examples and context; you can edit the text.`:'No indicators confirmed. Add your own factual observations below.';
 }
+// Guided editable narrative drafting. Generated sections are delimited so that
+// changing a checkbox never deletes manually entered text outside those sections.
+const NARRATIVE_LABELS={strengths:'Strengths',priorities:'Development priorities',reflection:'Teacher reflection',actions:'Follow-up actions'};
+const NARRATIVE_START=k=>'[Project X suggested '+k+']';
+const NARRATIVE_END=k=>'[/Project X suggested '+k+']';
+const narrativeTemplate=(k,s)=>{
+ if(k==='strengths')return 'A strength observed was '+s.charAt(0).toLowerCase()+s.slice(1).replace(/\.$/,'')+'. Specific example: [describe what was seen or heard].';
+ if(k==='priorities')return 'A possible development priority is to '+s.charAt(0).toLowerCase()+s.slice(1).replace(/\.$/,'')+'. Rationale/evidence: [explain what needs improvement and why].';
+ if(k==='reflection')return s.replace('…','[complete in the teacher’s own words]');
+ return 'Proposed follow-up: '+s.replace(/\.$/,'')+'. Owner: [name/role]. By: [date]. Success measure: [observable impact].';
+};
+function syncNarrative(k){
+ const area=$(k),start=NARRATIVE_START(k),end=NARRATIVE_END(k),old=area.value;
+ const a=old.indexOf(start),b=old.indexOf(end);
+ const manual=(a>=0&&b>a?(old.slice(0,a)+old.slice(b+end.length)):old).trim();
+ const choices=checkedValues('input[name="guide_'+k+'"]');
+ const auto=choices.length?start+'\n'+choices.map(x=>'• '+narrativeTemplate(k,x)).join('\n\n')+'\n'+end:'';
+ area.value=[auto,manual].filter(Boolean).join('\n\n');
+}
+function syncAllNarratives(){for(const k of Object.keys(NARRATIVE_LABELS))syncNarrative(k);$('narrativeStatus').textContent='Editable suggested wording updated. Complete the bracketed prompts and review the preview before saving.';renderObservationPreview();}
+function renderObservationPreview(){const root=$('observationPreviewContent');root.replaceChildren();for(const [k,title] of Object.entries({facts:'Factual evidence',...NARRATIVE_LABELS})){const article=el('article');article.append(el('h4',title));const content=el('p',$(k).value.trim()||'Not yet provided');article.append(content);root.append(article)}const d=draft();const warn=/\[[^\]\n]+\]/.test([d.strengths,d.priorities,d.reflection,d.actions].join(' '));if(warn){root.prepend(el('p','Incomplete bracketed prompts remain. Replace or delete them before finalising.','incomplete'))}}
+$('previewObservation').onclick=()=>{$('observationPreviewPanel').hidden=false;renderObservationPreview();$('observationPreviewPanel').scrollIntoView({behavior:'smooth',block:'start'});};
+$('closeObservationPreview').onclick=()=>$('observationPreviewPanel').hidden=true;
+$('refreshNarratives').onclick=syncAllNarratives;
+for(const k of ['facts',...Object.keys(NARRATIVE_LABELS)])$(k).addEventListener('input',()=>{if(!$('observationPreviewPanel').hidden)renderObservationPreview()});
+for(const k of Object.keys(NARRATIVE_LABELS))document.querySelectorAll('input[name="guide_'+k+'"]').forEach(n=>n.addEventListener('change',()=>{syncNarrative(k);$('narrativeStatus').textContent='Suggestion updated for '+NARRATIVE_LABELS[k]+'. Personalise the generated text.';if(!$('observationPreviewPanel').hidden)renderObservationPreview()}));
 buildGuidance();
 const fields=['session','type','date','focus','facts','strengths','priorities','reflection','actions','reviewDate'];
 function draft(){const d={schemaVersion:1,lessonId:'1.1d',lessonRevisionId:'v2-pilot',status:'draft_unverified',source:'owner_observation_form',verificationStatus:'self_reported'};for(const k of fields)d[k]=$(k).value.trim();d.evidenceStandards=[...document.querySelectorAll('input[name="evidenceStandards"]:checked')].map(e=>e.value);d.evidenceStandard=d.evidenceStandards[0]||'';d.observationGuidance={focusIds:checkedValues('input[name="guideFocus"]'),observedIndicators:checkedValues('input[name="guideEvidence"]'),otherEvidence:$('evidenceOther').value.trim(),selectedSuggestions:Object.fromEntries(Object.keys(SUGGESTIONS).map(k=>[k,checkedValues('input[name="guide_'+ + k + +'"]')]))};return d}
 function validate(d){if(!owner||!lesson)throw Error('Owner must load the v2 lesson first.');if(!/^[A-Za-z0-9_-]{4,100}$/.test(d.session))throw Error('Enter a session reference (4–100 letters, digits, _ or -).');if(!d.date)throw Error('Enter a lesson date.');if(!d.facts&&!d.reflection)throw Error('Provide factual evidence or a teacher reflection.');if(!Array.isArray(d.evidenceStandards)||d.evidenceStandards.some(s=>!/^TS[1-8]$/.test(s))||new Set(d.evidenceStandards).size!==d.evidenceStandards.length)throw Error('Invalid Teachers’ Standards selection.');}
 function download(d,name){const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:'application/json'}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 $('export').onclick=()=>download(draft(),'projectx-observation-draft-1-1d.json');
-$('clear').onclick=()=>{for(const k of fields)$(k).value='';$('type').value='self_reflection';document.querySelectorAll('input[name="evidenceStandards"],input[name="guideFocus"],input[name="guideEvidence"],input[name^="guide_"]').forEach(e=>e.checked=false);$('evidenceOther').value='';renderEvidence();syncFactualEvidence();$('saveStatus').textContent='Form cleared.'};
+$('clear').onclick=()=>{for(const k of fields)$(k).value='';$('type').value='self_reflection';document.querySelectorAll('input[name="evidenceStandards"],input[name="guideFocus"],input[name="guideEvidence"],input[name^="guide_"]').forEach(e=>e.checked=false);$('evidenceOther').value='';renderEvidence();syncFactualEvidence();$('observationPreviewPanel').hidden=true;$('narrativeStatus').textContent='Select a suggested statement to build an editable draft.';$('saveStatus').textContent='Form cleared.'};
 $('save').onclick=async()=>{try{const d=draft();validate(d);$('save').disabled=true;const id='1.1d__'+d.session;const ref=doc(db,'ownerObservationDrafts',id);const prior=await getDoc(ref);if(prior.exists()&&!confirm('A draft exists for this lesson/session. Replace that draft?'))return;await setDoc(ref,{...d,ownerUid:OWNER,updatedAt:serverTimestamp(),...(prior.exists()?{}:{createdAt:serverTimestamp()})});$('saveStatus').textContent='Saved private observation draft: '+id;await refresh()}catch(e){$('saveStatus').textContent='Save failed: '+e.message}finally{setState()}};
 let viewedObservation=null;
 function linkedStandards(d){const v=Array.isArray(d.evidenceStandards)?d.evidenceStandards:[];const all=v.length?v:(d.evidenceStandard?[d.evidenceStandard]:[]);return [...new Set(all.filter(x=>/^TS[1-8]$/.test(x)))];}
