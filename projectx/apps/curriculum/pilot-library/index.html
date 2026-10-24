@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Year 11 Pilot Library | Project X Curriculum Intelligence</title>
+<link rel="stylesheet" href="./pilot-library.css"/>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="topbar"><a href="../" class="back">← Curriculum Centre</a><strong>PROJECT <span>X</span></strong><div class="pill">OWNER · PRIVATE PILOT</div></div>
+<main id="main" class="shell">
+<header class="hero"><p class="eyebrow">CURRICULUM INTELLIGENCE · VERSIONED FIRESTORE</p><h1>Year 11 Curriculum Library</h1><p>Explore 94 privately imported OCR J277 lesson drafts, their canonical questions, assessment concepts and restricted marking guidance. No student publication occurs here.</p></header>
+<section class="summary" aria-label="Pilot status"><div><b id="lessonCount">94</b><small>Expected lessons</small></div><div><b>376</b><small>Question references</small></div><div><b id="unitCount">26</b><small>Expected units</small></div><div><b id="releaseStatus">Not connected</b><small>Release state</small></div></section>
+<section class="auth panel"><div><h2>1 · Private cloud connection</h2><p id="authStatus" role="status" aria-live="polite">Sign in with the Project X owner account.</p></div><div class="actions"><button id="signin" class="primary">Sign in with Google</button><button id="signout" disabled>Sign out</button><button id="refresh" disabled>Refresh library</button></div><div class="status" id="cloudStatus" role="status" aria-live="polite">No Firestore reads yet.</div></section>
+<section class="workspace panel" aria-label="Curriculum explorer"><div class="workspace-head"><div><h2>2 · Lessons and units</h2><p>Read-only pilot records. Earlier browser-local lesson records are untouched.</p></div><a href="../import-centre/" class="subtle-link">Open Import Centre ↗</a></div><div class="filters"><label>Find lesson<input id="search" type="search" placeholder="Search lesson titles or IDs"/></label><label>Unit<select id="unitFilter"><option value="all">All 26 units</option></select></label><label>Curriculum role<select id="roleFilter"><option value="all">All roles</option><option value="core_gcse">GCSE core</option><option value="assessment_or_practice">Assessment/practice</option><option value="optional_enrichment">Optional enrichment</option><option value="a_level_bridge">A Level bridge</option></select></label></div>
+<div class="two-col"><aside class="lesson-list-area"><p id="resultCount" class="muted">Sign in to load lessons</p><div id="lessonList" class="lesson-list" aria-label="Lesson list"><div class="empty">Awaiting private owner authentication.</div></div></aside><section id="detail" class="detail" aria-live="polite"><div class="empty">Choose a lesson to inspect its teaching plan and examination-style questions.</div></section></div></section>
+<section class="panel note"><h2>Research and governance</h2><p>The imported curriculum is approved for initial owner teaching only, with comprehensive lesson moderation continuing through classroom use. OCR exam references remain unverified. Teacher marking schemes are private and must never be copied into public GitHub files.</p><p>Development evidence can be logged in the Project X research thesis. Revision proposals downloaded here are <em>not</em> server-signed Firestore revisions.</p></section>
+<footer><a href="../">Curriculum Centre</a><span>Project X · Year 11 controlled pilot · 2026–2027</span></footer>
+</main>
+<script type="module" src="./pilot-library.mjs"></script>
+</body>
+</html>
