@@ -29,3 +29,20 @@
 .message:not(:empty){background:#edf5ff;border-radius:8px;padding:10px 14px}
 @media(max-width:1100px){.dashboard-grid{grid-template-columns:1fr}.dashboard-side{grid-row:auto}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.module-hero{padding:22px 17px}.hero-icon,.hero-brand,.top-brand{display:none}.module-tabs a{flex:none}.stats,.form-grid{grid-template-columns:1fr}.sidebar-quote{display:none}}
+
+
+/* School centre violet module accents */
+.module-tabs{background:var(--surface);border-color:var(--line)}
+.module-tabs a{color:#442179}
+.module-tabs a:hover,.module-tabs a:focus-visible{background:#efe4ff;color:#5d1bbb}
+.dashboard-side th{background:#f1eaff;color:#50218b}
+.dashboard-side tr.non-teaching td{background:#e9f7ed;color:#235a3c}
+.dashboard-side tr:nth-child(even):not(.non-teaching) td{background:#f7f2ff}
+.quick-card,.stat{border-color:var(--line)}
+.message:not(:empty){background:#f0e6ff}
+input:focus-visible,select:focus-visible{outline:3px solid #ad72ed;outline-offset:1px}
+[data-theme="dark"] .module-tabs{background:var(--surface)}
+[data-theme="dark"] .module-tabs a{color:#e4ceff}
+[data-theme="dark"] .dashboard-side th{background:#2b1b50;color:#e6ceff}
+[data-theme="dark"] .dashboard-side tr:nth-child(even):not(.non-teaching) td{background:#25183f}
+[data-theme="dark"] .dashboard-side tr.non-teaching td{background:#17382c;color:#c4f4d8}
