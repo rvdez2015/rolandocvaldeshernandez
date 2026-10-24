@@ -4,7 +4,7 @@ import {getFirestore,doc,getDoc,setDoc} from 'https://www.gstatic.com/firebasejs
 const cfg={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
 const OWNER='UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
 const auth=getAuth(initializeApp(cfg)),db=getFirestore(),$=id=>document.getElementById(id);
-const legacy=doc(db,'lessons','1.1d'),pilot=doc(db,'catalogue','lessons','1.1d','revisions','v2-pilot');
+const legacy=doc(db,'lessons','1.1d'),pilot=doc(db,'catalogueLessons','1.1d','revisions','v2-pilot');
 let fixture=null,valid=false,busy=false;
 const owner=()=>auth.currentUser?.uid===OWNER;
 const log=t=>$('status').textContent=t;
@@ -15,7 +15,7 @@ async function operation(fn){busy=true;refresh();try{await fn()}catch(e){log('ER
 $('validate').onclick=runValidate;$('confirm').onchange=refresh;
 $('login').onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>log('Login: '+e.message));$('logout').onclick=()=>signOut(auth).catch(e=>log('Logout: '+e.message));
 onAuthStateChanged(auth,u=>{$('authStatus').textContent=u?(owner()?'Project X owner authenticated':'Signed in, but not Project X owner'):'Not signed in';refresh()});
-$('inspect').onclick=()=>operation(async()=>{if(!owner())throw Error('Owner only');const [a,b]=await Promise.all([getDoc(legacy),getDoc(pilot)]);log('Legacy lessons/1.1d: '+(a.exists()?'EXISTS':'MISSING')+'\nPilot catalogue/lessons/1.1d/revisions/v2-pilot: '+(b.exists()?'EXISTS':'MISSING')+'\nNo writes performed.');});
+$('inspect').onclick=()=>operation(async()=>{if(!owner())throw Error('Owner only');const [a,b]=await Promise.all([getDoc(legacy),getDoc(pilot)]);log('Legacy lessons/1.1d: '+(a.exists()?'EXISTS':'MISSING')+'\nPilot catalogueLessons/1.1d/revisions/v2-pilot: '+(b.exists()?'EXISTS':'MISSING')+'\nNo writes performed.');});
 $('write').onclick=()=>operation(async()=>{if(!owner()||!valid||!$('confirm').checked)throw Error('Owner, validation and confirmation required');const existing=await getDoc(pilot);if(existing.exists())throw Error('Pilot already exists: refusing to overwrite. Use Verify instead.');const legacySnap=await getDoc(legacy);if(!legacySnap.exists())throw Error('Legacy lesson missing; aborting migration');await setDoc(pilot,fixture);const saved=await getDoc(pilot);if(!saved.exists())throw Error('Write not readable');const errors=check(saved.data());if(errors.length)throw Error('Read-back failed: '+errors.join('; '));log('SUCCESS: separate v2 pilot revision created and read back.\nLegacy lessons/1.1d was not written.\nReview the pilot in Firebase Console before further migration.');});
 $('verify').onclick=()=>operation(async()=>{if(!owner())throw Error('Owner only');const s=await getDoc(pilot);if(!s.exists())throw Error('Pilot revision not found');const errors=check(s.data());log(errors.length?'INVALID stored pilot: '+errors.join('; '):'PASS: stored pilot revision readable and structurally valid.\nNo writes performed.');});
 runValidate();
