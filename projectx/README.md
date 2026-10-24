@@ -1,22 +1,20 @@
-# Project X — Seventh Ray official landing and shared theme v2.1
+# Project X — Seventh Ray Violet Theme v2.2
 
-## Deliverables
-- `index.html`: new landing page using the approved navy, violet and gold Seventh Ray dashboard style.
-- `assets/projectx-ui.css`: shared platform design system (from working School Centre v2).
-- `assets/projectx-landing.css`: landing-specific responsive layout.
-- `assets/seventh-ray-mark.svg`: original provisional seven-ray emblem.
-- `apps/school-profile/index.html`, `school-centre.css`, `school-centre.js`, `default_school_profile.json`: working browser-local School Centre from previous v2 package, unchanged in this release.
+## Changes
+The Project X Overview and School Profile & Timetable Centre now use shades of amethyst, royal violet, lavender, and gold. A new lightweight SVG artwork supplies the radiant Seventh Ray mountain/aurora background in the sidebar, top header, and main banner.
 
-## Install
-1. Back up `/projectx/index.html` and export any browser-local school configuration.
-2. Replace `/projectx/index.html` and upload `assets/projectx-landing.css` and other missing assets.
-3. Keep the v2 School Centre files in their existing paths. If already deployed, they do not need replacing.
-4. Hard-refresh `/projectx/` and test overview, school centre, curriculum and observation links.
-5. Do not overwrite Curriculum Centre or Observation Centre JavaScript/HTML. Their migration to the shared theme is a separate, controlled change.
+This is a CSS-and-background-asset update. HTML, JavaScript, school profile JSON, timetable calculations, storage, import/export and module navigation are byte-for-byte unchanged from the previous v2.1 package.
 
-## Design contract for future pages
-Shared dark navy sidebar; blue/violet banner; gold Seventh Ray signature; serif headings; white content cards; responsive accessible controls; functional workflows untouched.
-The screenshot is a visual reference, not a functional UI file. The generated SVG is an original placeholder emblem, not an official I AM Movement insignia.
+## Deploy only these four files
+- `projectx/assets/projectx-ui.css`
+- `projectx/assets/projectx-landing.css`
+- `projectx/assets/seventh-ray-violet-landscape.svg` (NEW)
+- `projectx/apps/school-profile/school-centre.css`
 
-## Limits
-This release changes the landing and theme assets; it does not connect Firebase, migrate legacy modules or prove browser integration. School Centre remains localStorage-only.
+The ZIP also contains the existing HTML/JS/JSON for reference, but do not overwrite a newer deployed version of those files.
+
+## Important
+The background is a new vector illustration (not the generated screenshot, which contains embedded UI). This avoids duplicate/fake controls and allows responsive rendering.
+If browser cache shows old colours, hard refresh Ctrl+F5 or clear GitHub Pages cache.
+The Curriculum and Observation Centres have NOT yet been themed; migrate them carefully after testing.
+No live browser/GitHub Pages verification or Firebase sync has been performed.
