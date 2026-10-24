@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "2.1",
+  "profileId": "projectx-default-v1",
+  "profileType": "system_template",
+  "name": "Project X Default School",
+  "immutable": true,
+  "isDefault": true,
+  "region": "GB-ENG",
+  "timezone": "Europe/London",
+  "academicYear": null,
+  "yearGroups": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "weekdays": [
+    "MO",
+    "TU",
+    "WE",
+    "TH",
+    "FR"
+  ],
+  "timetable": {
+    "cycleWeeks": 1,
+    "periodsPerDay": 8,
+    "defaultPeriodMinutes": 45,
+    "periodDefinitions": [
+      {
+        "period": 1,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 2,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 3,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 4,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 5,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 6,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 7,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      },
+      {
+        "period": 8,
+        "durationMinutes": 45,
+        "startTime": null,
+        "endTime": null
+      }
+    ],
+    "breaks": [],
+    "doublePeriodRule": "sum_contiguous_period_minutes_minus_explicit_breaks"
+  },
+  "curriculumDefaults": {
+    "subjectId": "computer-science",
+    "preferredLessonMinutes": 45
+  },
+  "createdBy": "system",
+  "templateVersion": 1,
+  "status": "active",
+  "notes": "Generic starter configuration. Bell times and breaks intentionally unspecified; enter verified local times before publishing timetable."
+}
