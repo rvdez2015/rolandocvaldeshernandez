@@ -1,0 +1,20 @@
+{
+  "reviewedAt": "2026-10-24",
+  "scope": "project-x-personal Firebase Firestore (default) pilot security merge",
+  "staticChecks": {
+    "rules_version_2": true,
+    "no_active_owner_catchall": true,
+    "legacy_collections_supported": true,
+    "import_collections_supported": true,
+    "revision_create_only": true,
+    "owner_private_required": true,
+    "legacy_pilot_boundary": true,
+    "student_field_allowlists": true,
+    "balanced_braces": true,
+    "workflow_present": true
+  },
+  "privatePayloadContract": "PASSED: 1,410 planned documents, 94 lessons, 376 questions, 376 families",
+  "emulatorTests": "NOT EXECUTED - external npm dependencies unavailable in this runtime",
+  "liveRules": "NOT MODIFIED",
+  "sha256MergedRules": "a7c60147b5180509e82b84e2256a7e6b8b63f4d1f8a617781cd48e6f12da9933"
+}

@@ -1,0 +1,131 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Project X existing owner access, restricted to legacy paths only.
+    // The old catch-all match /{document=**} MUST be removed.
+    function isProjectXOwner() {
+      return request.auth != null && request.auth.uid == 'UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
+    }
+
+    // Preserve existing catalogue records but reserve PX25-Y11-* for
+    // the immutable, owner-private import. The initial importer never
+    // needs to create/update catalogueLessons/PX25-Y11-* root documents.
+    function isPilotLessonId(lessonId) {
+      return lessonId.matches('^PX25-Y11-.*');
+    }
+    match /catalogueLessons/{lessonId} {
+      allow read, write: if isProjectXOwner() && !isPilotLessonId(lessonId);
+    }
+    // Preserve legacy catalogue subcollections (e.g. 1.1d/revisions)
+    // without granting rewrite access to new PX25-Y11 revision paths.
+    match /catalogueLessons/{lessonId}/{legacyPath=**} {
+      allow read, write: if isProjectXOwner()
+        && !isPilotLessonId(lessonId);
+    }
+    // Other existing private collections and their nested revisions.
+    match /classroomPublications/{legacyPath=**} {
+      allow read, write: if isProjectXOwner();
+    }
+    match /lessons/{legacyPath=**} {
+      allow read, write: if isProjectXOwner();
+    }
+    match /ownerObservationDrafts/{legacyPath=**} {
+      allow read, write: if isProjectXOwner();
+    }
+
+    function pxImportOwner() {
+      return isProjectXOwner();
+    }
+    function pxInitialImportCreate() {
+      return pxImportOwner()
+        && request.resource.data.schoolId == 'project-x-personal'
+        && request.resource.data.importReleaseId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.revisionStatus == 'pilot_import_draft'
+        && request.resource.data.visibility == 'owner_private'
+        && request.resource.data.createdByUid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.parentRevisionId == null
+        && request.resource.data.sourceHash is string
+        && request.resource.data.sourceHash.matches('^[a-f0-9]{64}$')
+        && request.resource.data.importSchema == 'projectx-curriculum-import-v2'
+        && request.resource.data.changedFields == ['initial_import'];
+    }
+    match /catalogueQuestionFamilies/{familyId}/versions/{versionId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxInitialImportCreate() && versionId == '1.0.0'
+        && request.resource.data.familyId == familyId;
+      allow update, delete: if false;
+    }
+    match /catalogueQuestionBank/{questionId}/revisions/{versionId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxInitialImportCreate() && versionId == '1.0.0'
+        && request.resource.data.questionId == questionId;
+      allow update, delete: if false;
+    }
+    match /catalogueStudentQuestionBank/{questionId}/revisions/{versionId} {
+      allow get, list: if pxImportOwner(); // NOT public during pilot
+      allow create: if pxInitialImportCreate() && versionId == '1.0.0'
+        && request.resource.data.questionId == questionId
+        && request.resource.data.keys().hasOnly(['questionId','familyId','version','subject','qualification','schemeId','specificationObjectiveIds','curriculumRole','marks','canonicalStem','presentations','sourceType','sourceHash','importReleaseId','schoolId','createdByUid','createdByEmail','createdAt','revisionStatus','visibility','changedFields','parentRevisionId','changeReason','importSchema']);
+      allow update, delete: if false;
+    }
+    match /catalogueLessons/{lessonId}/revisions/{revisionId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxInitialImportCreate()
+        && request.resource.data.lessonId == lessonId
+        && isPilotLessonId(lessonId)
+        && revisionId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.revisionId == revisionId;
+      allow update, delete: if false;
+    }
+    match /catalogueStudentLessons/{lessonId}/revisions/{revisionId} {
+      allow get, list: if pxImportOwner(); // not student-live
+      allow create: if pxInitialImportCreate()
+        && request.resource.data.lessonId == lessonId
+        && isPilotLessonId(lessonId)
+        && revisionId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.revisionId == revisionId
+        && request.resource.data.studentPublicationApproved == false
+        && request.resource.data.approvedForAutomaticStudentRelease == false
+        && request.resource.data.keys().hasOnly(['lessonId','revisionId','schemeId','title','yearGroup','keyStage','unitId','durationMinutes','curriculumRole','frameworkObjectiveIds','studentPlan','questionReferences','pilotVisibility','studentPublicationApproved','approvedForAutomaticStudentRelease','sourceHash','importReleaseId','schoolId','createdByUid','createdByEmail','createdAt','revisionStatus','visibility','changedFields','parentRevisionId','changeReason','importSchema']);
+      allow update, delete: if false;
+    }
+    match /catalogueTeacherKeys/{lessonId}/revisions/{revisionId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxInitialImportCreate()
+        && request.resource.data.lessonId == lessonId
+        && isPilotLessonId(lessonId)
+        && revisionId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.revisionId == revisionId
+        && request.resource.data.teacherOnly == true
+        && request.resource.data.independentModerationComplete == false;
+      allow update, delete: if false;
+    }
+    match /curriculumPilotIndex/{lessonId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxImportOwner()
+        && request.resource.data.lessonId == lessonId
+        && isPilotLessonId(lessonId)
+        && request.resource.data.revisionId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.schoolId == 'project-x-personal'
+        && request.resource.data.visibility == 'owner_private'
+        && request.resource.data.studentPublished == false
+        && request.resource.data.createdByUid == request.auth.uid
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+    match /curriculumPilotReleases/{releaseId} {
+      allow get, list: if pxImportOwner();
+      allow create: if pxImportOwner()
+        && releaseId == 'y11-j277-canonical-pilot-20261024-r1'
+        && request.resource.data.releaseId == releaseId
+        && request.resource.data.schoolId == 'project-x-personal'
+        && request.resource.data.status == 'READY_OWNER_PRIVATE'
+        && request.resource.data.studentPublished == false
+        && request.resource.data.documentCount == 1410
+        && request.resource.data.createdByUid == request.auth.uid
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+  }
+}
