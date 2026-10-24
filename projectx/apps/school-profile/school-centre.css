@@ -1,1 +1,31 @@
 .content>.card{margin-top:22px}.toolbar{margin:16px 0}.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:18px 0}label{display:block;font-weight:650;font-size:.9rem}input,select{display:block;width:100%;margin-top:6px;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--surface);color:var(--ink);font:inherit}input:disabled,select:disabled{opacity:.6}.hint{font-size:.87rem}.table-wrap{overflow:auto;margin:14px 0}table{width:100%;border-collapse:collapse;min-width:640px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}th{font-size:.78rem;color:var(--muted)}td input{min-width:90px}td button{white-space:nowrap}.message{min-height:22px;font-weight:600}.message.error{color:#b42b32}.resolution{padding:15px 0;white-space:pre-line}.import-label{cursor:pointer}.tag{white-space:nowrap}
+
+/* Seventh Ray School Centre v2: visual layer; application form IDs and JS retained. */
+.content{max-width:1560px;padding:22px clamp(16px,2vw,32px) 60px}
+.brand-mark{display:flex;align-items:center;gap:10px;margin-top:24px;color:#f8d99a;font:700 1.1rem Georgia,serif;letter-spacing:.08em}
+.brand-mark small{display:block;color:#bcd4ff;font:500 .65rem system-ui;letter-spacing:.03em;margin-top:2px}
+.sidebar-quote{text-align:center;color:#e6c991;font:500 .9rem/2 Georgia,serif;letter-spacing:.22em;margin-top:75px}
+.top{gap:18px}.top-brand{display:flex;align-items:center;gap:9px;color:#f8d99a;font:700 1.1rem Georgia,serif;letter-spacing:.12em;margin-left:auto}
+.module-hero{border-radius:17px 17px 0 0;min-height:166px;background:radial-gradient(ellipse at 87% 20%,#4b2792 0%,transparent 37%),linear-gradient(115deg,#061d4b,#113c83 65%,#1b1556);padding:26px 30px;color:white;display:flex;gap:22px;align-items:center}
+.module-hero h1{font:700 clamp(1.7rem,3vw,2.7rem)/1.15 Georgia,serif;color:white;margin:7px 0}.module-hero p{color:#e1eaff;margin:0}.module-hero .eyebrow{color:#d3c1ff}
+.hero-icon{font-size:3rem;color:#c9b4ff}.hero-brand{margin-left:auto;display:flex;align-items:center;gap:9px;border:1px solid #a27cf6;padding:10px 15px;border-radius:40px;color:#f8d99a;white-space:nowrap}
+.module-tabs{background:#fff;border:1px solid #dfe6f4;border-top:0;display:flex;overflow-x:auto;gap:4px;padding:12px 15px;border-radius:0 0 15px 15px}
+.module-tabs a{flex:1;text-align:center;white-space:nowrap;color:#1b356e;text-decoration:none;font-weight:700;font-size:.88rem;padding:12px 10px;border-radius:9px}
+.module-tabs a:hover,.module-tabs a:focus-visible{background:#eaf0ff;color:#2348d0}
+.local-note{background:#f9faff;border-left:4px solid #5e67d6;color:#304b77;margin:18px 0;padding:12px 18px;border-radius:8px;font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0}
+.stat{background:#fff;border:1px solid #dce6f7;border-radius:13px;padding:15px 18px;min-width:0}
+.stat span{display:block;font-size:.76rem;color:#63769a;font-weight:700}.stat strong{display:block;font-size:1.08rem;color:#16387b;overflow-wrap:anywhere}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,1fr);gap:18px;align-items:start}
+.dashboard-main,.dashboard-side{display:grid;gap:18px;min-width:0}
+.card{margin:0;border-radius:15px;padding:21px;scroll-margin-top:20px}
+.card h2{margin-top:0}.card p{font-size:.9rem}.quick-actions{display:grid;gap:9px}.quick-actions .btn{width:100%}
+.dashboard-side table{width:100%;border-collapse:collapse;font-size:.85rem}
+.dashboard-side th,.dashboard-side td{padding:8px 10px;text-align:left;border-bottom:1px solid #e8edf8}
+.dashboard-side th{background:#edf2ff;color:#173f83}
+.dashboard-side tr.non-teaching td{background:#eaf5fa;color:#2c547e}
+.dashboard-side tr:nth-child(even):not(.non-teaching) td{background:#f6f8ff}
+.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.message:not(:empty){background:#edf5ff;border-radius:8px;padding:10px 14px}
+@media(max-width:1100px){.dashboard-grid{grid-template-columns:1fr}.dashboard-side{grid-row:auto}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.module-hero{padding:22px 17px}.hero-icon,.hero-brand,.top-brand{display:none}.module-tabs a{flex:none}.stats,.form-grid{grid-template-columns:1fr}.sidebar-quote{display:none}}

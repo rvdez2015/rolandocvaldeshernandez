@@ -34,61 +34,103 @@
       {
         "period": 1,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "08:45",
+        "endTime": "09:30"
       },
       {
         "period": 2,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "09:30",
+        "endTime": "10:15"
       },
       {
         "period": 3,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "10:35",
+        "endTime": "11:20"
       },
       {
         "period": 4,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "11:20",
+        "endTime": "12:05"
       },
       {
         "period": 5,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "12:05",
+        "endTime": "12:50"
       },
       {
         "period": 6,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "14:05",
+        "endTime": "14:50"
       },
       {
         "period": 7,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "14:50",
+        "endTime": "15:35"
       },
       {
         "period": 8,
         "durationMinutes": 45,
-        "startTime": null,
-        "endTime": null
+        "startTime": "15:35",
+        "endTime": "16:20"
       }
     ],
-    "breaks": [],
-    "doublePeriodRule": "sum_contiguous_period_minutes_minus_explicit_breaks"
+    "breaks": [
+      {
+        "label": "Morning break",
+        "startTime": "10:15",
+        "endTime": "10:35"
+      },
+      {
+        "label": "Lunch / P5b",
+        "startTime": "12:50",
+        "endTime": "14:05"
+      }
+    ],
+    "doublePeriodRule": "sum_contiguous_period_minutes_minus_explicit_breaks",
+    "schoolDayBlocks": [
+      {
+        "id": "registration",
+        "label": "Morning registration",
+        "category": "registration",
+        "startTime": "08:25",
+        "endTime": "08:45"
+      },
+      {
+        "id": "morning-break",
+        "label": "Morning break",
+        "category": "break",
+        "startTime": "10:15",
+        "endTime": "10:35"
+      },
+      {
+        "id": "lunch-p5b",
+        "label": "Lunch / P5b",
+        "category": "lunch",
+        "startTime": "12:50",
+        "endTime": "14:05",
+        "curriculumTeaching": false
+      },
+      {
+        "id": "deregistration",
+        "label": "Deregistration",
+        "category": "registration",
+        "startTime": "16:20",
+        "endTime": "16:30"
+      }
+    ]
   },
   "curriculumDefaults": {
     "subjectId": "computer-science",
     "preferredLessonMinutes": 45
   },
   "createdBy": "system",
-  "templateVersion": 1,
+  "templateVersion": 2,
   "status": "active",
-  "notes": "Generic starter configuration. Bell times and breaks intentionally unspecified; enter verified local times before publishing timetable."
+  "notes": "Default academic bell schedule based on user-confirmed Farlington pattern. Extracurricular clubs are separate, optional activities. Lunch/P5b is not counted as curriculum teaching."
 }
