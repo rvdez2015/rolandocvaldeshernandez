@@ -57,17 +57,43 @@ export function topicTitle(unitId){return unitName(unitId).slice(0,100)}
 export function classroomBody(student,kind,topicId){
  const s=safeStudentContent(student);const marker=classroomMarker(s.lessonId,kind);
  const lines=[
-  `Project X · OCR J277 (Year 11) · initial teaching pilot`,
+  'Project X · OCR J277 (Year 11) · initial teaching pilot',
   `Lesson: ${s.title}`,
-  `\nLearning context:\n${s.intro||'Discuss the key concepts before attempting the task.'}`,
-  `\nStudent activities:`,
-  ...s.activities.map((a,i)=>`${i+1}. ${a.stageId}: ${a.instructions}${a.requiresTeacherProvidedExample?' [Teacher to provide a worked example]':''}`)
+  `\nLearning context:\n${s.intro||'Review the relevant concepts before the task.'}`
  ];
- if(kind==='assignment')lines.push('\nAssessment practice (10 marks total):',...s.questions.map((q,i)=>`${i+1}. [${q.marks} mark${q.marks===1?'':'s'}] ${q.question}`));
- lines.push('\nComplete the activity as directed by your teacher. No marking scheme is attached.');
- const description=lines.join('\n').slice(0,26000)+'\n\n'+marker;
+ if(kind==='material'){
+  lines.push('\nStudent activities:',...s.activities.map((a,i)=>`${i+1}. ${a.stageId}: ${a.instructions}${a.requiresTeacherProvidedExample?' [Teacher to supply a worked example]':''}`));
+  lines.push('\nLesson resource note: Supply referenced diagrams, worksheets or code separately before student publication.');
+ } else if(kind==='assignment'){
+  // A Classroom assignment must contain the actual student-safe assessment items, not only objectives.
+  lines.push('\nASSESSMENT QUESTIONS — TOTAL 10 MARKS',...s.questions.map((q,i)=>`Question ${i+1} (${q.marks} ${q.marks===1?'mark':'marks'})\n${q.question}`));
+  lines.push('\nStudent instructions: Answer every question. Show intermediate working when asked and support explanations with technical detail. Submit as directed by your teacher.');
+ }
+ lines.push('\nTeacher-only marking schemes are never attached.');
+ const description=lines.join('\n')+'\n\n'+marker;
+ if(description.length>25000)throw Error('Draft is too long for safe Classroom creation. Split or simplify the lesson.');
  const shared={title:`Y11 · ${s.title}`.slice(0,180),description,topicId,state:'DRAFT'};
- return kind==='assignment'?{...shared,workType:'ASSIGNMENT',maxPoints:10}:shared;
+ const body=kind==='assignment'?{...shared,workType:'ASSIGNMENT',maxPoints:10}:shared;
+ if(kind==='assignment')assertCompleteAssignment(body,s);
+ return body;
+}
+export function assertCompleteAssignment(body,student){
+ const s=student?.questions?student:safeStudentContent(student);
+ if(body.workType!=='ASSIGNMENT'||body.state!=='DRAFT'||body.maxPoints!==10)throw Error('Invalid Classroom draft assignment state/marks');
+ if(!body.description.includes('ASSESSMENT QUESTIONS — TOTAL 10 MARKS'))throw Error('Assessment heading missing');
+ for(let i=0;i<s.questions.length;i++){
+  const q=s.questions[i];
+  if(!body.description.includes(`Question ${i+1} (${q.marks} ${q.marks===1?'mark':'marks'})\n${q.question}`))throw Error('Assessment question missing or truncated: '+q.id);
+ }
+ return true;
+}
+export function validateExistingDraft(remote,proposed,kind){
+ if(kind==='assignment'){
+  if(remote.state!=='DRAFT')throw Error('A matching assignment has already been published or scheduled. Do not replace it automatically.');
+  if(remote.maxPoints!==10||remote.description!==proposed.description)throw Error('An older Project X assignment exists but does not match the current 10-mark assessment. Review the existing draft manually; this publisher will not overwrite it.');
+ }
+ if(kind==='material'&&remote.description!==proposed.description)throw Error('An older Project X material exists with different content. Review it manually before making new copies.');
+ return true;
 }
 export function findRemoteByMarker(items,marker){return items.find(x=>String(x.description||'').includes(marker))||null}
 export function topicIdFromName(items,title){return items.find(t=>t.name===title)?.topicId||null}

@@ -4,7 +4,7 @@
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {getAuth,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {getFirestore,collection,getDocs,doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
-import {RELEASE_ID,validateIndex,selectPlanEntries,safeStudentContent,topicTitle,classroomBody,classroomMarker,findRemoteByMarker,topicIdFromName,unitName} from './core.mjs';
+import {RELEASE_ID,validateIndex,selectPlanEntries,safeStudentContent,topicTitle,classroomBody,classroomMarker,validateExistingDraft,findRemoteByMarker,topicIdFromName,unitName} from './core.mjs';
 const cfg={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
 const OWNER='UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
 const app=initializeApp(cfg,'px-y11-classroom-publisher');const auth=getAuth(app);const db=getFirestore(app);
@@ -44,16 +44,34 @@ async function remoteInventory(){const c=encodeURIComponent(courseId());const [t
 async function ensureTopic(unitId){const name=topicTitle(unitId);let id=topicIdFromName(state.topics,name);if(id)return {topicId:id,created:false};const course=encodeURIComponent(courseId());
  try{const t=await api(`courses/${course}/topics`,'POST',{name});state.topics.push(t);log('topic_created',{unitId,topicId:t.topicId,name});return {topicId:t.topicId,created:true}}
  catch(err){if(!String(err.message).includes('ALREADY_EXISTS'))throw err;const current=await pages(`courses/${course}/topics`,'topic');state.topics=current;id=topicIdFromName(current,name);if(!id)throw err;return {topicId:id,created:false};}}
-async function createEntry(lesson,kind,topicId){const marker=classroomMarker(lesson.lessonId,kind);const coll=kind==='material'?'courseWorkMaterials':'courseWork';const remote=kind==='material'?state.materials:state.assignments;const old=findRemoteByMarker(remote,marker);if(old){log('item_reused',{kind,lessonId:lesson.lessonId,remoteId:old.id});return 'reused'}
- const student=await studentLesson(lesson.lessonId);const body=classroomBody(student,kind,topicId);const result=await api(`courses/${encodeURIComponent(courseId())}/${coll}`,'POST',body);remote.push(result);log('draft_created',{kind,lessonId:lesson.lessonId,remoteId:result.id,courseId:courseId(),state:result.state});return 'created';}
+async function createEntry(lesson,kind,topicId){
+ const student=await studentLesson(lesson.lessonId);
+ const body=classroomBody(student,kind,topicId);
+ const marker=classroomMarker(lesson.lessonId,kind);
+ const coll=kind==='material'?'courseWorkMaterials':'courseWork';
+ const remote=kind==='material'?state.materials:state.assignments;
+ const old=findRemoteByMarker(remote,marker);
+ if(old){validateExistingDraft(old,body,kind);log('verified_draft_reused',{kind,lessonId:lesson.lessonId,remoteId:old.id});return 'reused'}
+ const result=await api(`courses/${encodeURIComponent(courseId())}/${coll}`,'POST',body);
+ if(result.state!=='DRAFT'||result.description!==body.description){
+  log('remote_draft_mismatch',{kind,lessonId:lesson.lessonId,remoteId:result.id||null});
+  throw Error('Classroom returned a record that does not match the reviewed content. Inspect the created draft before retrying.');
+ }
+ remote.push(result);log('draft_created',{kind,lessonId:lesson.lessonId,remoteId:result.id,courseId:courseId(),state:result.state});return 'created';
+}
 async function review(){checkOwner();checkGoogle();const plan=selectPlanEntries(state.index,[...state.selected],$('operation').value);const cid=courseId();if(!cid)throw Error('Choose a class before reviewing.');
  // Read-only preflight: validate every projected student lesson, do NOT read teacher keys.
  const entries=[];
- for(const item of plan.lessons){const student=safeStudentContent(await studentLesson(item.lessonId));entries.push({id:item.lessonId,title:student.title,assessmentCount:student.questions.length,requiresTeacherExample:student.activities.some(x=>x.requiresTeacherProvidedExample)});}
+ for(const item of plan.lessons){
+  const raw=await studentLesson(item.lessonId);const student=safeStudentContent(raw);
+  const modes=plan.mode==='both'?['material','assignment']:[plan.mode==='materials'?'material':'assignment'];
+  const bodies=modes.map(kind=>({kind,body:classroomBody(raw,kind,'PREVIEW_TOPIC_ID')}));
+  entries.push({id:item.lessonId,title:student.title,assessmentCount:student.questions.length,requiresTeacherExample:student.activities.some(x=>x.requiresTeacherProvidedExample),bodies});
+ }
  const count=plan.itemCount;
  state.reviewed={courseId:cid,mode:plan.mode,ids:[...state.selected].sort(),plan,entries};
  $('confirmCourse').checked=false;$('confirmPilot').checked=false;
- $('preview').textContent=[`DRY PREVIEW: ${count} planned item(s); NO Classroom changes made.`,`Target course ID: ${cid}`,`Mode: ${plan.mode}`,`Topics: ${plan.units.length} (reused if name already exists)`,...entries.map(x=>`• ${x.id} — ${x.title} — 10-mark assignment ${x.requiresTeacherExample?'[teacher example still required]':''}`),'','Student projections contain no teacher marking keys.','All materials and assignments will be created as DRAFTS and require manual Classroom review.'].join('\n');
+ $('preview').textContent=[`DRY PREVIEW: ${count} planned item(s); NO Classroom changes made.`,`Target course ID: ${cid}`,`Mode: ${plan.mode}`,`Topics: ${plan.units.length} (reused if name already exists)`,...entries.flatMap(x=>[`\n${x.id} — ${x.title}`,`Questions: ${x.assessmentCount}`, ...x.bodies.map(b=>`\n--- ${b.kind.toUpperCase()} TITLE ---\n${b.body.title}\n--- BODY ---\n${b.body.description.replace(/PREVIEW_TOPIC_ID/g,'[Unit Topic]')}`)]),'','Student projections contain no teacher marking keys.','All materials and assignments will be created as DRAFTS and require manual Classroom review.'].join('\n');
  log('preview_completed',{courseId:cid,mode:plan.mode,itemCount:count});setControls();}
 async function createDrafts(){checkOwner();checkGoogle();guard();if(!$('confirmCourse').checked||!$('confirmPilot').checked)throw Error('Confirm the destination and initial pilot status.');const plan=state.reviewed.plan;
  state.busy=true;setControls();setStatus('progress','Reading existing Classroom topics and draft IDs…');log('create_started',{courseId:courseId(),mode:plan.mode,itemCount:plan.itemCount});
