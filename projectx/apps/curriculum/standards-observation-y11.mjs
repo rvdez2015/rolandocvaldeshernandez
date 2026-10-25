@@ -54,7 +54,7 @@ async function discoverLessons(){
   lessonChoices.sort((a,b)=>Number(yearValue(a))-Number(yearValue(b))||displayUnit(a).localeCompare(displayUnit(b))||safe(a.title).localeCompare(safe(b.title)));
   for(const y of [...new Set(lessonChoices.map(yearValue))])option($('yearSelect'),y,'Year '+y);
   $('yearSelect').disabled=false;
-  $('catalogueStatus').textContent=`${records.length} imported Year 11 lessons available`+(lessonChoices.length>records.length?' plus legacy 1.1d.':'.')+' Choose the year, unit and lesson.';
+  $('catalogueStatus').textContent=`${records.length} imported Year 11 lessons available`+(lessonChoices.length>records.length?' · 1 separate legacy lesson (1.1d) preserved.':'.')+' Choose a year, unit and lesson.';
   // Deep-link from the private library: ?lessonId=PX25-Y11-U01-L001
   const target=new URLSearchParams(location.search).get('lessonId');
   if(target&&lessonChoices.some(x=>x.lessonId===target)){
@@ -73,9 +73,37 @@ async function loadLesson(){if(!owner)return;const key=$('lessonSelect').value;c
  try{const snap=await getDoc(doc(db,'catalogueLessons',meta.lessonId,'revisions',meta.revisionId));if(!snap.exists())throw Error('Selected revision no longer exists.');const d=snap.data();if(d.schemaVersion!==2||d.lessonId!==meta.lessonId||!Array.isArray(d.standardsAlignment)||d.standardsAlignment.length!==8)throw Error('Selected revision fails schema / Teachers Standards checks.');
  if(meta.__source==='canonical-pilot'&&d.revisionId!==PX_RELEASE)throw Error('Unexpected imported revision.');
  clearObservationForm();lesson={...d,revisionId:d.revisionId||meta.revisionId};selectedLessonKey=key;$('lessonStatus').textContent=`Loaded: ${d.title} · Year ${yearValue(d)} · ${d.durationMinutes||'?'} minutes · ${meta.revisionId}`;
- $('lessonPreview').hidden=false;$('lessonPreview').textContent=`Lesson: ${d.lessonId} — ${d.title||'Untitled'}\nYear ${yearValue(d)} · ${displayUnit(d)}\nObjectives: ${JSON.stringify(d.teacherPlan?.learningObjectives||d.learningObjectives||d.objectives||'See lesson record')}\nStandards alignment: ${d.standardsAlignment.map(s=>s.standardId).join(', ')}`;
+ $('lessonPreview').hidden=false;renderLessonPreview(d,meta);
  renderStandards();formDirty=false;await refresh();setState();
  }catch(e){resetLesson();$('lessonStatus').textContent='Load failed: '+e.message}}
+
+// Render an accessible, structured owner-private lesson preview, without innerHTML.
+// No student publication, cloud writes, or marking-key fetches are introduced here.
+function renderLessonPreview(d,meta){
+ const root=$('lessonPreview'); root.replaceChildren();
+ const tp=d.teacherPlan||{};
+ root.append(el('h3',`${d.title||'Untitled lesson'}`));
+ root.append(el('p',`${d.lessonId} · Year ${yearValue(d)} · ${displayUnit(d)} · ${d.durationMinutes||'?'} minutes · ${meta.revisionId}`,'px-subtle'));
+ function section(title){const block=el('div','','px-section');block.append(el('h4',title));root.append(block);return block;}
+ function list(parent,items){const values=Array.isArray(items)?items.filter(Boolean):(items?[String(items)]:[]);if(!values.length){parent.append(el('p','Not specified in this draft.','px-subtle'));return;}const ul=el('ul');for(const value of values)ul.append(el('li',value));parent.append(ul);}
+ function paragraph(parent,value){parent.append(el('p',value||'Not specified in this draft.'));}
+ const objectives=section('Learning objectives');list(objectives,tp.learningObjectives||d.learningObjectives||d.objectives);
+ const criteria=section('Success criteria');list(criteria,tp.successCriteria);
+ const align=section('Planned Teachers’ Standards alignment');paragraph(align,(d.standardsAlignment||[]).map(s=>s.standardId).join(', ')||'No proposed alignment.');
+ const plan=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Show complete lesson plan and teaching sequence';plan.append(summary);
+ function detail(title,value){plan.append(el('h4',title));if(Array.isArray(value))list(plan,value);else paragraph(plan,value);}
+ detail('Subject explanation',tp.subjectExplanation);
+ detail('Prior knowledge',tp.priorKnowledge);
+ detail('Vocabulary',tp.vocabulary);
+ detail('Misconceptions',tp.misconceptions);
+ detail('Differentiation',typeof tp.differentiation==='object'?JSON.stringify(tp.differentiation,null,2):tp.differentiation);
+ const acts=Array.isArray(d.activities)?d.activities:[];
+ plan.append(el('h4','45-minute teaching sequence'));
+ if(acts.length){for(const a of acts){const stage=el('div','','px-stage');stage.append(el('strong',`${a.sequence||''}. ${a.stageId||a.phase||'Stage'} · ${a.minutes||0} min`));stage.append(el('p',`Teacher: ${a.teacherActions||'Not specified'}`));stage.append(el('p',`Student: ${a.studentActions||'Not specified'}`));plan.append(stage)}}else paragraph(plan,'No stages found in this record.');
+ detail('Homework',tp.homework);
+ root.append(plan);
+}
+
 $('selectLesson').onclick=loadLesson;$('load').onclick=async()=>{if(!confirmDiscard())return;await discoverLessons()};
 onAuthStateChanged(auth,async()=>{setState();if(owner){await discoverLessons();$('history').textContent='Select a lesson to see its observation history.'}else{resetLesson();resetPicker();$('history').textContent='Sign in to view saved drafts.';if($('observationViewer').open)$('observationViewer').close()}},e=>$('authStatus').textContent='Authentication error: '+e.message);
 $('login').onclick=async()=>{try{await signInWithPopup(auth,provider)}catch(e){$('authStatus').textContent=e.message}};
