@@ -1,5 +1,5 @@
 /* Project X v4 student-safe resource generator. No credentials, OCR paper text or marking keys. */
-import {safeStudentContent,RELEASE_ID,unitNo} from './core-v4.mjs';
+import {safeStudentContent,RELEASE_ID,unitNo} from './core-v5.mjs';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const compact=s=>String(s??'').replace(/[^a-z0-9-]+/gi,'-').replace(/^-|-$/g,'');
 const svgStyle='font-family:Inter,Arial,sans-serif';
