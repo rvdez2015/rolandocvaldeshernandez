@@ -1,0 +1,60 @@
+/* Project X — Year 11 Classroom bootstrap. Pure, side-effect-free safeguards. */
+import {validateIndex, safeStudentContent, topicTitle, RELEASE_ID, UNIT_LABELS} from './core-v5.mjs';
+import {inferYearGroup} from './course-routing-v5.mjs';
+import {createStudentPack} from './resources-v4.mjs';
+
+export const COURSE_NAME = 'Year 11 Computer Science - OCR J277';
+export const COURSE_SECTION = '2026-2027';
+export const WORKSHEET_VERSION = 'worksheet-only-v1';
+export const YEAR = 11;
+export const BATCH_SIZE = 10;
+const markerId = /^PX25-Y11-U\d{2}-L\d{3}$/;
+const escapeHTML = value => String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+export function planCurriculum(records){
+  const lessons=validateIndex(records);
+  const unitIds=[...new Set(lessons.map(item=>item.unitId))].sort();
+  if(unitIds.length!==26 || unitIds.some((id,i)=>id!==`PX25-Y11-U${String(i+1).padStart(2,'0')}`))throw Error('Year 11 must contain 26 mapped, ordered units.');
+  if(Object.keys(UNIT_LABELS).length!==26)throw Error('Unit labels mismatch');
+  return {lessons, units:unitIds.map(id=>({unitId:id,name:topicTitle(id)}))};
+}
+export function coursePayload(){
+  return {name:COURSE_NAME,section:COURSE_SECTION,descriptionHeading:'Year 11 - OCR GCSE Computer Science J277',description:'Project X Year 11 course. Curriculum topics and teacher-reviewed worksheets only. Presentations, diagrams, code and video resources are created on demand within Project X.',ownerId:'me',courseState:'PROVISIONED'};
+}
+export function isTargetCourse(course){
+  return !!course?.id && course.name===COURSE_NAME && course.section===COURSE_SECTION && inferYearGroup(course)===11 && ['ACTIVE','PROVISIONED'].includes(course.courseState);
+}
+export function isActiveTarget(course){return isTargetCourse(course)&&course.courseState==='ACTIVE';}
+export function matchingCourse(course){
+  return !!course && String(course.name||'').toLowerCase()===COURSE_NAME.toLowerCase() && String(course.section||'')===COURSE_SECTION;
+}
+export function worksheetMarker(lessonId){if(!markerId.test(lessonId))throw Error('Invalid Year 11 lesson ID');return `ProjectX-Ref: ${lessonId} | ${RELEASE_ID} | ${WORKSHEET_VERSION}`;}
+export function worksheetTitle(student){return `Y11 Worksheet - ${String(student.title).slice(0,165)}`;}
+export function createWorksheetOnly(studentRecord){
+  // Keep the existing Project X student worksheet, including teacher-reviewed worked examples
+  // and the canonical 10-mark questions. Exclude standalone extra resource sections only.
+  const student=safeStudentContent(studentRecord),pack=createStudentPack(studentRecord),file=pack.files.find(f=>f.kind==='worksheet');
+  if(!file || !file.content)throw Error('Original Project X worksheet is missing');
+  const marker=worksheetMarker(student.lessonId);
+  const html=file.content
+    .replace(/<section><h2>Visual resource<\/h2>[\s\S]*?<\/section>/g,'')
+    .replace(/<section><h2>Programming activity<\/h2>[\s\S]*?<\/section>/g,'')
+    .replace(/student-resource-pack-v4/g,WORKSHEET_VERSION);
+  if(!html.includes(marker))throw Error('Worksheet marker does not match the original student lesson');
+  return {lessonId:student.lessonId,title:student.title,unitId:student.unitId,html,marker,marks:pack.assessmentMarks,activityCount:student.activities.length,teacherWarnings:pack.resourceWarnings};
+}
+export function worksheetDraft(worksheet,topicId,driveFileId){
+  if(!topicId||!driveFileId||worksheet.marks!==10)throw Error('Missing approved topic/Drive worksheet or incorrect assessment marks');
+  return {title:worksheetTitle(worksheet),description:`Student worksheet for ${worksheet.title}. Includes guided activities and 10 original practice marks. Review before publishing. No separate presentations, diagrams, videos or code files.\n\n${worksheet.marker}`,workType:'ASSIGNMENT',maxPoints:10,state:'DRAFT',topicId,materials:[{driveFile:{driveFile:{id:driveFileId},shareMode:'STUDENT_COPY'}}]};
+}
+export function matchWorksheet(items,worksheet){
+  const hits=items.filter(item=>String(item.description||'').includes(worksheet.marker));
+  if(hits.length>1)throw Error('Duplicate worksheet markers found; resolve manually');
+  if(!hits.length)return null;
+  const existing=hits[0];
+  if(existing.state!=='DRAFT'||existing.maxPoints!==10||existing.workType!=='ASSIGNMENT'||!existing.materials?.some(m=>m.driveFile?.driveFile?.id))throw Error('Existing worksheet differs or is published. Stop; never overwrite.');
+  return existing;
+}
+export function nextBatch(plan,doneIds){
+  const done=new Set(doneIds);
+  return plan.lessons.filter(item=>!done.has(item.lessonId)).slice(0,BATCH_SIZE);
+}

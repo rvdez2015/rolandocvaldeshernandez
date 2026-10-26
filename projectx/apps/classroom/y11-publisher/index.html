@@ -2,6 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark"><title>Project X — Teaching Package Publisher v5</title><link rel="stylesheet" href="publisher.css?v=5.0"><script src="https://accounts.google.com/gsi/client" async defer></script><script type="module" src="publisher-v5.mjs"></script></head>
 <body><main>
 <header><nav><a href="../../curriculum/pilot-library/">← Year 11 Cloud Library</a><a href="../../curriculum/standards-observation-y11.html">Observation Centre</a><a href="../">Classroom Centre</a></nav><div class="eyebrow">PROJECT X · YEAR 11 · OCR J277</div><h1>Teaching Package Publisher <small class="version">COURSE-LOCKED v5</small></h1><p>Prepare lesson worksheets, diagrams, programming starters and canonical 10-mark assessments for your Google Classroom. Review drafts before students see them.</p></header>
+<section class="callout"><strong>Starting a new Year 11 course?</strong> Use <a href="bootstrap.html">Create Year 11 Classroom — 26 topics + 94 worksheet drafts (no other resources)</a>. The standard Publisher below remains available for later individual teaching-resource drafts.</section>
 <div class="metrics"><div><strong>94</strong><span>Owner-private lessons</span></div><div><strong>26</strong><span>Curriculum topics</span></div><div><strong>10</strong><span>Lessons per batch</span></div></div>
 <section aria-labelledby="privateTitle"><h2 id="privateTitle">1. Read your Project X curriculum</h2><div class="buttons"><button id="pxSignIn">Sign in to Project X</button><button id="pxSignOut" class="secondary" disabled>Sign out</button><button id="pxRefresh" class="secondary" disabled>Refresh private library</button></div><p id="pxStatus" class="status" role="status">Owner authentication required. No teacher-only marking keys are read.</p></section>
 <section aria-labelledby="classroomTitle"><h2 id="classroomTitle">2. Choose the Classroom and resource-upload option</h2>
@@ -12,12 +13,12 @@
 </section>
 <section aria-labelledby="selectionTitle"><h2 id="selectionTitle">3. Select lessons and the package type</h2>
  <label for="operation">What would you like to prepare?</label><select id="operation">
- <option value="complete" selected>Complete package: resources + 10-mark assignment (recommended)</option>
+ <option value="complete">Complete package: resources + 10-mark assignment (recommended)</option>
  <option value="resources">Resources only: worksheet, diagrams and programming starters</option>
  <option value="assignments">10-mark assignments only</option>
  <option value="materials">Original text-only lesson material (legacy)</option>
  <option value="both">Original text-only material + assignment (legacy)</option>
- <option value="topics">Create or reuse all 26 unit topics</option></select>
+ <option value="topics" selected>Create or reuse all 26 unit topics</option></select>
  <div class="filters"><label for="unit">Unit filter<select id="unit"><option value="all">All 26 units</option></select></label><label for="search">Search lessons<input id="search" type="search" placeholder="CPU, sorting, Python..."></label></div>
  <p id="selectionCount" class="small">Select up to ten lessons in one batch.</p><div id="lessons" class="lesson-list">Sign in to load lessons.</div>
  <div class="buttons"><button id="downloadResources" class="secondary" disabled>Download student resource ZIP (offline)</button><button id="review" disabled>Review planned Classroom changes</button><button id="logDownload" class="secondary">Download activity log</button></div>
