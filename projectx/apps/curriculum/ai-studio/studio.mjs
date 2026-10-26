@@ -5,7 +5,7 @@ import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,se
 import {getFirestore,collection,getDocs,doc,getDoc,query,where,runTransaction,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import {TYPES,esc,contextFor,createOfflineDraft,validateDraft,exportHTML,diagramSVG,safeVideoUrl} from './studio-core.mjs';
 const FIREBASE={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
-const OWNER='UnsKCIgOTBbbVfGYy9ATeuIaRZ53',RELEASE='y11-j277-canonical-pilot-20261024-r1';
+const TRUSTED_WORKER_ORIGIN = 'https://projectx-ai-resource-studio.staffcomplete-projectx.workers.dev';
 const app=initializeApp(FIREBASE,'px-ai-resource-studio-v1'),auth=getAuth(app),db=getFirestore(app);
 const $=id=>document.getElementById(id),option=(v,t)=>new Option(t,v),state={user:null,lesson:null,type:'presentation',draft:null,source:'template',model:'none',index:[],saved:[],currentResourceId:null,busy:false};
 const owner=()=>!!auth.currentUser&&auth.currentUser.uid===OWNER;
