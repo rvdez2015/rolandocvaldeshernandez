@@ -5,7 +5,10 @@ import {getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,se
 import {getFirestore,collection,getDocs,doc,getDoc,query,where,runTransaction,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import {TYPES,esc,contextFor,createOfflineDraft,validateDraft,exportHTML,diagramSVG,safeVideoUrl} from './studio-core.mjs';
 const FIREBASE={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
-const TRUSTED_WORKER_ORIGIN = 'https://projectx-ai-resource-studio.staffcomplete-projectx.workers.dev';
+const OWNER='UnsKCIgOTBbbVfGYy9ATeuIaRZ53',RELEASE='y11-j277-canonical-pilot-20261024-r1';
+// Only send Firebase login tokens to this exact, verified Cloudflare Worker endpoint.
+const TRUSTED_WORKER_ORIGIN='https://projectx-ai-resource-studio.staffcomplete-projectx.workers.dev';
+const TRUSTED_WORKER_ENDPOINT=TRUSTED_WORKER_ORIGIN+'/generate';
 const app=initializeApp(FIREBASE,'px-ai-resource-studio-v1'),auth=getAuth(app),db=getFirestore(app);
 const $=id=>document.getElementById(id),option=(v,t)=>new Option(t,v),state={user:null,lesson:null,type:'presentation',draft:null,source:'template',model:'none',index:[],saved:[],currentResourceId:null,busy:false};
 const owner=()=>!!auth.currentUser&&auth.currentUser.uid===OWNER;
@@ -63,7 +66,7 @@ async function localGenerate(){needOwner();if(!state.lesson)throw Error('Choose 
 async function aiGenerate(){needOwner();if(!state.lesson)throw Error('Choose a lesson');const endpoint=$('aiEndpoint').value.trim();const url=new URL(endpoint);
  if(url.protocol!=='https:'||url.pathname!=='/generate'||url.search||url.hash||url.username||url.password)throw Error('Use the exact secure HTTPS Worker /generate endpoint without query parameters.');
  // Do not send Firebase login tokens to unverified third-party endpoints.
- if(url.origin!==TRUSTED_WORKER_ORIGIN)throw Error('Only the verified Project X Cloudflare Worker is permitted.');
+ if(url.href!==TRUSTED_WORKER_ENDPOINT)throw Error('Only the verified Project X Cloudflare Worker endpoint is permitted.');
  busy(true);status('generationStatus','Requesting authenticated free-tier AI draft; no cloud resource write…');
  try{const token=await auth.currentUser.getIdToken();const res=await fetch(url.href,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({resourceType:state.type,lesson:contextFor(state.lesson),teacherInstruction:$('teacherBrief').value.slice(0,1200)})});
   const obj=await res.json();if(!res.ok)throw Error(obj.error||`AI service HTTP ${res.status}`);if(obj.resourceType!==state.type)throw Error('AI response has incorrect type');state.source='ai';state.model=obj.model||'AI service';editorSet(validateDraft(state.type,obj.resource));status('generationStatus','AI draft received. Teacher review required before saving or using it.','ok');
@@ -88,7 +91,7 @@ $('lesson').onchange=()=>{const url=new URL(location);url.searchParams.set('less
 document.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>setType(b.dataset.type));
 $('localGenerate').onclick=()=>localGenerate().catch(displayError);
 $('aiGenerate').onclick=()=>aiGenerate().catch(displayError);
-$('aiEndpoint').value=localStorage.getItem('projectx.ai.workerEndpoint.v1')||'';$('aiEndpoint').oninput=()=>{localStorage.setItem('projectx.ai.workerEndpoint.v1',$('aiEndpoint').value.trim());controls()};
+$('aiEndpoint').value=TRUSTED_WORKER_ENDPOINT;$('aiEndpoint').readOnly=true;$('aiEndpoint').title='Verified Project X gateway; fixed to protect Firebase authentication tokens.';
 $('previewEdited').onclick=()=>{try{editorSet(editorRead());status('generationStatus','Edited resource validated. Save a revision or download when ready.','ok')}catch(e){displayError(e)}};
 $('downloadDraft').onclick=()=>{try{const data=editorRead();const type=state.type,filename=resourceFilename();if(type==='diagram')download(new Blob([diagramSVG(data)],{type:'image/svg+xml'}),filename+'.svg');else if(type==='code')download(new Blob([data.code],{type:'text/plain;charset=utf-8'}),filename+'.py');else download(new Blob([exportHTML(type,data)],{type:'text/html;charset=utf-8'}),filename+'.html')}catch(e){displayError(e)}};
 $('downloadJSON').onclick=()=>{try{const data=editorRead();download(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),resourceFilename()+'.json')}catch(e){displayError(e)}};
