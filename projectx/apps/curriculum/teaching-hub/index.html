@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090f25">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Project X Curriculum Centre — teacher-directed curriculum planning, lessons, assessments and connected services.">
+  <title>Curriculum Centre · Project X</title>
+  <link rel="stylesheet" href="./teaching-hub.css?v=20261026-2">
+  <script defer type="module" src="./teaching-hub.mjs?v=20261026-2"></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">Skip to curriculum content</a>
+<div class="px-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Project X navigation">
+    <a class="brand" href="/rolandocvaldeshernandez/projectx/" aria-label="Project X home">
+      <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>Project <strong>X</strong><small>CURRICULUM INTELLIGENCE</small></span>
+    </a>
+    <div class="sidebar-scroll">
+      <p class="side-heading">TEACHING WORKSPACE</p>
+      <nav class="side-nav" aria-label="Curriculum workspace">
+        <button data-view="overview" class="side-link active" aria-current="page"><span class="side-icon">◈</span>Overview</button>
+        <button data-view="units" class="side-link"><span class="side-icon">▦</span>Explore units</button>
+        <button data-view="lessons" class="side-link"><span class="side-icon">▤</span>Lesson library</button>
+        <button data-view="assessment" class="side-link"><span class="side-icon">▣</span>Assessment bank</button>
+      </nav>
+      <p class="side-heading">CONNECTED SERVICES</p>
+      <nav class="side-nav" aria-label="Teaching tools">
+        <a class="side-link" href="/rolandocvaldeshernandez/projectx/apps/curriculum/standards-observation-y11.html"><span class="side-icon">◎</span>Observations <span class="external" aria-label="Opens another tool">↗</span></a>
+        <a class="side-link" href="/rolandocvaldeshernandez/projectx/apps/classroom/y11-publisher/"><span class="side-icon">➤</span>Google Classroom <span class="external" aria-label="Opens another tool">↗</span></a>
+        <a class="side-link" href="/rolandocvaldeshernandez/projectx/apps/timetable/"><span class="side-icon">▥</span>Timetable <span class="external" aria-label="Opens another tool">↗</span></a>
+        <a class="side-link" href="/rolandocvaldeshernandez/projectx/apps/school-profile/"><span class="side-icon">⌂</span>School Centre <span class="external" aria-label="Opens another tool">↗</span></a>
+      </nav>
+      <details class="side-admin" id="adminLinks">
+        <summary><span class="side-icon">⚙</span>Owner administration <span class="caret">⌄</span></summary>
+        <a href="/rolandocvaldeshernandez/projectx/apps/curriculum/import-centre/">Curriculum Import Centre ↗</a>
+        <a href="/rolandocvaldeshernandez/projectx/apps/curriculum/pilot-library/">Full private lesson editor ↗</a>
+        <a href="/rolandocvaldeshernandez/projectx/apps/curriculum/">Existing Curriculum Centre ↗</a>
+      </details>
+    </div>
+    <div class="sidebar-bottom"><span class="tiny-star">✦</span><div><strong>Owner-private pilot</strong><small>No student publishing from this page</small></div></div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar">
+      <button type="button" id="menuToggle" class="icon-btn mobile-only" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">☰</button>
+      <label class="global-search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search lessons, unit names or IDs…" autocomplete="off" aria-label="Search curriculum"></label>
+      <div class="header-right"><span id="connectionPill" class="connection">Not connected</span><button id="signIn" class="auth-btn">Sign in with Google</button><button id="signOut" class="auth-btn secondary" hidden>Sign out</button><span id="avatar" class="avatar" aria-label="Owner account">PX</span></div>
+    </header>
+    <main id="workspace" tabindex="-1">
+      <div class="hero">
+        <div class="hero-copy"><div class="eyebrow">CURRICULUM CENTRE <span>•</span> TEACHING INTELLIGENCE</div><h1>Your curriculum.<br><em>One connected workspace.</em></h1><p>Plan, teach, assess and reflect with the Year 11 OCR Computer Science curriculum and its connected services.</p><div class="hero-buttons"><button class="button primary" data-view="lessons">Explore lessons <span>→</span></button><a class="button ghost" href="/rolandocvaldeshernandez/projectx/apps/classroom/y11-publisher/">Google Classroom ↗</a></div></div>
+        <div class="hero-orbit" aria-hidden="true"><div class="moon"></div><div class="geometry">✧</div><span class="orbit-dot o1"></span><span class="orbit-dot o2"></span></div>
+        <div class="hero-caption"><span class="gold-dot">●</span><span>OCR GCSE Computer Science <strong>J277 · Year 11</strong></span></div>
+      </div>
+      <section class="qualification" aria-label="Current qualification"><div class="qualification-current"><span class="qualification-icon">◈</span><div><strong>OCR GCSE Computer Science (J277)</strong><small>Year 11 · Initial teaching pilot</small></div></div><span class="qualification-note">Further subjects and year groups will appear when imported.</span></section>
+      <div class="workspace-columns">
+        <div class="content-column">
+          <section id="view-overview" class="app-view" aria-label="Curriculum overview">
+            <div class="section-heading"><div><div class="overline">EXPLORE THE CURRICULUM</div><h2>Curriculum units</h2><p>Browse the imported teaching sequence by unit.</p></div><button class="text-button" id="toggleAllUnits" aria-expanded="false">View all units <span>→</span></button></div>
+            <div id="featuredUnits" class="unit-grid"><div class="empty-inline">Sign in to load the unit library.</div></div>
+            <div class="section-heading featured-heading"><div><div class="overline">SELECTED UNIT</div><h2 id="unitFeatureHeading">Teaching sequence</h2></div></div>
+            <div class="unit-feature" id="unitFeature"><p class="empty-inline">Select a unit to see its lessons.</p></div>
+          </section>
+          <section id="view-units" class="app-view" aria-label="All curriculum units" hidden><div class="section-heading"><div><div class="overline">OCR J277 · YEAR 11</div><h2>All curriculum units</h2><p id="unitsSummary">Waiting for curriculum data…</p></div></div><div id="allUnits" class="unit-grid large"></div></section>
+          <section id="view-lessons" class="app-view" aria-label="Lesson library" hidden><div class="section-heading"><div><div class="overline">PLAN AND TEACH</div><h2>Lesson library</h2><p id="lessonsSummary">Sign in to find your imported lessons.</p></div><button type="button" class="small-outline" id="clearFilters">Clear filters</button></div><div class="lesson-controls"><label>Unit <select id="lessonUnitFilter"><option value="all">All units</option></select></label><label>Curriculum role <select id="lessonRoleFilter"><option value="all">All roles</option><option value="core_gcse">Core GCSE</option><option value="assessment_or_practice">Assessment / practice</option><option value="optional_enrichment">Optional enrichment</option><option value="a_level_bridge">A Level bridge</option></select></label></div><div id="lessonList" class="lesson-list"></div></section>
+          <section id="view-assessment" class="app-view" aria-label="Assessment bank" hidden><div class="section-heading"><div><div class="overline">LINKED ASSESSMENTS</div><h2>Canonical question bank</h2><p>Four source-linked questions per lesson. View the questions securely after opening a lesson.</p></div></div><div class="info-card"><div class="info-icon">▤</div><div><h3>One concept, multiple presentations</h3><p>Standard, supported and extension presentations reference the same canonical question family. Teacher marking guidance is available only to the authorised owner and loaded on request.</p><button class="button outline" type="button" data-view="lessons">Choose a lesson <span>→</span></button></div></div><div id="assessmentRecent" class="mini-lesson-list"></div></section>
+        </div>
+        <aside class="right-rail" aria-label="Curriculum tools and status"><section class="rail-card"><div class="rail-heading"><h2>Curriculum overview</h2><span class="rail-spark">✧</span></div><div class="stat-grid"><div class="stat"><span class="stat-icon">◈</span><strong id="statUnits">—</strong><small>Units</small></div><div class="stat"><span class="stat-icon blue">▤</span><strong id="statLessons">—</strong><small>Lessons</small></div><div class="stat"><span class="stat-icon gold">⌁</span><strong id="statQuestions">—</strong><small>Questions*</small></div></div><p class="stat-footnote">*Question total from the validated import contract; questions load per lesson.</p><div id="readiness" class="readiness">Awaiting owner authentication.</div></section>
+        <section class="rail-card"><div class="rail-heading"><h2>Quick actions</h2></div><div class="action-grid"><button type="button" class="action-card" data-view="lessons"><span class="action-icon purple">▤</span><strong>Lesson library</strong><small>Find teaching plans</small></button><button type="button" class="action-card" data-view="assessment"><span class="action-icon pink">▣</span><strong>Assessment bank</strong><small>Exam-style questions</small></button><a class="action-card" href="/rolandocvaldeshernandez/projectx/apps/curriculum/standards-observation-y11.html"><span class="action-icon orange">◎</span><strong>Observation</strong><small>Reflect on teaching ↗</small></a><a class="action-card" href="/rolandocvaldeshernandez/projectx/apps/classroom/y11-publisher/"><span class="action-icon green">➤</span><strong>Google Classroom</strong><small>Resources &amp; drafts ↗</small></a></div></section>
+        <section class="rail-card"><div class="rail-heading"><h2>Recently opened</h2><span class="small-note">This session only</span></div><div id="recent" class="recent"><p class="muted">Lessons you open will appear here. No activity has been recorded in this session.</p></div></section>
+        <section class="rail-card rail-note"><strong>Teaching-led improvement</strong><p>Lessons are approved for initial teaching. Corrections can be proposed as you teach; historical revisions remain preserved.</p><a href="/rolandocvaldeshernandez/projectx/apps/curriculum/pilot-library/">Open revision proposals ↗</a></section>
+        </aside>
+      </div>
+      <footer class="site-footer"><span>Project X · Curriculum Centre visual upgrade</span><span>Owner-private · Read-only Firestore access · No automatic student publishing</span></footer>
+    </main>
+  </div>
+</div>
+<div id="mobileBackdrop" class="mobile-backdrop" hidden></div>
+<div id="lessonDialog" class="dialog-backdrop" hidden><div class="lesson-dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><header><div><div class="overline">YEAR 11 LESSON DETAIL</div><h2 id="dialogTitle">Lesson</h2><p id="dialogMeta"></p></div><button class="dialog-close" id="dialogClose" type="button" aria-label="Close lesson">×</button></header><div class="dialog-tabs" role="tablist" aria-label="Lesson views"><button class="active" data-tab="plan" role="tab" aria-selected="true">Teaching plan</button><button data-tab="questions" role="tab" aria-selected="false">Assessment</button><button data-tab="marking" role="tab" aria-selected="false">Teacher marking</button></div><div id="dialogContent" class="dialog-content"></div><footer><a id="openFullLesson" class="button outline" target="_blank" rel="noopener">Open full lesson &amp; revision history ↗</a><a class="button primary" href="/rolandocvaldeshernandez/projectx/apps/classroom/y11-publisher/">Classroom publisher ↗</a></footer></div></div>
+<div class="toast" role="status" id="toast" aria-live="polite" hidden></div>
+</body>
+</html>
