@@ -63,7 +63,7 @@ async function localGenerate(){needOwner();if(!state.lesson)throw Error('Choose 
 async function aiGenerate(){needOwner();if(!state.lesson)throw Error('Choose a lesson');const endpoint=$('aiEndpoint').value.trim();const url=new URL(endpoint);
  if(url.protocol!=='https:'||url.pathname!=='/generate'||url.search||url.hash||url.username||url.password)throw Error('Use the exact secure HTTPS Worker /generate endpoint without query parameters.');
  // Do not send Firebase login tokens to unverified third-party endpoints.
- if(!url.hostname.endsWith('.workers.dev')||!url.hostname.startsWith('projectx-ai-resource-studio.'))throw Error('For the free pilot, enter only your Project X Cloudflare Worker domain.');
+ if(url.origin!==TRUSTED_WORKER_ORIGIN)throw Error('Only the verified Project X Cloudflare Worker is permitted.');
  busy(true);status('generationStatus','Requesting authenticated free-tier AI draft; no cloud resource write…');
  try{const token=await auth.currentUser.getIdToken();const res=await fetch(url.href,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({resourceType:state.type,lesson:contextFor(state.lesson),teacherInstruction:$('teacherBrief').value.slice(0,1200)})});
   const obj=await res.json();if(!res.ok)throw Error(obj.error||`AI service HTTP ${res.status}`);if(obj.resourceType!==state.type)throw Error('AI response has incorrect type');state.source='ai';state.model=obj.model||'AI service';editorSet(validateDraft(state.type,obj.resource));status('generationStatus','AI draft received. Teacher review required before saving or using it.','ok');
