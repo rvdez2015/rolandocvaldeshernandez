@@ -1,5 +1,5 @@
 /* Project X — Year 11 Classroom bootstrap. Pure, side-effect-free safeguards. */
-import {validateIndex, safeStudentContent, topicTitle, RELEASE_ID, UNIT_LABELS} from './core-v5.mjs';
+import {validateIndex, safeStudentContent, topicTitle, classroomBody, classroomMarker, RELEASE_ID, UNIT_LABELS} from './core-v5.mjs';
 import {inferYearGroup} from './course-routing-v5.mjs';
 import {createStudentPack} from './resources-v4.mjs';
 
@@ -57,4 +57,32 @@ export function matchWorksheet(items,worksheet){
 export function nextBatch(plan,doneIds){
   const done=new Set(doneIds);
   return plan.lessons.filter(item=>!done.has(item.lessonId)).slice(0,BATCH_SIZE);
+}
+
+
+// Stand-alone Classroom MATERIAL posts are deliberately separate from worksheet ASSIGNMENTS.
+// They contain the student-safe lesson context and activities, with no attached extra resources.
+export function materialMarker(lessonId){return classroomMarker(lessonId,'material');}
+export function lessonMaterialDraft(studentRecord,topicId){
+  if(!topicId)throw Error('Approved lesson topic missing');
+  const student=safeStudentContent(studentRecord);
+  const base=classroomBody(studentRecord,'material',topicId);
+  const description=base.description.replace(
+    'Lesson resource note: Supply referenced diagrams, worksheets or code separately before student publication.',
+    'Related worksheet: separate Classroom assignment. Diagrams, videos, presentations and code starters are supplied on demand by the teacher.'
+  );
+  if(description.length>25000)throw Error('Lesson material description is too long');
+  return {title:`Y11 Material - ${student.title}`.slice(0,180),description,topicId,state:'DRAFT'};
+}
+export function matchLessonMaterial(items,expected){
+  const marker=typeof expected==='string'?expected:expected?.marker||expected?.description?.match(/ProjectX-Ref: PX25-Y11-U\d{2}-L\d{3} \| [^\n]+ \| material/)?.[0];
+  if(!marker)throw Error('Lesson Material marker is missing');
+  const hits=items.filter(item=>String(item.description||'').includes(marker));
+  if(hits.length>1)throw Error('Duplicate lesson Material markers found: stop and review');
+  if(!hits.length)return null;
+  const item=hits[0];
+  if(item.state!=='DRAFT')throw Error('Matching lesson Material is published or otherwise not a draft: stop and review');
+  if(expected?.topicId && String(item.topicId)!==String(expected.topicId))throw Error('Matching lesson Material is under the wrong topic: stop and review');
+  if(expected?.description && item.description!==expected.description)throw Error('Existing lesson Material differs from Project X draft: stop and review');
+  return item;
 }
