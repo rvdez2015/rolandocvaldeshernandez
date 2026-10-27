@@ -6,7 +6,7 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase
 import {getAuth,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {getFirestore,collection,getDocs,doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import {RELEASE_ID,topicIdFromName} from './core-v5.mjs';
-import {COURSE_NAME,COURSE_SECTION,planCurriculum,coursePayload,isTargetCourse,isActiveTarget,matchingCourse,createWorksheetOnly,worksheetDraft,worksheetMarker,matchWorksheet,nextBatch,materialMarker,lessonMaterialDraft,matchLessonMaterial} from './bootstrap-core.mjs';
+import {COURSE_NAME,COURSE_SECTION,planCurriculum,coursePayload,isTargetCourse,isActiveTarget,matchingCourse,createWorksheetOnly,worksheetDraft,worksheetMarker,matchWorksheet,nextBatch,materialMarker,lessonMaterialDraft,legacyLessonMaterialDraft,materialUpgradeStatus,matchLessonMaterial} from './bootstrap-core.mjs';
 import {inferYearGroup} from './course-routing-v5.mjs';
 
 const firebaseConfig={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
@@ -28,6 +28,7 @@ function controls(){const owner=activeOwner(),connected=!!state.token,c=chosen()
  const anySame=state.courses.some(c=>matchingCourse(c)||((c.section||'')===COURSE_SECTION&&inferYearGroup(c)===11))||!!localStorage.getItem('projectx.classroom.y11.bootstrap.courseId');
  $('createCourse').disabled=!connected||!state.plan||state.busy||anySame||state.createUncertain||$('createName').value.trim()!==COURSE_NAME;
  $('createTopics').disabled=!owner||!connected||!active||!state.plan||!$('topicApprove').checked||state.busy;
+ $('upgradeMaterials').disabled=!owner||!connected||!active||!state.plan||!$('materialUpgradeApprove').checked||state.busy;
  $('createMaterials').disabled=!owner||!connected||!active||!state.plan||!$('materialApprove').checked||!state.plan.units.every(unit=>topicIdFromName(state.topics,unit.name))||state.busy;
  $('createBatch').disabled=!owner||!connected||!active||!state.plan||!$('worksheetApprove').checked||!state.plan.units.every(unit=>topicIdFromName(state.topics,unit.name))||state.busy;
 }
@@ -97,12 +98,53 @@ async function createTopics(){requireOwner();readyCourse();if(!$('topicApprove')
  await checkInventory();status('topicStatus',`Verified all 26 topics; ${created} new in this session. No lesson materials or worksheets were published.`, 'ok');
  }catch(e){fail('topicStatus',e)}finally{lock(false)}}
 async function studentRecord(lessonId){requireOwner();const snap=await getDoc(doc(db,'catalogueStudentLessons',lessonId,'revisions',RELEASE_ID));if(!snap.exists())throw Error(`Student-safe lesson ${lessonId} is unavailable`);return snap.data();}
+async function teacherLessonRecord(lessonId){requireOwner();const snap=await getDoc(doc(db,'catalogueLessons',lessonId,'revisions',RELEASE_ID));if(!snap.exists())throw Error(`Authoritative lesson ${lessonId} is unavailable. Stop: do not invent objectives.`);return snap.data();}
+// Explicit, safe migration of the original 10 v1.1 Material DRAFTs.
+// Preflight the entire batch before making any Google PATCH calls.
+async function upgradeMaterialBatch(){
+ requireOwner();readyCourse();
+ if(!$('materialUpgradeApprove').checked)throw Error('Approve upgrading existing drafts first.');
+ lock(true);
+ try{
+   await ensureActiveCourse();await checkInventory();
+   const candidates=[];
+   for(const entry of state.plan.lessons){
+     const found=matchLessonMaterial(state.materialPosts,materialMarker(entry.lessonId));
+     if(found && (!found.description.includes('\nLearning objectives:\n') || !found.description.includes('\nSuccess criteria:\n')))candidates.push({entry,found});
+   }
+   if(!candidates.length){status('upgradeStatus','No older Material drafts need upgrading. Your existing drafts already contain objectives and success criteria.','ok');return;}
+   const review=[];
+   for(const {entry,found} of candidates.slice(0,10)){
+     const topicId=topicIdFromName(state.topics,state.plan.units.find(u=>u.unitId===entry.unitId)?.name);
+     if(!topicId)throw Error(`Topic missing for ${entry.lessonId}`);
+     const [raw,teacherLesson]=await Promise.all([studentRecord(entry.lessonId),teacherLessonRecord(entry.lessonId)]);
+     const legacy=legacyLessonMaterialDraft(raw,topicId),enhanced=lessonMaterialDraft(raw,topicId,teacherLesson);
+     if(materialUpgradeStatus(found,legacy,enhanced)!=='upgrade')throw Error('Unexpected already-upgraded draft; refresh and retry.');
+     review.push({entry,found,legacy,enhanced});
+   }
+   status('upgradeStatus',`Validated ${review.length} original drafts. Updating description only; all remain DRAFT.`);
+   let updated=0;
+   for(const {entry,found,legacy,enhanced} of review){
+     // Protect against a teacher editing or publishing a draft after preflight.
+     const path=`courses/${encodeURIComponent(state.courseId)}/courseWorkMaterials/${encodeURIComponent(found.id)}`;
+     const fresh=await classroom(path);
+     if(materialUpgradeStatus(fresh,legacy,enhanced)!=='upgrade')throw Error('Draft changed during review. No overwrite performed.');
+     const result=await classroom(path+'?updateMask=description','PATCH',{description:enhanced.description});
+     if(result.state!=='DRAFT'||result.description!==enhanced.description||String(result.topicId)!==String(legacy.topicId))throw Error(`Unexpected Classroom response for ${entry.lessonId}: inspect before retrying`);
+     updated++;journal('lesson_material_objectives_restored',{lessonId:entry.lessonId,courseWorkMaterialId:found.id});
+   }
+   await checkInventory();status('upgradeStatus',`Updated ${updated} existing Material drafts. Learning objectives and success criteria restored; no worksheet changes, no publication.`, 'ok');
+ }catch(e){fail('upgradeStatus',e);status('materialStatus','Some drafts may have been upgraded. Review existing Classroom Materials before retrying; no duplicate posts will be created.','error');}
+ finally{lock(false);}
+}
 async function createMaterialBatch(){
  requireOwner();readyCourse();if(!$('materialApprove').checked)throw Error('Confirm lesson Material draft creation.');
  if(!state.plan.units.every(unit=>topicIdFromName(state.topics,unit.name)))throw Error('Prepare all 26 topics first.');
  lock(true);let created=0,reused=0;
  try{
   await ensureActiveCourse();await checkInventory();
+  const stale=state.materialPosts.filter(m=>String(m.description||'').includes('ProjectX-Ref: PX25-Y11-') && String(m.description||'').includes(' | material') && (!m.description.includes('\nLearning objectives:\n') || !m.description.includes('\nSuccess criteria:\n')));
+  if(stale.length)throw Error(`${stale.length} older lesson Material drafts are missing objectives or success criteria. Use Upgrade existing lesson Materials first.`);
   const done=[];
   for(const entry of state.plan.lessons){if(matchLessonMaterial(state.materialPosts,materialMarker(entry.lessonId)))done.push(entry.lessonId);}
   const batch=nextBatch(state.plan,done);
@@ -111,7 +153,7 @@ async function createMaterialBatch(){
   for(const [i,entry] of batch.entries()){
    const topicId=topicIdFromName(state.topics,state.plan.units.find(u=>u.unitId===entry.unitId)?.name);
    if(!topicId)throw Error(`Topic missing for ${entry.lessonId}`);
-   const raw=await studentRecord(entry.lessonId),body=lessonMaterialDraft(raw,topicId);
+   const [raw,teacherLesson]=await Promise.all([studentRecord(entry.lessonId),teacherLessonRecord(entry.lessonId)]),body=lessonMaterialDraft(raw,topicId,teacherLesson);
    if(matchLessonMaterial(state.materialPosts,body)){reused++;continue;}
    // Re-query before every write to account for uncertain network success/retries.
    state.materialPosts=await paged(`courses/${encodeURIComponent(state.courseId)}/courseWorkMaterials?courseWorkMaterialStates=DRAFT&courseWorkMaterialStates=PUBLISHED`,'courseWorkMaterial');
@@ -164,12 +206,12 @@ async function createBatch(){requireOwner();readyCourse();if(!$('worksheetApprov
  await checkInventory();status('worksheetStatus',`Batch finished: ${created} drafts created, ${reused} reused. Review in Classroom before the next batch. No student publication occurred.`,'ok');
  }catch(e){fail('worksheetStatus',e);status('courseStatus','Partial work may have succeeded. Inspect Classroom drafts and Drive files before retrying. Duplicate checks will be applied.','error');}
  finally{lock(false)}}
-function downloadLog(){const data={version:'Y11-bootstrap-v1.1-materials',exportedAt:new Date().toISOString(),courseId:state.courseId||null,events:state.journal};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ProjectX_Y11_Classroom_Bootstrap_Log.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),15000)}
+function downloadLog(){const data={version:'Y11-bootstrap-v1.2-objectives' ,exportedAt:new Date().toISOString(),courseId:state.courseId||null,events:state.journal};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ProjectX_Y11_Classroom_Bootstrap_Log.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),15000)}
 $('pxSignIn').onclick=async()=>{try{await setPersistence(auth,inMemoryPersistence);await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){fail('pxStatus',e)}};
 $('pxSignOut').onclick=()=>signOut(auth).catch(e=>fail('pxStatus',e));$('refresh').onclick=()=>loadIndex().catch(e=>fail('pxStatus',e));
 $('connect').onclick=()=>connect().catch(e=>fail('googleStatus',e));$('disconnect').onclick=()=>{if(state.token&&window.google?.accounts?.oauth2)window.google.accounts.oauth2.revoke(state.token,()=>{});state.token=null;state.confirmedDrive=false;state.courses=[];state.courseId='';state.topics=[];state.items=[];state.materialPosts=[];controls();status('googleStatus','Disconnected. Browser OAuth token discarded.');};
 $('reloadCourses').onclick=()=>listCourses().catch(e=>fail('googleStatus',e));$('courseList').onchange=async()=>{state.courseId=$('courseList').value;state.topics=[];state.items=[];state.materialPosts=[];if(state.courseId)localStorage.setItem('projectx.classroom.y11.bootstrap.courseId',state.courseId);try{if(state.courseId)await checkInventory()}catch(e){fail('courseStatus',e)}controls()};
 $('createName').oninput=controls;$('topicApprove').onchange=controls;$('materialApprove').onchange=controls;$('worksheetApprove').onchange=controls;
-$('createCourse').onclick=()=>createCourse().catch(e=>fail('courseStatus',e));$('createTopics').onclick=()=>createTopics().catch(e=>fail('topicStatus',e));$('createMaterials').onclick=()=>createMaterialBatch().catch(e=>fail('materialStatus',e));$('createBatch').onclick=()=>createBatch().catch(e=>fail('worksheetStatus',e));$('downloadLog').onclick=downloadLog;
+$('createCourse').onclick=()=>createCourse().catch(e=>fail('courseStatus',e));$('createTopics').onclick=()=>createTopics().catch(e=>fail('topicStatus',e));$('upgradeMaterials').onclick=()=>upgradeMaterialBatch().catch(e=>fail('upgradeStatus',e));$('createMaterials').onclick=()=>createMaterialBatch().catch(e=>fail('materialStatus',e));$('createBatch').onclick=()=>createBatch().catch(e=>fail('worksheetStatus',e));$('downloadLog').onclick=downloadLog;
 $('oauthClient').value=localStorage.getItem('projectx.classroom.oauthClientId.v1')||'';
 onAuthStateChanged(auth,user=>{state.plan=null;controls();if(activeOwner())loadIndex();else status('pxStatus',user?'This account is not authorised for Project X owner-only pilot.':'Sign in to verify the private Year 11 curriculum.');});

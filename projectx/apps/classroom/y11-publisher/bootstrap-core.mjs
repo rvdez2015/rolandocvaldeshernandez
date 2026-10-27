@@ -63,7 +63,26 @@ export function nextBatch(plan,doneIds){
 // Stand-alone Classroom MATERIAL posts are deliberately separate from worksheet ASSIGNMENTS.
 // They contain the student-safe lesson context and activities, with no attached extra resources.
 export function materialMarker(lessonId){return classroomMarker(lessonId,'material');}
-export function lessonMaterialDraft(studentRecord,topicId){
+// v1.2: restore objectives and success criteria from the authoritative owner-only
+// catalogueLessons record. Never send the full teacherPlan or marking data to Classroom.
+export function approvedLearningTargets(studentRecord, teacherRecord){
+  const student=safeStudentContent(studentRecord);
+  if(!teacherRecord || teacherRecord.lessonId!==student.lessonId || teacherRecord.revisionId!==RELEASE_ID || teacherRecord.unitId!==student.unitId)
+    throw Error('Owner lesson and student lesson identity/revision mismatch. Stop before creating any Material.');
+  const plan=teacherRecord.teacherPlan;
+  if(!plan || typeof plan!=='object')throw Error('Authoritative teacherPlan is unavailable for '+student.lessonId);
+  const clean=(value,label)=>{
+    if(!Array.isArray(value)||value.length<1||value.length>12)throw Error(`${label} missing or unexpectedly structured for ${student.lessonId}`);
+    return value.map((entry,i)=>{
+      if(typeof entry!=='string'||!entry.trim()||entry.trim().length>450 || /[\x00-\x08\x0B\x0C\x0E-\x1F]/.test(entry))throw Error(`${label} item ${i+1} invalid for ${student.lessonId}`);
+      return entry.trim();
+    });
+  };
+  return {objectives:clean(plan.learningObjectives,'Learning objectives'),successCriteria:clean(plan.successCriteria,'Success criteria')};
+}
+// Reconstruct the exact v1.1 description to permit safe, explicit migration of
+// existing drafts. If the teacher has edited a draft, migration stops instead.
+export function legacyLessonMaterialDraft(studentRecord,topicId){
   if(!topicId)throw Error('Approved lesson topic missing');
   const student=safeStudentContent(studentRecord);
   const base=classroomBody(studentRecord,'material',topicId);
@@ -73,6 +92,27 @@ export function lessonMaterialDraft(studentRecord,topicId){
   );
   if(description.length>25000)throw Error('Lesson material description is too long');
   return {title:`Y11 Material - ${student.title}`.slice(0,180),description,topicId,state:'DRAFT'};
+}
+export function lessonMaterialDraft(studentRecord,topicId,teacherRecord){
+  const base=legacyLessonMaterialDraft(studentRecord,topicId);
+  const student=safeStudentContent(studentRecord);
+  const targets=approvedLearningTargets(studentRecord,teacherRecord);
+  const anchor=`Lesson: ${student.title}\n`;
+  if(!base.description.includes(anchor))throw Error('Lesson title anchor is missing');
+  const detail=`${anchor}\nLearning objectives:\n${targets.objectives.map((x,i)=>`${i+1}. ${x}`).join('\n')}\n\nSuccess criteria:\n${targets.successCriteria.map((x,i)=>`${i+1}. ${x}`).join('\n')}\n`;
+  const description=base.description.replace(anchor,detail);
+  if(description.length>25000)throw Error('Lesson objectives make Material too long; review before creating it');
+  return {...base,description};
+}
+export function materialUpgradeStatus(existing,legacy,proposed){
+  if(!existing?.id)throw Error('Existing Material draft has no Google ID');
+  if(existing.state!=='DRAFT')throw Error('Material is published or not a draft: never upgrade automatically');
+  if(String(existing.topicId)!==String(legacy.topicId) || String(existing.topicId)!==String(proposed.topicId))throw Error('Existing Material topic differs: stop for manual review');
+  if(existing.title!==legacy.title || existing.title!==proposed.title)throw Error('Existing Material title differs: stop for manual review');
+  if(existing.materials?.length)throw Error('Existing Material has additional attachments: stop for manual review');
+  if(existing.description===proposed.description)return 'already-upgraded';
+  if(existing.description===legacy.description)return 'upgrade';
+  throw Error('Existing Material was edited or differs from v1.1: do not overwrite teacher changes');
 }
 export function matchLessonMaterial(items,expected){
   const marker=typeof expected==='string'?expected:expected?.marker||expected?.description?.match(/ProjectX-Ref: PX25-Y11-U\d{2}-L\d{3} \| [^\n]+ \| material/)?.[0];
