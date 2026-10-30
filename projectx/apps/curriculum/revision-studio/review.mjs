@@ -6,6 +6,7 @@ import {getAuth,onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,se
 import {getFirestore,collection,getDocs,doc,getDoc,runTransaction,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import {FIELDS,SOURCE_RELEASE,ID_PATTERN,displayField,collectChanges,makeRevision,linesDiff,stableLessonSnapshot} from './review-core.mjs';
 import {LESSON_23_ID,LESSON_23_FIELDS,LESSON_23_WARNING} from './lesson23-suggestion.mjs';
+import {buildApprovedLesson} from './approval-core.mjs';
 const config={apiKey:'AIzaSyBb9NLPonqTiRFGO3kDdUzIgnjGNDmy6MQ',authDomain:'project-x-personal.firebaseapp.com',projectId:'project-x-personal',storageBucket:'project-x-personal.firebasestorage.app',messagingSenderId:'504310230612',appId:'1:504310230612:web:bb636f480af9a6a010c7c1'};
 const OWNER_UID='UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
 const app=initializeApp(config,'px-curriculum-review-v1');const auth=getAuth(app),db=getFirestore(app);
@@ -15,6 +16,7 @@ const status=(id,content,mode='')=>{const e=$(id);e.textContent=content;e.classN
 const node=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e};
 function requireOwner(){if(!isOwner())throw Error('Owner authentication required. No private data is available.');}
 function control(){const owner=isOwner(),selected=!!source;
+ if($('approve'))$('approve').disabled=!owner||busy||!latest||!source;
  $('signIn').disabled=!!auth.currentUser||busy;$('signOut').disabled=!auth.currentUser||busy;$('reload').disabled=!owner||busy;
  $('lesson').disabled=!owner||busy;$('load').disabled=!owner||!$('lesson').value||busy;
  for(const id of ['copyAll','sample23','compare','validate','download','history','useLatest','save'])$(id).disabled=busy||!selected||(id==='download'&&!validation)||(id==='save'&&(!validation||!$('confirmSave').checked))||(id==='useLatest'&&!latest);
@@ -63,6 +65,63 @@ async function save(){requireOwner();if(!validation||!$('confirmSave').checked)t
  const saved=await getDoc(versionRef);if(!saved.exists()||saved.data().revisionId!==pack.revisionId)throw Error('Commit result uncertain; inspect saved proposals before retrying.');
  status('saveStatus',`Saved owner-private REVIEW DRAFT version ${saved.data().versionNumber}. The canonical lesson, question bank, student projection and Classroom are unchanged.`, 'ok');$('confirmSave').checked=false;validation=null;await refreshHistory(false);
  }catch(e){status('saveStatus',`Save blocked: ${e.message}. No canonical lesson has been modified. If PERMISSION_DENIED, review and deploy the provided rules addition before retrying.`, 'error')}finally{wait(false)}}
+
+/* Explicit owner-only promotion: immutable approved revision + approved pointer
+   in one Firestore transaction. The source release and student projection are untouched.
+   Deployed Firestore security rules MUST protect BOTH new write destinations. */
+async function approveLatest(){
+ requireOwner();
+ if(!source||!latest||!head||head.latestVersionId!==latest.revisionId)
+   throw Error('Load the current saved proposal before approval.');
+ const id=source.lessonId, approvedId='approved-'+latest.revisionId;
+ if(!/^[a-zA-Z0-9_-]{1,150}$/.test(approvedId))throw Error('Unsafe revision identifier.');
+ if(!confirm('Approve the latest saved proposal as an OWNER-PRIVATE version? This will NOT update Classroom or publish student resources.'))return;
+ wait(true);
+ try{
+  const sourceRef=doc(db,'catalogueLessons',id,'revisions',SOURCE_RELEASE);
+  const proposalHeadRef=doc(db,'ownerCurriculumReviewDrafts',id);
+  const proposalRef=doc(db,'ownerCurriculumReviewDrafts',id,'versions',latest.revisionId);
+  const approvedRef=doc(db,'ownerApprovedCurriculumLessons',id,'versions',approvedId);
+  const approvedHeadRef=doc(db,'ownerApprovedCurriculumLessons',id);
+  const expectedProposalId=latest.revisionId;
+  const expectedApprovedHead=(await getDoc(approvedHeadRef)).data()?.latestApprovedRevisionId||null;
+  const verifiedHash=baseHash;
+  await runTransaction(db,async tx=>{
+   const [sourceSnap,proposalHeadSnap,proposalSnap,approvedSnap,approvedHeadSnap]=await Promise.all([
+    tx.get(sourceRef),tx.get(proposalHeadRef),tx.get(proposalRef),tx.get(approvedRef),tx.get(approvedHeadRef)
+   ]);
+   if(!sourceSnap.exists()||await sha(stableLessonSnapshot(sourceSnap.data()))!==verifiedHash)
+    throw Error('Source changed; reload before approval.');
+   if(!proposalHeadSnap.exists()||proposalHeadSnap.data().latestVersionId!==expectedProposalId)
+    throw Error('Proposal head changed; reload before approval.');
+   if(!proposalSnap.exists()||proposalSnap.data().revisionId!==expectedProposalId)
+    throw Error('Saved proposal changed; reload before approval.');
+   if(approvedSnap.exists())throw Error('Already approved; inspect history instead of duplicating.');
+   const currentApproved=approvedHeadSnap.exists()?approvedHeadSnap.data():null;
+   if((currentApproved?.latestApprovedRevisionId||null)!==expectedApprovedHead)
+    throw Error('Another approval was committed; reload.');
+   const savedProposal=proposalSnap.data();
+   if(savedProposal.sourceFingerprint!==verifiedHash||savedProposal.createdByUid!==auth.currentUser.uid)
+    throw Error('Proposal owner or source fingerprint mismatch.');
+   const projected=buildApprovedLesson(sourceSnap.data(),savedProposal,{
+    approvalId:approvedId,approvedByUid:auth.currentUser.uid,
+    approvedAt:new Date().toISOString()
+   });
+   tx.set(approvedRef,{...projected,approvalStatus:'approved',approvedProposalId:expectedProposalId});
+   tx.set(approvedHeadRef,{lessonId:id,schoolId:'project-x-personal',
+    latestApprovedRevisionId:approvedId,previousApprovedRevisionId:expectedApprovedHead,
+    approvedByUid:auth.currentUser.uid,updatedAt:serverTimestamp(),
+    classroomSyncStatus:'pending_student_projection'});
+  });
+  const verified=await getDoc(approvedRef);
+  if(!verified.exists()||verified.data().approvedProposalId!==expectedProposalId)
+   throw Error('Approval result uncertain. Inspect Firestore before retry.');
+  status('approvalStatus','Approved owner-private lesson '+approvedId+' saved and verified. Student projection and Classroom synchronisation are still pending.','ok');
+ }catch(e){status('approvalStatus','Approval not confirmed: '+e.message+'. Check deployed owner-only Firestore rules and current approved revision before retrying.','error')}
+ finally{wait(false)}
+}
+
+$('approve').onclick=()=>approveLatest().catch(e=>status('approvalStatus',e.message,'error'));
 $('signIn').onclick=async()=>{try{await setPersistence(auth,inMemoryPersistence);await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){status('authStatus',e.message,'error')}};
 $('signOut').onclick=()=>signOut(auth).catch(e=>status('authStatus',e.message,'error'));
 $('reload').onclick=()=>loadIndex();$('search').oninput=updateList;$('lesson').onchange=()=>control();$('load').onclick=()=>loadLesson().catch(e=>status('sourceStatus',e.message,'error'));
