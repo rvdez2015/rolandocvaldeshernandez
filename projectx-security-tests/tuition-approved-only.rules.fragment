@@ -1,0 +1,21 @@
+// PROPOSED SECURITY RULES FRAGMENT — insert inside match /databases/{database}/documents
+// after validating in Firebase Emulator; do not deploy in isolation.
+// Public visitors do not receive Firestore read or write access to submitted forms.
+match /ownerApprovedTuitionEnquiries/{enquiryId} {
+  allow get, list: if isProjectXOwner();
+  allow create: if isProjectXOwner()
+    && enquiryId.matches('^[a-f0-9-]{36}$')
+    && request.resource.data.keys().hasOnly(['name','email','course','language','message','enquiryId','approvedByUid','approvalStatus','consentVerified','createdAt','source'])
+    && request.resource.data.enquiryId == enquiryId
+    && request.resource.data.approvedByUid == request.auth.uid
+    && request.resource.data.approvalStatus == 'owner_approved'
+    && request.resource.data.consentVerified == true
+    && request.resource.data.createdAt == request.time
+    && request.resource.data.source == 'owner_manual_email_review'
+    && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+    && request.resource.data.email is string && request.resource.data.email.size() > 3 && request.resource.data.email.size() <= 200
+    && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 2500
+    && request.resource.data.course in ['gcse','alevel','python','other']
+    && request.resource.data.language in ['en','es'];
+  allow update, delete: if false;
+}
