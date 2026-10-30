@@ -15,7 +15,7 @@ match /ownerApprovedTuitionEnquiries/{enquiryId} {
     && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
     && request.resource.data.email is string && request.resource.data.email.size() > 3 && request.resource.data.email.size() <= 200
     && request.resource.data.message is string && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 2500
-    && request.resource.data.course in ['gcse','alevel','python','other']
-    && request.resource.data.language in ['en','es'];
+    && (request.resource.data.course == 'gcse' || request.resource.data.course == 'alevel' || request.resource.data.course == 'python' || request.resource.data.course == 'other')
+    && (request.resource.data.language == 'en' || request.resource.data.language == 'es');
   allow update, delete: if false;
 }
