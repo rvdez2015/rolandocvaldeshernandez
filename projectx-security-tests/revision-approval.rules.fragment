@@ -1,0 +1,49 @@
+// PROPOSED ONLY — merge into the deployed firestore.rules inside
+// match /databases/{database}/documents. DO NOT deploy independently.
+// Existing canonical curriculum and question bank rules remain untouched.
+// This fragment requires a full emulator regression run before production.
+function isRevisionOwner() {
+  return request.auth != null && request.auth.uid == 'UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
+}
+function isRevisionLessonId(lessonId) {
+  return lessonId.matches('^PX25-Y11-U[0-9]{2}-L[0-9]{3}$');
+}
+match /ownerApprovedCurriculumLessons/{lessonId} {
+  allow get: if isRevisionOwner() && isRevisionLessonId(lessonId);
+  allow list, delete: if false;
+  allow create, update: if isRevisionOwner() && isRevisionLessonId(lessonId)
+    && request.resource.data.keys().hasOnly([
+      'lessonId','schoolId','latestApprovedRevisionId','previousApprovedRevisionId',
+      'approvedByUid','updatedAt','classroomSyncStatus'])
+    && request.resource.data.lessonId == lessonId
+    && request.resource.data.schoolId == 'project-x-personal'
+    && request.resource.data.approvedByUid == request.auth.uid
+    && request.resource.data.updatedAt == request.time
+    && request.resource.data.classroomSyncStatus == 'pending_student_projection'
+    && request.resource.data.latestApprovedRevisionId.matches('^approved-[a-zA-Z0-9_-]{1,150}$')
+    && (
+      (!exists(/databases/$(database)/documents/ownerApprovedCurriculumLessons/$(lessonId))
+        && request.resource.data.previousApprovedRevisionId == null)
+      ||
+      (exists(/databases/$(database)/documents/ownerApprovedCurriculumLessons/$(lessonId))
+        && request.resource.data.previousApprovedRevisionId == resource.data.latestApprovedRevisionId)
+    );
+}
+match /ownerApprovedCurriculumLessons/{lessonId}/versions/{revisionId} {
+  allow get, list: if isRevisionOwner() && isRevisionLessonId(lessonId);
+  allow create: if isRevisionOwner() && isRevisionLessonId(lessonId)
+    && revisionId.matches('^approved-[a-zA-Z0-9_-]{1,150}$')
+    && request.resource.data.lessonId == lessonId
+    && request.resource.data.revisionId == revisionId
+    && request.resource.data.approvedByUid == request.auth.uid
+    && request.resource.data.schoolId == 'project-x-personal'
+    && request.resource.data.visibility == 'owner_private'
+    && request.resource.data.studentPublished == false
+    && request.resource.data.classroomSyncStatus == 'not_requested'
+    && request.resource.data.approvalStatus == 'approved'
+    && request.resource.data.approvedProposalId is string;
+  allow update, delete: if false;
+}
+// NOTE: Approval must also validate the proposal fingerprint/identity,
+// and enforce cross-document invariants using getAfter() or a trusted
+// server endpoint. This fragment alone is NOT production-ready.
