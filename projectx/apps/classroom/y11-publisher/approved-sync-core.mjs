@@ -14,14 +14,14 @@ export function approvedLessonClassroomPreview(approved, existing, marker){
     [...obj,...sc].some(s=>typeof s!=='string'||!s.trim()||s.length>750))
   throw Error('Approved learning objectives and success criteria must be reviewed');
  const text=existing.description;
- const beginning='Learning objectives:\\n', middle='\\n\\nSuccess criteria:\\n';
+ const beginning='Learning objectives:\n', middle='\n\nSuccess criteria:\n';
  const i=text.indexOf(beginning),j=text.indexOf(middle,i+beginning.length);
  if(i<0||j<0||text.indexOf(beginning,i+1)!==-1||text.indexOf(middle,j+1)!==-1)
   throw Error('Original objective/success heading structure is ambiguous; manual review required');
- const end=text.indexOf('\\n\\n',j+middle.length);
+ const end=text.indexOf('\n\n',j+middle.length);
  if(end<0)throw Error('Success criteria section boundary missing; manual review required');
- const objectives=obj.map((s,i)=>`${i+1}. ${s.trim()}`).join('\\n');
- const success=sc.map((s,i)=>`${i+1}. ${s.trim()}`).join('\\n');
+ const objectives=obj.map((s,i)=>`${i+1}. ${s.trim()}`).join('\n');
+ const success=sc.map((s,i)=>`${i+1}. ${s.trim()}`).join('\n');
  const proposed=text.slice(0,i)+beginning+objectives+middle+success+text.slice(end);
  if(!proposed.trimEnd().endsWith(marker)||proposed.split(marker).length!==2)
   throw Error('Project X marker was modified or duplicated');
