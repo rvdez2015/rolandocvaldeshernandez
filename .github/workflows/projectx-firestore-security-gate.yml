@@ -37,3 +37,7 @@ jobs:
       - name: Verify tuition owner-approval permissions (local emulator)
         working-directory: projectx-security-tests
         run: npx firebase emulators:exec --only firestore --project demo-projectx-tuition-approval "node --test tuition-permissions.test.mjs"
+
+      - name: Verify approved curriculum permissions (local emulator)
+        working-directory: projectx-security-tests
+        run: npx firebase emulators:exec --only firestore --project demo-projectx-revision-approval "node --test revision-permissions.test.mjs"
