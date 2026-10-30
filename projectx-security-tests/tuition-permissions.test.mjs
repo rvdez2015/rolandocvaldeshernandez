@@ -8,7 +8,7 @@ import 'firebase/compat/firestore';
 const base=readFileSync(new URL('./firestore.rules',import.meta.url),'utf8');
 const fragment=readFileSync(new URL('./tuition-approved-only.rules.fragment',import.meta.url),'utf8');
 if(!base.trimEnd().endsWith('}\n}') && !base.trimEnd().endsWith('}\r\n}'))throw Error('Unexpected baseline rules structure');
-const rules=base.replace(/\n  }\s*}\s*$/, '\n'+fragment+'\n  }\n}');
+const rules=base.replace(/\n  }\s*}\s*$/, ()=>'\n'+fragment+'\n  }\n}');
 if(rules===base)throw Error('Tuition rules fragment not inserted');
 const env=await initializeTestEnvironment({projectId:'demo-projectx-tuition-approval',firestore:{rules}});
 after(async()=>env.cleanup());
