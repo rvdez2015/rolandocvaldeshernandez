@@ -13,8 +13,8 @@ test('previews safe sections only',()=>{
  assert.doesNotMatch(x.proposedDescription,/PRIVATE ANSWER KEY/);
  assert.equal(x.requiresHumanReview,true);
  assert.equal(x.materialId,'material-1');
- assert.match(x.proposedDescription,/Student activities:\\nDo exercises/);
- assert.match(x.proposedDescription,/1\\. Understand bits/);
+ assert.ok(x.proposedDescription.includes('Student activities:\nDo exercises'));
+ assert.ok(x.proposedDescription.includes('1. Understand bits'));
 });
 test('rejects identity mismatch',()=>assert.throws(
  ()=>approvedLessonClassroomPreview(approved,{...existing,description:'Other material'},marker),/marker missing/));
