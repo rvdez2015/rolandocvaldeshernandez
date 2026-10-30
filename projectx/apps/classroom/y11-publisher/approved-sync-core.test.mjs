@@ -6,7 +6,7 @@ const approved={approvalStatus:'approved',visibility:'owner_private',studentPubl
  revisionId:'approved-123',approvedProposalId:'123',
  teacherPlan:{learningObjectives:['Understand bits'],successCriteria:['Convert units'],
   subjectExplanation:'PRIVATE ANSWER KEY MUST NOT APPEAR'}};
-const existing={id:'material-1',title:'Unit conversions',state:'DRAFT',description:'Lesson: Units\\n\\nLearning objectives:\\n1. Previous objective\\n\\nSuccess criteria:\\n1. Previous criterion\\n\\nStudent activities:\\nDo exercises\\n\\n'+marker};
+const existing={id:'material-1',title:'Unit conversions',state:'DRAFT',description:'Lesson: Units\n\nLearning objectives:\n1. Previous objective\n\nSuccess criteria:\n1. Previous criterion\n\nStudent activities:\nDo exercises\n\n'+marker};
 test('previews safe sections only',()=>{
  const x=approvedLessonClassroomPreview(approved,existing,marker);
  assert.match(x.proposedDescription,/Convert units/);
