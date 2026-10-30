@@ -1,0 +1,22 @@
+name: Project X Revision Approval Tests
+on:
+  pull_request:
+    paths:
+      - 'projectx/apps/curriculum/revision-studio/**'
+      - 'projectx/apps/classroom/y11-publisher/approved-sync-core*'
+      - '.github/workflows/projectx-revision-approval-tests.yml'
+  workflow_dispatch:
+jobs:
+  revision-approval:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run pure unit tests (no production credentials)
+        run: |
+          node --test projectx/apps/curriculum/revision-studio/approval-core.test.mjs
+          node --test projectx/apps/classroom/y11-publisher/approved-sync-core.test.mjs
