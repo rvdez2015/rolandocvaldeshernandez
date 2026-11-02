@@ -36,7 +36,7 @@ $('approveForm').onsubmit=async e=>{
   });
   $('status').textContent='Saved approved enquiry '+id+'. Verify the record in Firestore.';
   $('approveForm').reset();
-  if(selectedPending){const pending=selectedPending;selectedPending=null;try{const root=workerBase(),response=await fetch(root+'/owner/pending/'+encodeURIComponent(pending.id),{method:'DELETE',headers:await ownerHeaders()});if(!response.ok)throw Error('Queue removal failed');$('status').textContent='Approved record '+id+' verified by successful Firestore write; removed temporary submission '+pending.id+'.'}catch(e){$('status').textContent='Approved record '+id+' saved, but temporary item '+pending.id+' remains. Do not approve it again; remove from queue after checking Firestore. '+e.message}}
+  if(selectedPending){const pending=selectedPending;selectedPending=null;try{const root=workerBase(),response=await fetch(root+'/owner/pending/'+encodeURIComponent(pending.id),{method:'DELETE',headers:await ownerHeaders()});if(!response.ok)throw Error('Queue removal failed');$('status').textContent='Approved record '+id+' verified by successful Firestore write; removed temporary submission '+pending.id+'.'}catch(e){$('status').textContent='Approved record '+id+' saved, but temporary item '+pending.id+' remains. Do not approve it again; remove from queue after checking Firestore. '+e.message}}}
  }catch(err){$('status').textContent='Save not confirmed: '+err.message+'. Do not retry until Firestore rules and existing records are checked.'}
  finally{busy=false;controls()}
 };
