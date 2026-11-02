@@ -1,0 +1,21 @@
+name: Project X Tuition Intake Unit Tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'projectx/apps/tuition/intake-worker.mjs'
+      - 'projectx/apps/tuition/intake-worker.test.mjs'
+      - '.github/workflows/projectx-tuition-intake-tests.yml'
+permissions:
+  contents: read
+jobs:
+  tuition-intake-unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run Cloudflare Worker unit tests (mocked, no production calls)
+        run: node --test projectx/apps/tuition/intake-worker.test.mjs
