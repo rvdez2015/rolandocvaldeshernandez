@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project X · Tuition Learning Profile</title><meta name="robots" content="index,follow">
+<style>
+:root{font:16px/1.5 system-ui,sans-serif;color:#251d40;background:#f7f5fc}*{box-sizing:border-box}
+main{max-width:890px;margin:auto;padding:24px}a{color:#6144a8}header,section{background:white;padding:22px;border:1px solid #ddd4f1;border-radius:14px;margin-bottom:18px}h1{margin-top:0}
+fieldset{border:1px solid #ddd4f1;border-radius:10px;margin:12px 0;padding:12px}legend{font-weight:650}
+label{display:inline-flex;gap:6px;margin:5px 14px 5px 0;align-items:center}
+button,select{padding:10px;border:1px solid #9882cd;border-radius:8px;background:white;color:#251d40}button{cursor:pointer;margin:6px 6px 6px 0}
+button.primary{background:#6244a8;color:white}textarea{width:100%;min-height:140px}small{color:#555}
+</style></head><body><main>
+<header><a href="../../">← Project X</a> · <a href="enquiry.html">Tuition enquiry / Consulta</a><h1>Valdés Computer Science Academy · Learning Profile</h1>
+<p>Public, read-only curriculum reference and self-assessment. You can complete and copy your own profile; this page does not edit Project X records or upload your answers automatically.</p></header>
+<section><label for="course">Programme</label><select id="course"><option value="gcse">GCSE Computer Science · OCR J277</option><option value="alevel">A Level Computer Science · OCR H446</option><option value="python">Python programming</option></select>
+<label for="lang">Language</label><select id="lang"><option value="en">English</option><option value="es">Español</option></select>
+<div id="questions"></div></section>
+<section><h2 id="summaryTitle">Your learning profile</h2><button class="primary" id="generate">Generate summary</button><button id="copy">Copy summary</button><button id="download">Download text</button>
+<p><small>Nothing is sent automatically. The email option opens your own email application; review the contents before sending. Do not include passwords, school identifiers, or other sensitive information.</small></p>
+<textarea id="summary" aria-label="Learning profile summary" readonly></textarea>
+<p><a id="email" href="mailto:staffcomplete1707@gmail.com?subject=Computer%20Science%20tuition%20enquiry">Email your enquiry</a></p></section>
+</main><script type="module">
+const topics={
+gcse:['1.1 Systems architecture','1.2 Memory and storage','1.3 Computer networks, connections and protocols','1.4 Network security','1.5 Systems software','1.6 Ethical, legal, cultural and environmental impacts','2.1 Algorithms','2.2 Programming fundamentals','2.3 Producing robust programs','2.4 Boolean logic','2.5 Programming languages and IDEs'],
+alevel:['1.1 The characteristics of contemporary processors, input, output and storage devices','1.2 Software and software development','1.3 Exchanging data','1.4 Data types, data structures and algorithms','1.5 Legal, moral, cultural and ethical issues','2.1 Elements of computational thinking','2.2 Problem solving and programming','2.3 Algorithms'],
+python:['Variables and data types','Selection','Iteration','Functions and procedures','Lists and dictionaries','Files and exceptions','Testing and debugging','Algorithms and problem solving']};
+const $=id=>document.getElementById(id);
+const words={en:{strong:'Strong',medium:'Developing',weak:'Need support',unrated:'Not yet rated',title:'Learning profile'},es:{strong:'Fuerte',medium:'En desarrollo',weak:'Necesito apoyo',unrated:'Sin evaluar',title:'Perfil de aprendizaje'}};
+function render(){const lang=$('lang').value,w=words[lang],host=$('questions');host.replaceChildren();topics[$('course').value].forEach((topic,i)=>{const fs=document.createElement('fieldset'),legend=document.createElement('legend');legend.textContent=topic;fs.append(legend);for(const val of ['strong','medium','weak','unrated']){const label=document.createElement('label'),radio=document.createElement('input');radio.type='radio';radio.name='t'+i;radio.value=val;radio.checked=val==='unrated';label.append(radio,document.createTextNode(w[val]));fs.append(label)}host.append(fs)});$('summaryTitle').textContent=w.title;$('summary').value=''}
+function generate(){const c=$('course').value,w=words[$('lang').value],lines=[w.title+' — '+$('course').selectedOptions[0].text,''];topics[c].forEach((t,i)=>{const v=document.querySelector('input[name="t'+i+'"]:checked')?.value||'unrated';lines.push(t+': '+w[v])});$('summary').value=lines.join('\n');$('email').href='mailto:staffcomplete1707@gmail.com?subject='+encodeURIComponent('Computer Science tuition enquiry')+'&body='+encodeURIComponent($('summary').value.slice(0,15000))}
+$('course').addEventListener('change',render);$('lang').addEventListener('change',render);$('generate').onclick=generate;
+$('copy').onclick=async()=>{if(!$('summary').value)generate();try{await navigator.clipboard.writeText($('summary').value)}catch{ $('summary').focus();$('summary').select()}};
+$('download').onclick=()=>{if(!$('summary').value)generate();const url=URL.createObjectURL(new Blob([$('summary').value],{type:'text/plain'}));const a=document.createElement('a');a.href=url;a.download='computer-science-learning-profile.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+render();
+</script></body></html>
