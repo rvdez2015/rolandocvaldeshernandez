@@ -15,7 +15,7 @@ function approvedProposalMatches(lessonId, proposalId) {
     && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.schema == 'projectx-curriculum-review-proposal-v1'
     && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.sourceReleaseId == 'y11-j277-canonical-pilot-20261024-r1'
     && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.schoolId == 'project-x-personal'
-    && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.sourceFingerprint.matches('^[a-f0-9]{64}
+    && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.sourceFingerprint.matches('^[a-f0-9]{64}$')
     && get(/databases/$(database)/documents/ownerCurriculumReviewDrafts/$(lessonId)/versions/$(proposalId)).data.studentPublished == false;
 }
 function approvedVersionMatches(lessonId, revisionId) {
