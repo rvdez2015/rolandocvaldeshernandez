@@ -41,3 +41,20 @@ test('owner can create validated approved record but cannot change it',async()=>
  await assertFails(owner.doc(path).update({message:'altered'}));
  await assertFails(owner.doc(path).delete());
 });
+
+test('public intake cannot bypass approval by writing to alternate collections',async()=>{
+ for(const name of ['tuitionSubmissions','tuitionEnquiries','tuitionPendingReview','ownerTuitionSubmissions','ownerApprovedTuitionEnquiries']){
+  const target=name+'/public-submission-probe';
+  await assertFails(anon.doc(target).set({name:'Example',email:'example@example.net',message:'hello'}));
+  await assertFails(other.doc(target).set({name:'Example',email:'example@example.net',message:'hello'}));
+  await assertFails(anon.collection(name).get());
+ }
+});
+test('validated record rejects invalid course, language, and excessive text',async()=>{
+ const invalid=[
+  {course:'administrator'},{language:'unknown'},{name:'x'.repeat(101)},
+  {message:'x'.repeat(2501)},{createdAt:new Date().toISOString()},
+  {source:'anonymous_submission'},{consentVerified:false}
+ ];
+ for(const patch of invalid)await assertFails(owner.doc(path).set({...good(),...patch}));
+});
