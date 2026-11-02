@@ -14,6 +14,21 @@ const UID='UnsKCIgOTBbbVfGYy9ATeuIaRZ53';
 const owner=env.authenticatedContext(UID).firestore(),other=env.authenticatedContext('unauthorized').firestore(),anon=env.unauthenticatedContext().firestore();
 const id='PX25-Y11-U02-L003',version='approved-abc123',head='ownerApprovedCurriculumLessons/'+id,rev=head+'/versions/'+version;
 const stamp=()=>firebase.firestore.FieldValue.serverTimestamp();
+const proposalPath='ownerCurriculumReviewDrafts/'+id+'/versions/abc123';
+test('seed a genuine owner private proposal in emulator fixture',async()=>{
+ await env.withSecurityRulesDisabled(async context=>{
+  await context.firestore().doc(proposalPath).set({
+    lessonId:id,revisionId:'abc123',createdByUid:UID,
+    status:'review_draft',studentPublished:false
+  });
+ });
+});
+test('reject approval that references a missing proposal',async()=>{
+ await assertFails(owner.doc(rev.replace(version,'approved-orphan')).set({
+   ...versionData(),revisionId:'approved-orphan',approvedProposalId:'missing'
+ }));
+});
+
 const versionData=()=>({lessonId:id,revisionId:version,schoolId:'project-x-personal',
  approvedByUid:UID,approvedProposalId:'abc123',approvalStatus:'approved',
  visibility:'owner_private',studentPublished:false,classroomSyncStatus:'not_requested'});
