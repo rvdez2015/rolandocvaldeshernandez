@@ -19,7 +19,8 @@ test('seed a genuine owner private proposal in emulator fixture',async()=>{
  await env.withSecurityRulesDisabled(async context=>{
   await context.firestore().doc(proposalPath).set({
     lessonId:id,revisionId:'abc123',createdByUid:UID,
-    status:'review_draft',studentPublished:false
+    status:'review_draft',studentPublished:false,
+    schema:'projectx-curriculum-review-proposal-v1',sourceReleaseId:'y11-j277-canonical-pilot-20261024-r1',schoolId:'project-x-personal',sourceFingerprint:'a'.repeat(64)
   });
  });
 });
@@ -30,7 +31,7 @@ test('reject approval that references a missing proposal',async()=>{
 });
 
 const versionData=()=>({lessonId:id,revisionId:version,schoolId:'project-x-personal',
- approvedByUid:UID,approvedProposalId:'abc123',approvalStatus:'approved',
+ approvedByUid:UID,approvedProposalId:'abc123',parentRevisionId:'y11-j277-canonical-pilot-20261024-r1',approvalStatus:'approved',
  visibility:'owner_private',studentPublished:false,classroomSyncStatus:'not_requested'});
 const headData=()=>({lessonId:id,schoolId:'project-x-personal',latestApprovedRevisionId:version,
  previousApprovedRevisionId:null,approvedByUid:UID,updatedAt:stamp(),
@@ -42,6 +43,7 @@ test('public visitors cannot inspect or write private approved revisions',async(
 test('owner-only create of immutable approved version; reject public visibility',async()=>{
  await assertFails(owner.doc(rev).set({...versionData(),visibility:'student_public'}));
  await assertFails(owner.doc(rev).set({...versionData(),studentPublished:true}));
+ await assertFails(owner.doc(rev).set({...versionData(),parentRevisionId:'wrong-source'}));
  await assertSucceeds(owner.doc(rev).set(versionData()));
  await assertSucceeds(owner.doc(rev).get());
  await assertFails(owner.doc(rev).update({studentPublished:true}));
