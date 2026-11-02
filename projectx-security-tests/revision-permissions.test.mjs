@@ -32,6 +32,11 @@ test('owner-only create of immutable approved version; reject public visibility'
  await assertFails(owner.doc(rev).update({studentPublished:true}));
  await assertFails(owner.doc(rev).delete());
 });
+test('approved head cannot target a missing or differently identified version',async()=>{
+ const missing='ownerApprovedCurriculumLessons/PX25-Y11-U03-L001';
+ await assertFails(owner.doc(missing).set({...headData(),lessonId:'PX25-Y11-U03-L001',latestApprovedRevisionId:'approved-missing'}));
+ await assertFails(owner.doc(head).set({...headData(),latestApprovedRevisionId:'approved-nonexistent'}));
+});
 test('owner can create pointer, with no deletion or unapproved exposure',async()=>{
  await assertFails(owner.doc(head).set({...headData(),classroomSyncStatus:'published'}));
  await assertSucceeds(owner.doc(head).set(headData()));
