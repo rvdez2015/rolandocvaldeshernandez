@@ -43,3 +43,29 @@ test('reject Turnstile result from other host',async()=>{
  try{assert.equal((await worker.fetch(req('/intake','POST',submission),env)).status,403)}
  finally{globalThis.fetch=original}
 });
+
+test('accept academy origin and return matching CORS header',async()=>{
+ const original=globalThis.fetch;
+ globalThis.fetch=async()=>new Response(JSON.stringify({success:true,hostname:'rolando-cs-tuition.github.io'}),{status:200});
+ try {
+  const response=await worker.fetch(req('/intake','POST',submission,{origin:'https://rolando-cs-tuition.github.io'}),env);
+  assert.equal(response.status,202);
+  assert.equal(response.headers.get('access-control-allow-origin'),'https://rolando-cs-tuition.github.io');
+ }finally{globalThis.fetch=original;queue.clear()}
+});
+test('reject validated token from wrong permitted hostname',async()=>{
+ const original=globalThis.fetch;
+ globalThis.fetch=async()=>new Response(JSON.stringify({success:true,hostname:'rvdez2015.github.io'}),{status:200});
+ try {
+  assert.equal((await worker.fetch(req('/intake','POST',submission,{origin:'https://rolando-cs-tuition.github.io'}),env)).status,403);
+  assert.equal(queue.size,0);
+ }finally{globalThis.fetch=original}
+});
+test('preflight uses requesting allowlisted origin and rejects arbitrary origins',async()=>{
+ const good=await worker.fetch(req('/intake','OPTIONS',undefined,{origin:'https://rolando-cs-tuition.github.io'}),env);
+ assert.equal(good.status,204);
+ assert.equal(good.headers.get('access-control-allow-origin'),'https://rolando-cs-tuition.github.io');
+ const bad=await worker.fetch(req('/intake','OPTIONS',undefined,{origin:'https://malicious.example'}),env);
+ assert.equal(bad.status,403);
+ assert.equal(bad.headers.get('access-control-allow-origin'),null);
+});
