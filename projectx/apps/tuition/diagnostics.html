@@ -9,6 +9,10 @@
 <section><p class="muted">Privacy: Your answers are processed locally in this browser. No account, database write, or automated submission is used. Do not include personal or sensitive information. For a tutor-reviewed diagnostic, use the enquiry page.</p></section></main>
 <script>
 const $=id=>document.getElementById(id);
+const params=new URLSearchParams(location.search);
+const requestedLanguage=params.get('lang'),requestedVariant=params.get('variant');
+if(requestedLanguage==='en'||requestedLanguage==='es')$('lang').value=requestedLanguage;
+if(['gcse-a','gcse-b','gcse-c','alevel'].includes(requestedVariant))$('variant').value=requestedVariant;
 const bank={
 'gcse-a':[
 {q:['How many bits are in 3 bytes?','¿Cuántos bits hay en 3 bytes?'],a:[['24 bits','24 bits'],['12 bits','12 bits'],['8 bits','8 bits']],ok:0,why:['1 byte = 8 bits; 3 × 8 = 24 bits.','1 byte = 8 bits; 3 × 8 = 24 bits.'],topic:'Units of storage'},
