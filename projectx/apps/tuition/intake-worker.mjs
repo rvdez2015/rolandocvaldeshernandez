@@ -25,7 +25,7 @@ async function ownerAuth(req,env){
 const allowedCourses=['gcse','alevel','python','other'];
 export default {async fetch(request,env){
  const url=new URL(request.url),origin=request.headers.get('origin');
- if(!allowedOrigins.has(origin))return reply({error:'Origin not allowed'},403);
+ if(!allowedOrigins.has(origin))return json({error:'Origin not allowed'},403);
  const reply=(payload,status=200)=>json(payload,status,origin);
  if(request.method==='OPTIONS')return new Response(null,{status:204,headers:{'access-control-allow-origin':origin,'access-control-allow-methods':'POST, GET, DELETE, OPTIONS','access-control-allow-headers':'content-type, authorization','access-control-max-age':'3600'}});
  if(!env.TUITION_PENDING||!env.TURNSTILE_SECRET||!env.ADMIN_FIREBASE_PROJECT)return reply({error:'Intake not configured'},503);
