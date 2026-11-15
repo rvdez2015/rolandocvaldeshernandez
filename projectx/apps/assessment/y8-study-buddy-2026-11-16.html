@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Year 8 Study Buddy | Project X Classroom Pilot</title>
+<style>
+:root{--ink:#272047;--purple:#493184;--gold:#dca447;--teal:#087f86;--muted:#666b7c;--bg:#f5f3fa;--line:#ddd8ea}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+header{background:var(--ink);border-top:6px solid var(--gold);color:white;padding:20px max(18px,calc((100vw - 1020px)/2))}
+header h1{font-size:clamp(26px,4vw,36px);margin:5px 0}header p{color:#ded7f2;margin:0}.eyebrow{letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:#f5c56d;font-weight:800}
+main{max-width:1020px;margin:26px auto 50px;padding:0 18px}section{background:white;border:1px solid var(--line);border-radius:16px;padding:23px;margin:17px 0;box-shadow:0 7px 25px #2c24520b}
+h2{margin:0 0 8px;font-size:23px}h3{margin:20px 0 8px}.muted,.small{color:var(--muted)}.small{font-size:13px}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.tag{display:inline-block;border-radius:20px;padding:4px 11px;background:#ece5f8;color:var(--purple);font-size:13px;font-weight:700}
+.notice{padding:12px 15px;background:#fff8e8;border-left:4px solid var(--gold);border-radius:9px}
+button{border:0;border-radius:10px;background:var(--purple);color:#fff;font-size:16px;font-weight:700;padding:12px 18px;cursor:pointer}
+button.secondary{background:#eae6f2;color:var(--purple)}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #d4a149;outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}.question{border-top:1px solid var(--line);padding:17px 0}.question:first-child{border:0}
+legend{font-weight:750;padding-bottom:8px}fieldset{border:none;padding:0;margin:0}label.option{display:block;background:#fbfafc;border:1px solid var(--line);padding:9px 13px;margin:7px 0;border-radius:9px;cursor:pointer}label.option:has(input:checked){border-color:var(--purple);background:#efeaf9}input[type=radio]{accent-color:var(--purple);margin-right:9px}
+textarea{width:100%;min-height:87px;padding:12px;border:1px solid #a9a4b5;border-radius:9px;font:inherit;resize:vertical}
+select{font:inherit;border:1px solid #b0a9bc;border-radius:8px;padding:8px 10px;background:#fff}
+pre{padding:14px;background:#22213d;color:#f8eac3;overflow:auto;border-radius:10px;font-size:14px}
+[hidden]{display:none!important}#receipt{border-left:4px solid #0e8967;background:#e9f6f1;padding:15px;border-radius:9px}
+progress{accent-color:var(--purple);width:100%;height:14px}
+footer{max-width:1020px;margin:30px auto;padding:0 20px 30px;color:var(--muted);font-size:13px}
+@media(max-width:650px){section{padding:18px}header{padding:18px}main{margin-top:12px}}
+</style></head>
+<body><header><div class="eyebrow">Project X • Assessment Studio • Classroom Pilot</div><h1>Study Buddy: Design & Interaction</h1><p>Year 8 Computer Science · Unit 4 App Design · 16 November 2026</p></header>
+<main>
+<section id="intro">
+<div class="row"><span class="tag">8-minute formative check</span><span class="tag">10 marks</span><span class="tag">Anonymous</span></div>
+<h2>Can you explain how a useful app works?</h2>
+<p>Use your understanding of purpose, usability, element IDs, events and testing. You will answer challenging questions about real app-development situations, not just recall definitions.</p>
+<div class="notice"><strong>Live classroom UI pilot.</strong> This page does <strong>not</strong> send answers to Cloudflare D1 or automatically grade them. It creates a response backup on your own device for the teacher to review. Do not enter your name, email or other personal details.</div>
+<p class="row"><label for="group"><strong>Class:</strong></label><select id="group"><option value="8A">8A</option><option value="8B">8B</option></select></p>
+<button id="begin" type="button">Start the assessment</button>
+<p class="small">No login required. The teacher may use an anonymous response file for this development test. The marking guide is kept separately.</p>
+</section>
+<section id="exam" hidden><div class="row"><span class="tag">Final check · No hints</span><span class="tag">10 marks</span><span id="counter" class="tag">0 of 6 answered</span></div>
+<h2>Assessment questions</h2><p class="muted">Write brief but specific explanations. Use technical words such as <em>element ID</em>, <em>event</em> and <em>user needs</em>.</p><form id="form" novalidate>
+<div class="question"><fieldset><legend>1. An app's button displays SAY HELLO, but the code listens for a click on <code>helloButton</code>. In Design Mode, the button's ID is <code>helloBtn</code>. Which change fixes the problem most directly? (1 mark)</legend>
+<label class="option"><input type="radio" name="q1" value="A">Change the visible button text to helloButton</label>
+<label class="option"><input type="radio" name="q1" value="B">Make the Design Mode ID and the code target identical</label>
+<label class="option"><input type="radio" name="q1" value="C">Add another screen so the event can be detected</label>
+<label class="option"><input type="radio" name="q1" value="D">Change the messageLabel text before clicking the button</label>
+</fieldset></div>
+<div class="question"><fieldset><legend>2. A revision app is used on small screens by students who find crowded pages difficult. Which redesign best improves usability without removing important features? (1 mark)</legend>
+<label class="option"><input type="radio" name="q2" value="A">Use more colours to distinguish each feature, with smaller buttons to fit everything</label>
+<label class="option"><input type="radio" name="q2" value="B">Keep every button visible and shrink the font to avoid scrolling</label>
+<label class="option"><input type="radio" name="q2" value="C">Group related features, use readable labels and provide enough spacing</label>
+<label class="option"><input type="radio" name="q2" value="D">Replace text labels with unfamiliar icons to create more space</label>
+</fieldset></div>
+<div class="question"><fieldset><legend>3. Study Buddy will eventually have a Welcome screen, Quiz screen and Results screen. Which navigation design would be easiest to test and use? (1 mark)</legend>
+<label class="option"><input type="radio" name="q3" value="A">Different button labels on each screen, chosen by the developer</label>
+<label class="option"><input type="radio" name="q3" value="B">A consistent Back or Home control with clear screen titles</label>
+<label class="option"><input type="radio" name="q3" value="C">A hidden corner tap that users discover by experimenting</label>
+<label class="option"><input type="radio" name="q3" value="D">Automatically change screens every few seconds</label>
+</fieldset></div>
+<div class="question"><label for="q4"><strong>4. The click event runs, but the output label never changes. Describe TWO specific checks you would make in Design Mode or Code Mode, and why. (2 marks)</strong></label>
+<pre>onEvent("helloButton", "click", function() {
+  setText("messageLabel", "Welcome!");
+});</pre><textarea id="q4" name="q4" maxlength="700" placeholder="First check... This matters because...&#10;Second check... This matters because..."></textarea></div>
+<div class="question"><label for="q5"><strong>5. Describe TWO tests for the finished SAY HELLO feature. For each test, explain the expected result. (2 marks)</strong></label><textarea id="q5" name="q5" maxlength="700" placeholder="Test 1 / expected result...&#10;Test 2 / expected result..."></textarea></div>
+<div class="question"><label for="q6"><strong>6. A Year 8 pupil says Study Buddy looks attractive but is confusing to use. Suggest TWO specific improvements and explain how each would help the pupil achieve the app's purpose. (3 marks)</strong></label><textarea id="q6" name="q6" maxlength="900" placeholder="Improvement 1 and its impact...&#10;Improvement 2 and its impact..."></textarea></div>
+<div class="row"><button type="submit" id="finish">Finish &amp; save trial response</button><button type="button" class="secondary" id="reset">Clear my responses</button></div>
+<p id="validation" role="alert" class="small"></p></form></section>
+<section id="done" hidden><h2>Trial complete</h2><p id="receipt" role="status"></p>
+<p>Your response file should download automatically. If it did not, select <strong>Download backup again</strong>. The teacher can review these responses later. The assessment was <strong>not submitted to D1</strong>.</p>
+<div class="row"><button type="button" id="download">Download backup again</button><button type="button" class="secondary" id="another">Start another anonymous test</button></div></section>
+<section id="practice"><h2>Practice prompt — with progressive hints</h2><p><strong>Consider:</strong> A pupil clicks SAY HELLO but nothing appears. How would you investigate without guessing?</p>
+<p id="hint" class="notice">Start by comparing what the user sees with what the code refers to.</p>
+<div class="row"><button class="secondary" id="moreHint" type="button">Show next hint</button><button class="secondary" id="resetHint" type="button">Reset hints</button></div>
+<p class="small">Practice is separate from the final check; no correct answers or final marking criteria are embedded in this page.</p></section>
+</main><footer>Project X · Valdés Computer Science Academy / Farlington teaching pilot · No identifiable pupil data requested · This is not a production assessment submission service.</footer>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const hints=[
+'Start by comparing what the user sees with what the code refers to.',
+'Look for the element ID in Design Mode and the ID written inside the event or output blocks.',
+'Check that the event is a click, the target exists, and setText is placed inside the event handler.'
+];
+let hint=0, data=null, filename='';
+$('moreHint').addEventListener('click',()=>{$('hint').textContent=hints[Math.min(++hint,hints.length-1)];$('moreHint').disabled=hint>=hints.length-1;});
+$('resetHint').addEventListener('click',()=>{hint=0;$('hint').textContent=hints[0];$('moreHint').disabled=false});
+$('begin').addEventListener('click',()=>{$('intro').hidden=true;$('exam').hidden=false;$('practice').hidden=true;window.scrollTo(0,0)});
+const answerFields=['q1','q2','q3','q4','q5','q6'];
+function getAnswers(){const f=new FormData($('form'));return Object.fromEntries(answerFields.map(k=>[k,(f.get(k)||'').toString().trim()]));}
+$('form').addEventListener('input',()=>{const n=Object.values(getAnswers()).filter(Boolean).length;$('counter').textContent=n+' of 6 answered';$('validation').textContent='';});
+function download(){if(!data)return;const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+$('form').addEventListener('submit',e=>{e.preventDefault();const ans=getAnswers();const missing=answerFields.filter(k=>!ans[k]);if(missing.length){$('validation').textContent='Please complete all six questions before finishing. Missing: '+missing.join(', ');return;}
+const id=(crypto.randomUUID?crypto.randomUUID():'demo-'+Date.now());const cls=$('group').value;
+data={schema:'projectx.y8.studybuddy.anonymous_trial.v1',assessment_id:'PX-Y8-STUDYBUDDY-20261116',mode:'anonymous_ui_pilot',synced_to_d1:false,student_identity:null,group:cls,attempt_id:id,completed_at:new Date().toISOString(),maximum_marks:10,answers:ans};
+filename='ProjectX_StudyBuddy_'+cls+'_'+id.slice(0,8)+'.json';
+$('exam').hidden=true;$('done').hidden=false;$('receipt').textContent='Anonymous trial reference: '+id.slice(0,8)+' — 6 responses recorded locally (not marked).';download();window.scrollTo(0,0);
+});
+$('download').addEventListener('click',download);
+$('reset').addEventListener('click',()=>{if(confirm('Clear all answers from this device?')){$('form').reset();$('counter').textContent='0 of 6 answered';$('validation').textContent='';}});
+$('another').addEventListener('click',()=>{data=null;filename='';$('form').reset();$('intro').hidden=false;$('exam').hidden=true;$('done').hidden=true;$('practice').hidden=false;$('counter').textContent='0 of 6 answered';window.scrollTo(0,0)});
+})();
+</script></body></html>
